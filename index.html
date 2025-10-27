@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Mídia Imobiliária</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        /* === VARIÁVEIS GLOBAIS === */
+        :root {
+            /* Variáveis do Panfleto */
+            --flyer-cor-marrom: #6a3a41;
+            --flyer-cor-rose-gold: #b99a8b;
+            --flyer-cor-fundo: #fdfaf8;
+            --flyer-cor-texto: #333;
+            --flyer-fonte-titulo: 'EB Garamond', serif;
+            --flyer-fonte-corpo: 'Montserrat', sans-serif;
+
+            /* Variáveis do Post */
+            --post-cor-fundo-post: #FFFFFF;
+            --post-cor-barra-lateral: #E1D9D1;
+            --post-cor-texto-principal: #333;
+            --post-cor-slogan: #000;
+            --post-cor-fundo-preco: #000000CC;
+            --post-cor-texto-preco: #FFFFFF;
+            --post-fonte-principal: 'Montserrat', sans-serif;
+            
+            /* Variáveis do Story (Novo) */
+            --story-cor-laranja: #f39c12; /* Laranja principal do template */
+            --story-cor-azul: #004a91;  /* Azul dos recursos */
+            --story-cor-fundo: #f0f0f0; /* Fundo do preview */
+            --story-fonte-principal: 'Montserrat', sans-serif;
+        }
+
+        /* === ESTILOS GLOBAIS / NAVEGAÇÃO === */
+        body {
+            background-color: #e9e9e9;
+            padding: 2rem;
+            font-family: var(--post-fonte-principal); /* Fonte padrão */
+        }
+
+        .tool-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: #fff;
+            padding: 0.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: var(--post-fonte-principal);
+            background-color: #f0f0f0;
+            color: #555;
+        }
+        .nav-btn.active {
+            background-color: var(--flyer-cor-marrom);
+            color: white;
+        }
+        .nav-btn:not(.active):hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Wrapper para cada ferramenta */
+        .tool-wrapper {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* Oculta a ferramenta inativa */
+        .tool-wrapper[hidden] {
+            display: none;
+        }
+
+
+        /* === ESTILOS DO GERADOR DE PANFLETOS (Prefixado com #flyer-tool) === */
+
+        #flyer-tool {
+            font-family: var(--flyer-fonte-corpo);
+        }
+
+        /* PAINEL DE CONTROLE */
+        #flyer-tool #flyer-controls {
+            width: 450px;
+            flex-shrink: 0;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            height: fit-content;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        #flyer-tool #flyer-controls h2 {
+            font-family: var(--flyer-fonte-titulo);
+            color: var(--flyer-cor-marrom);
+            border-bottom: 2px solid var(--flyer-cor-rose-gold);
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        
+        #flyer-tool #flyer-controls h3 {
+            font-family: var(--flyer-fonte-corpo);
+            font-weight: 600;
+            color: var(--flyer-cor-texto);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        #flyer-tool .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+
+        #flyer-tool .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        #flyer-tool .form-group input[type="text"],
+        #flyer-tool .form-group input[type="file"],
+        #flyer-tool .form-group select,
+        #flyer-tool .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: var(--flyer-fonte-corpo);
+            font-size: 1rem;
+            box-sizing: border-box; /* Garante que padding não afete a largura */
+        }
+        
+        #flyer-tool .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        #flyer-tool .form-grid-2, #flyer-tool .form-grid-3 {
+            display: grid;
+            gap: 0.5rem;
+        }
+        #flyer-tool .form-grid-2 { grid-template-columns: 1fr 1fr; }
+        #flyer-tool .form-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+        #flyer-tool .btn {
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: var(--flyer-fonte-corpo);
+        }
+        
+        #flyer-tool .btn-primary {
+            background-color: var(--flyer-cor-marrom);
+            color: white;
+            margin-top: 1rem;
+        }
+        #flyer-tool .btn-primary:hover { filter: brightness(1.2); }
+        
+        #flyer-tool .btn-secondary {
+            background-color: var(--flyer-cor-rose-gold);
+            color: white;
+            margin-top: 0.5rem;
+        }
+        #flyer-tool .btn-secondary:hover { filter: brightness(1.1); }
+        #flyer-tool .btn-secondary:disabled { 
+            background-color: #ccc; 
+            cursor: not-allowed;
+        }
+
+        #flyer-tool #flyer-data-form { display: none; }
+        #flyer-tool #flyer-output-area { display: none; }
+
+
+        /* ÁREA DE SAÍDA / PREVIEW (PANFLETO) */
+        #flyer-tool #flyer-output-area {
+            flex-grow: 1;
+        }
+
+        /* ESTILOS DO PANFLETO */
+        #flyer-tool #flyer-banner-preview {
+            width: 800px;
+            min-height: 1131px; /* Proporção A4 (800 / 210 * 297) */
+            margin: 0 auto;
+            background: var(--flyer-cor-fundo);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-family: var(--flyer-fonte-corpo);
+            color: var(--flyer-cor-texto);
+            position: relative;
+        }
+
+        #flyer-tool .banner-header {
+            position: relative;
+            padding: 2rem; 
+            min-height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        #flyer-tool .oportunidade-text {
+            position: absolute;
+            font-family: var(--flyer-fonte-titulo);
+            font-size: 1.2rem;
+            color: var(--flyer-cor-rose-gold);
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+        #flyer-tool .op-top-left { top: 1rem; left: 1rem; }
+        #flyer-tool .op-top-right { top: 1rem; right: 1rem; }
+        #flyer-tool .op-bottom-left { bottom: 1rem; left: 1rem; }
+        #flyer-tool .op-bottom-right { bottom: 1rem; right: 1rem; }
+
+        #flyer-tool .image-collage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        #flyer-tool .banner-img {
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+        }
+
+        #flyer-tool .img-left {
+            width: 200px;
+            height: 300px;
+        }
+        
+        #flyer-tool .img-center {
+            width: 250px;
+            height: 350px;
+            position: relative;
+            padding: 8px; /* Espaço para a borda */
+        }
+        
+        #flyer-tool .img-center-frame {
+            position: absolute;
+            inset: 0;
+            border: 3px solid var(--flyer-cor-rose-gold);
+            z-index: 1;
+        }
+        
+        #flyer-tool .img-center-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            z-index: 0;
+        }
+
+        #flyer-tool .img-right {
+            width: 200px;
+            height: 300px;
+        }
+        
+        #flyer-tool .flyer-img-placeholder { /* Nome alterado para evitar conflito */
+            border: 2px dashed var(--flyer-cor-rose-gold);
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        #flyer-tool .banner-title-section {
+            background: var(--flyer-cor-marrom);
+            color: white;
+            text-align: center;
+            padding: 2rem; 
+            margin-top: 1rem; 
+        }
+        
+        #flyer-tool .banner-title-section h1 {
+            font-family: var(--flyer-fonte-corpo);
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin: 0 0 0.5rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        #flyer-tool .banner-title-section p {
+            font-family: var(--flyer-fonte-titulo);
+            font-size: 1.5rem;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        #flyer-tool .banner-features-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; 
+            padding: 2rem; 
+        }
+        
+        #flyer-tool .features-icons {
+            display: flex;
+            flex-direction: row; 
+            justify-content: space-around; 
+            width: 100%;
+        }
+        
+        #flyer-tool .icon-feature {
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            gap: 0.5rem; 
+            text-align: center;
+            flex-basis: 20%;
+        }
+        
+        #flyer-tool .icon-feature i {
+            font-size: 2.5rem;
+            color: var(--flyer-cor-texto);
+            width: 40px;
+            text-align: center;
+        }
+        
+        #flyer-tool .icon-feature span {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        #flyer-tool .features-text {
+            width: 100%; 
+            font-size: 1.1rem;
+            line-height: 1.7;
+            padding-top: 1.5rem; 
+            border-top: 1px solid #eee; 
+        }
+        
+        #flyer-tool .features-text h3 {
+            margin-top: 0;
+            font-weight: 700;
+        }
+        
+        #flyer-tool .features-text ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        
+        #flyer-tool .features-text li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        #flyer-tool .features-text li::before {
+            content: '•';
+            color: var(--flyer-cor-rose-gold);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        #flyer-tool .banner-footer-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem; 
+            padding: 2rem; 
+            border-top: 2px solid #eee;
+        }
+
+        #flyer-tool .footer-broker {
+            flex-basis: 45%;
+        }
+        
+        #flyer-tool .footer-broker h2 {
+            font-family: var(--flyer-fonte-titulo);
+            font-size: 2.2rem;
+            margin: 0;
+            color: var(--flyer-cor-texto);
+        }
+        
+        #flyer-tool .footer-broker p {
+            font-size: 1.1rem;
+            margin: 0.25rem 0 0 0;
+            letter-spacing: 1px;
+        }
+
+        #flyer-tool .footer-contact {
+            flex-basis: 55%;
+            font-size: 0.95rem;
+        }
+        
+        #flyer-tool .footer-contact h3 {
+            font-family: var(--flyer-fonte-corpo);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        #flyer-tool .footer-contact p {
+            margin: 0.4rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        #flyer-tool .footer-contact i {
+            width: 16px;
+            text-align: center;
+            color: var(--flyer-cor-marrom);
+        }
+        
+
+        /* === ESTILOS DO GERADOR DE POSTS (Prefixado com #post-tool) === */
+        
+        #post-tool {
+            font-family: var(--post-fonte-principal);
+        }
+
+        /* PAINEL DE CONTROLE (POST) */
+        #post-tool #post-controls {
+            width: 450px;
+            flex-shrink: 0;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            height: fit-content;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        #post-tool #post-controls h2 {
+            font-family: var(--post-fonte-principal);
+            font-weight: 700;
+            color: var(--post-cor-texto-principal);
+            border-bottom: 2px solid var(--post-cor-barra-lateral);
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        
+        #post-tool #post-controls h3 {
+            font-family: var(--post-fonte-principal);
+            font-weight: 600;
+            color: var(--post-cor-texto-principal);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        #post-tool .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+        
+        #post-tool .form-group-grid {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        #post-tool .form-group-grid .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        #post-tool .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        #post-tool .form-group input[type="text"],
+        #post-tool .form-group input[type="file"],
+        #post-tool .form-group select,
+        #post-tool .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: var(--post-fonte-principal);
+            font-size: 1rem;
+            box-sizing: border-box; 
+        }
+
+        #post-tool .btn {
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: var(--post-fonte-principal);
+        }
+        
+        #post-tool .btn-primary {
+            background-color: #333;
+            color: white;
+            margin-top: 1rem;
+        }
+        #post-tool .btn-primary:hover { filter: brightness(1.2); }
+        
+        #post-tool .btn-secondary {
+            background-color: #777;
+            color: white;
+            margin-top: 0.5rem;
+        }
+        #post-tool .btn-secondary:hover { filter: brightness(1.1); }
+        #post-tool .btn-secondary:disabled { 
+            background-color: #ccc; 
+            cursor: not-allowed;
+        }
+
+        #post-tool #post-data-form { display: none; }
+        #post-tool #post-output-area { display: none; }
+
+
+        /* ÁREA DE SAÍDA / PREVIEW (POST) */
+        #post-tool #post-output-area {
+            flex-grow: 1;
+        }
+
+        /* ESTILOS DO POST */
+        #post-tool #post-banner-preview {
+            width: 800px;
+            height: 800px; /* Quadrado */
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-family: var(--post-fonte-principal);
+            color: var(--post-cor-texto-principal);
+            display: flex;
+            overflow: hidden; /* Garante que nada saia do quadrado */
+        }
+        
+        #post-tool .left-pane {
+            width: 60%;
+            height: 100%;
+            position: relative;
+            background: #eee;
+        }
+        
+        #post-tool #post-img-slot-main {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        #post-tool .post-img-placeholder { /* Nome alterado para evitar conflito */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            padding: 1rem;
+            border: 2px dashed #ccc;
+            box-sizing: border-box;
+            background: #f0f0f0;
+        }
+
+        #post-tool #post-banner-prop-slogan {
+            position: absolute;
+            top: 40px;
+            left: 30px;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--post-cor-slogan);
+            line-height: 1.2;
+            width: 70%;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
+        }
+        
+        #post-tool #post-banner-prop-features {
+            position: absolute;
+            bottom: 40px;
+            left: 30px;
+            background: var(--post-cor-fundo-preco);
+            color: var(--post-cor-texto-preco);
+            padding: 0.75rem 1.25rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 1.5rem; /* Espaço entre os itens */
+        }
+        
+        #post-tool .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; /* Espaço entre ícone e texto */
+            font-weight: 600;
+            font-size: 1.1rem; 
+        }
+        
+        #post-tool .feature-item i {
+            font-size: 1.1rem; 
+        }
+
+        /* Painel Direito (Barra Lateral) */
+        #post-tool .right-pane {
+            width: 40%;
+            height: 100%;
+            background: var(--post-cor-barra-lateral);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        
+        #post-tool .secondary-images {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espaço entre as 3 imagens */
+        }
+        
+        #post-tool .secondary-img {
+            width: 100%;
+            padding-bottom: 60%; /* Proporção da imagem (ex: 100 de largura, 60 de altura) */
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+        }
+        
+        #post-tool .footer-contact {
+            font-size: 0.95rem;
+        }
+        
+        #post-tool .footer-contact p {
+            margin: 0.6rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+        }
+        
+        #post-tool .footer-contact i {
+            width: 16px;
+            text-align: center;
+            color: var(--post-cor-texto-principal);
+            font-size: 1.1rem;
+        }
+        
+        
+        /* === ESTILOS DO GERADOR DE STORY (Prefixado com #story-tool) === */
+
+        #story-tool {
+            font-family: var(--story-fonte-principal);
+        }
+
+        /* PAINEL DE CONTROLE (STORY) */
+        #story-tool #story-controls {
+            width: 450px;
+            flex-shrink: 0;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            height: fit-content;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        #story-tool #story-controls h2 {
+            font-family: var(--story-fonte-principal);
+            font-weight: 700;
+            color: #333;
+            border-bottom: 2px solid var(--story-cor-laranja);
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        
+        #story-tool #story-controls h3 {
+            font-family: var(--story-fonte-principal);
+            font-weight: 600;
+            color: #333;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        #story-tool .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+        
+        #story-tool .form-group-grid-3 {
+             display: grid;
+             grid-template-columns: 1fr 1fr 1fr;
+             gap: 0.75rem;
+             margin-bottom: 1rem;
+        }
+        
+        #story-tool .form-group-grid-3 .form-group {
+             margin-bottom: 0;
+        }
+
+        #story-tool .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        #story-tool .form-group input[type="text"],
+        #story-tool .form-group input[type="file"],
+        #story-tool .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: var(--story-fonte-principal);
+            font-size: 1rem;
+            box-sizing: border-box; 
+        }
+
+        #story-tool .btn {
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: var(--story-fonte-principal);
+        }
+        
+        #story-tool .btn-primary {
+            background-color: #333;
+            color: white;
+            margin-top: 1rem;
+        }
+        #story-tool .btn-primary:hover { filter: brightness(1.2); }
+        
+        #story-tool .btn-secondary {
+            background-color: var(--story-cor-laranja);
+            color: white;
+            margin-top: 0.5rem;
+        }
+        #story-tool .btn-secondary:hover { filter: brightness(1.1); }
+        #story-tool .btn-secondary:disabled { 
+            background-color: #ccc; 
+            cursor: not-allowed;
+        }
+
+        #story-tool #story-data-form { display: none; }
+        #story-tool #story-output-area { display: none; }
+        
+        /* Placeholder genérico */
+        .img-placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            padding: 1rem;
+            border: 2px dashed #ccc;
+            box-sizing: border-box;
+            background: #f0f0f0;
+        }
+
+
+        /* ÁREA DE SAÍDA / PREVIEW (STORY) */
+        #story-tool #story-output-area {
+            flex-grow: 1;
+        }
+        
+        #story-tool #story-banner-preview {
+            width: 450px;
+            height: 800px; /* Proporção 9:16 */
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-family: var(--story-fonte-principal);
+            color: #333;
+            position: relative;
+            overflow: hidden;
+            background: var(--story-cor-fundo);
+        }
+        
+        #story-tool #story-bg-blur {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: blur(20px) brightness(0.9);
+            transform: scale(1.1); /* Evita bordas vazias */
+        }
+        
+        #story-tool .story-content-wrapper {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 15px; /* Espaço entre os elementos */
+        }
+
+        #story-tool #story-img-main {
+            height: 35%;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        #story-tool .story-title-section {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 15px 20px;
+            text-align: center;
+            margin: -50px 15px 0 15px; /* Puxa para cima da foto */
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        #story-tool #story-banner-title {
+            font-size: 2.5rem;
+            color: var(--story-cor-laranja);
+            margin: 0;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        
+        #story-tool #story-banner-bairro {
+            background: var(--story-cor-laranja);
+            color: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+            margin-top: 10px;
+            display: inline-block;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        #story-tool .story-circles-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 0 10px;
+        }
+        
+        #story-tool .story-circle-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        
+        #story-tool .story-features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 0 10px;
+        }
+        
+        #story-tool .story-feature-item {
+            background: var(--story-cor-azul);
+            color: white;
+            border-radius: 20px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        #story-tool .story-feature-item i {
+            width: 18px;
+            text-align: center;
+        }
+        
+        #story-tool .story-cta-container {
+            text-align: center;
+            margin-top: 5px;
+        }
+        
+        #story-tool #story-banner-cta {
+            background: var(--story-cor-laranja);
+            color: white;
+            border-radius: 20px;
+            padding: 10px 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-block;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        #story-tool #story-banner-cta i {
+            margin-right: 8px;
+        }
+        
+        #story-tool .story-footer {
+            background: var(--story-cor-laranja);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: auto; /* Empurra para o rodapé */
+            margin-left: -20px; /* Remove padding do wrapper */
+            margin-right: -20px;
+            margin-bottom: -20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        #story-tool .story-footer i {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        #story-tool #story-banner-broker-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+
+        /* === CSS DE IMPRESSÃO UNIFICADO (Mantido, mas não usado pelos botões) === */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body {
+                padding: 0;
+                margin: 0;
+                background-color: #fff;
+            }
+            .tool-nav {
+                display: none;
+            }
+            /* ... (todo o resto do CSS de impressão foi mantido, mas omitido aqui por brevidade) ... */
+        }
+        
+    </style>
+</head>
+<body>
+
+    <nav class="tool-nav">
+        <button id="nav-flyer-btn" class="nav-btn active">Gerador de Panfletos (A4)</button>
+        <button id="nav-post-btn" class="nav-btn">Gerador de Posts (Instagram)</button>
+        <button id="nav-story-btn" class="nav-btn">Gerador de Story</button>
+    </nav>
+
+    <div id="flyer-tool" class="tool-wrapper">
+        <main id="flyer-controls">
+            <h2>Gerador de Panfletos</h2>
+            <p>Crie panfletos a partir do backup do seu CRM.</p>
+
+            <div class="form-group">
+                <label for="flyer-backup-upload">1. Carregue seu backup (arquivo .json)</label>
+                <input type="file" id="flyer-backup-upload" accept=".json">
+            </div>
+
+            <div class="form-group">
+                <label for="flyer-property-selector">2. Selecione o Imóvel</label>
+                <select id="flyer-property-selector" disabled>
+                    <option value="">Aguardando backup...</option>
+                </select>
+            </div>
+
+            <form id="flyer-data-form">
+                <h3>Dados do Imóvel</h3>
+                <div class="form-group">
+                    <label for="flyer-prop-name">Nome do Empreendimento</label>
+                    <input type="text" id="flyer-prop-name">
+                </div>
+                <div class="form-group">
+                    <label for="flyer-prop-slogan">Slogan (Ex: O Investimento da sua vida.)</label>
+                    <input type="text" id="flyer-prop-slogan">
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="flyer-prop-quartos">Quartos</label>
+                        <input type="text" id="flyer-prop-quartos" placeholder="Ex: 3">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="flyer-prop-metragem">Metragem (m²)</label>
+                        <input type="text" id="flyer-prop-metragem" placeholder="Ex: 120">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="flyer-prop-banheiros">Banheiros</label>
+                        <input type="text" id="flyer-prop-banheiros" placeholder="Ex: 3">
+                    </div>
+                    <div class="form-group">
+                        <label for="flyer-prop-vagas">Vagas</label>
+                        <input type="text" id="flyer-prop-vagas" placeholder="Ex: 1">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="flyer-prop-features-text">Texto de Infraestrutura (auto-preenchido)</label>
+                    <textarea id="flyer-prop-features-text" rows="5"></textarea>
+                </div>
+                
+                <h3>Imagens do Panfleto</h3>
+                <p>Selecione as imagens que irão aparecer. A Imagem 2 (Centro) é a principal.</p>
+                <div id="flyer-image-selector-container">
+                    </div>
+                
+                <h3>Seus Dados de Contato</h3>
+                <div class="form-group">
+                    <label for="flyer-broker-name">Seu Nome (Corretor)</label>
+                    <input type="text" id="flyer-broker-name">
+                </div>
+                <div class="form-group">
+                    <label for="flyer-broker-title">Seu Título (Ex: CORRETOR DE IMÓVEIS)</label>
+                    <input type="text" id="flyer-broker-title" value="CORRETORA DE IMÓVEIS">
+                </div>
+                
+                <div class="form-group">
+                    <label for="flyer-broker-phone">Seu WhatsApp</label>
+                    <input type="text" id="flyer-broker-phone" placeholder="(11) 99999-9999">
+                </div>
+                
+                <div class="form-group">
+                    <label for="flyer-broker-social">Seu Instagram</label>
+                    <input type="text" id="flyer-broker-social" placeholder="@seu-instagram">
+                </div>
+
+                <button type="button" id="flyer-generate-btn" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i> Atualizar Panfleto
+                </button>
+            </form>
+        </main>
+
+        <aside id="flyer-output-area">
+            <button id="flyer-print-btn" class="btn btn-secondary" disabled>
+                <i class="fas fa-download"></i> Salvar PNG
+            </button>
+            
+            <div id="flyer-banner-preview">
+                <header class="banner-header">
+                    <span class="oportunidade-text op-top-left">OPORTUNIDADE</span>
+                    <span class="oportunidade-text op-top-right">OPORTUNIDADE</span>
+                    
+                    <div class="image-collage">
+                        <div id="flyer-img-slot-1" class="banner-img img-left flyer-img-placeholder">Imagem 1</div>
+                        
+                        <div class="img-center">
+                            <div class="img-center-frame"></div>
+                            <div id="flyer-img-slot-2" class="banner-img img-center-bg flyer-img-placeholder">Imagem 2 (Principal)</div>
+                        </div>
+                        
+                        <div id="flyer-img-slot-3" class="banner-img img-right flyer-img-placeholder">Imagem 3</div>
+                    </div>
+                    
+                    <span class="oportunidade-text op-bottom-left">OPORTUNIDADE</span>
+                    <span class="oportunidade-text op-bottom-right">OPORTUNIDADE</span>
+                </header>
+                
+                <section class="banner-title-section">
+                    <h1 id="flyer-banner-prop-name">[Nome do Imóvel]</h1>
+                    <p id="flyer-banner-prop-slogan">[Slogan do Imóvel]</p>
+                </section>
+                
+                <section class="banner-features-section">
+                    <div class="features-icons">
+                        <div class="icon-feature">
+                            <i class="fas fa-bed"></i>
+                            <span id="flyer-banner-prop-quartos">[X] Quartos</span>
+                        </div>
+                        
+                        <div class="icon-feature">
+                            <i class="fas fa-vector-square"></i>
+                            <span id="flyer-banner-prop-metragem">[X] m²</span>
+                        </div>
+                        
+                        <div class="icon-feature">
+                            <i class="fas fa-shower"></i>
+                            <span id="flyer-banner-prop-banheiros">[X] Banheiros</span>
+                        </div>
+                        <div class="icon-feature">
+                            <i class="fas fa-car"></i>
+                            <span id="flyer-banner-prop-vagas">[X] Vaga de Garagem</span>
+                        </div>
+                    </div>
+                    
+                    <div class="features-text" id="flyer-features-text-container">
+                        <h3 id="flyer-banner-features-title">Infraestrutura completa</h3>
+                        <ul id="flyer-banner-features-list">
+                            <li>Carregando diferenciais...</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <footer class="banner-footer-section">
+                    <div class="footer-broker">
+                        <h2 id="flyer-banner-broker-name">[Seu Nome]</h2>
+                        <p id="flyer-banner-broker-title">[Seu Título]</p>
+                    </div>
+                    <div class="footer-contact">
+                        <h3>VENHA CONVERSAR COMIGO!</h3>
+                        
+                        <p><i class="fab fa-whatsapp"></i> <span id="flyer-banner-broker-phone">[Seu WhatsApp]</span></p>
+                        
+                        <p><i class="fab fa-instagram"></i> <span id="flyer-banner-broker-social">[Seu Instagram]</span></p>
+                    </div>
+                </footer>
+            </div>
+        </aside>
+    </div>
+
+    <div id="post-tool" class="tool-wrapper" hidden>
+        <main id="post-controls">
+            <h2>Gerador de Posts</h2>
+            <p>Crie posts para Instagram a partir do backup do seu CRM.</p>
+
+            <div class="form-group">
+                <label for="post-backup-upload">1. Carregue seu backup (arquivo .json)</label>
+                <input type="file" id="post-backup-upload" accept=".json">
+            </div>
+
+            <div class="form-group">
+                <label for="post-property-selector">2. Selecione o Imóvel</label>
+                <select id="post-property-selector" disabled>
+                    <option value="">Aguardando backup...</option>
+                </select>
+            </div>
+
+            <form id="post-data-form">
+                <h3>Dados do Post</h3>
+                <div class="form-group">
+                    <label for="post-prop-slogan">Slogan (Ex: Get Your Own Perfect Home)</label>
+                    <input type="text" id="post-prop-slogan" value="Get Your Own Perfect Home">
+                </div>
+                
+                <h3>Características Principais</h3>
+                <div class="form-group-grid">
+                    <div class="form-group">
+                        <label for="post-prop-bedrooms">Quartos</label>
+                        <input type="text" id="post-prop-bedrooms" placeholder="3">
+                    </div>
+                    <div class="form-group">
+                        <label for="post-prop-bathrooms">Banheiros</label>
+                        <input type="text" id="post-prop-bathrooms" placeholder="2">
+                    </div>
+                    <div class="form-group">
+                        <label for="post-prop-garage">Vagas</label>
+                        <input type="text" id="post-prop-garage" placeholder="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="post-prop-area">Área (m²)</label>
+                        <input type="text" id="post-prop-area" placeholder="120">
+                    </div>
+                </div>
+                
+                <h3>Imagens do Post (4 necessárias)</h3>
+                <div id="post-image-selector-container">
+                    </div>
+                
+                <h3>Dados de Contato</h3>
+                <div class="form-group">
+                    <label for="post-broker-site">Seu Instagram</label>
+                    <input type="text" id="post-broker-site" placeholder="@seu.instagram">
+                </div>
+                <div class="form-group">
+                    <label for="post-broker-phone">Seu Telefone (WhatsApp)</label>
+                    <input type="text" id="post-broker-phone" placeholder="(12) 3456-7890">
+                </div>
+                <div class="form-group">
+                    <label for="post-broker-address">Seu Endereço</label>
+                    <input type="text" id="post-broker-address" placeholder="Rua Exemplo, 123 - Cidade">
+                </div>
+
+                <button type="button" id="post-generate-btn" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i> Atualizar Post
+                </button>
+            </form>
+        </main>
+
+        <aside id="post-output-area">
+            <button id="post-print-btn" class="btn btn-secondary" disabled>
+                <i class="fas fa-download"></i> Salvar PNG
+            </button>
+            
+            <div id="post-banner-preview">
+                <section class="left-pane">
+                    <div id="post-img-slot-main" class="post-img-placeholder">Imagem Principal</div>
+                    <div id="post-banner-prop-slogan">[Slogan]</div>
+                    
+                    <div id="post-banner-prop-features">
+                        <div class="feature-item">
+                            <i class="fas fa-bed"></i>
+                            <span id="post-banner-prop-bedrooms">-</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-bath"></i>
+                            <span id="post-banner-prop-bathrooms">-</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-car"></i>
+                            <span id="post-banner-prop-garage">-</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-vector-square"></i>
+                            <span id="post-banner-prop-area">-</span>
+                        </div>
+                    </div>
+
+                </section>
+                
+                <section class="right-pane">
+                    
+                    <div class="secondary-images">
+                        <div id="post-img-slot-1" class="secondary-img post-img-placeholder">Secundária 1</div>
+                        <div id="post-img-slot-2" class="secondary-img post-img-placeholder">Secundária 2</div>
+                        <div id="post-img-slot-3" class="secondary-img post-img-placeholder">Secundária 3</div>
+                    </div>
+                    
+                    <div class="footer-contact">
+                        <p><i class="fab fa-whatsapp"></i> <span id="post-banner-broker-phone">[Seu Telefone]</span></p>
+                        <p><i class="fas fa-map-marker-alt"></i> <span id="post-banner-broker-address">[Seu Endereço]</span></p>
+                        <p><i class="fab fa-instagram"></i> <span id="post-banner-broker-site">[@seu.instagram]</span></p>
+                    </div>
+                </section>
+            </div>
+        </aside>
+    </div>
+    
+    <div id="story-tool" class="tool-wrapper" hidden>
+        <main id="story-controls">
+            <h2>Gerador de Story</h2>
+            <p>Crie Stories para Instagram a partir do seu CRM.</p>
+
+            <div class="form-group">
+                <label for="story-backup-upload">1. Carregue seu backup (arquivo .json)</label>
+                <input type="file" id="story-backup-upload" accept=".json">
+            </div>
+
+            <div class="form-group">
+                <label for="story-property-selector">2. Selecione o Imóvel</label>
+                <select id="story-property-selector" disabled>
+                    <option value="">Aguardando backup...</option>
+                </select>
+            </div>
+
+            <form id="story-data-form">
+                <h3>Dados do Story</h3>
+                <div class="form-group">
+                    <label for="story-prop-title">Título</label>
+                    <input type="text" id="story-prop-title" value="CASA À VENDA">
+                </div>
+                <div class="form-group">
+                    <label for="story-prop-bairro">Bairro</label>
+                    <input type="text" id="story-prop-bairro" placeholder="Ex: Cidade Brasileira">
+                </div>
+                
+                <h3>Recursos (6 itens)</h3>
+                <div class="form-group-grid-3">
+                    <div class="form-group">
+                        <label for="story-f1">Recurso 1</label>
+                        <input type="text" id="story-f1" placeholder="4 quartos">
+                    </div>
+                    <div class="form-group">
+                        <label for="story-f2">Recurso 2</label>
+                        <input type="text" id="story-f2" placeholder="2 banheiros">
+                    </div>
+                    <div class="form-group">
+                        <label for="story-f3">Recurso 3</label>
+                        <input type="text" id="story-f3" placeholder="Sala de estar">
+                    </div>
+                    <div class="form-group">
+                        <label for="story-f4">Recurso 4</label>
+                        <input type="text" id="story-f4" placeholder="Sala de jantar">
+                    </div>
+                    <div class="form-group">
+                        <label for="story-f5">Recurso 5</label>
+                        <input type="text" id="story-f5" placeholder="Cozinha ampla">
+                    </div>
+                    <div class="form-group">
+                        <label for="story-f6">Recurso 6</label>
+                        <input type="text" id="story-f6" placeholder="Garagem">
+                    </div>
+                </div>
+                
+                <h3>Imagens do Story (4 necessárias)</h3>
+                <div id="story-image-selector-container">
+                    </div>
+                
+                <h3>Rodapé</h3>
+                <div class="form-group">
+                    <label for="story-broker-name">Nome da Imobiliária</label>
+                    <input type="text" id="story-broker-name" value="IMOBILIÁRIA BORCELLE">
+                </div>
+                <div class="form-group">
+                    <label for="story-cta-text">Chamada (CTA)</label>
+                    <input type="text" id="story-cta-text" value="">
+                </div>
+
+                <button type="button" id="story-generate-btn" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i> Atualizar Story
+                </button>
+            </form>
+        </main>
+
+        <aside id="story-output-area">
+            <button id="story-print-btn" class="btn btn-secondary" disabled>
+                <i class="fas fa-download"></i> Salvar PNG
+            </button>
+            
+            <div id="story-banner-preview">
+                <div id="story-bg-blur" class="img-placeholder">Fundo</div>
+                
+                <div class="story-content-wrapper">
+                    
+                    <header id="story-img-main" class="img-placeholder">Imagem Principal</header>
+                    
+                    <section class="story-title-section">
+                        <h1 id="story-banner-title">CASA À VENDA</h1>
+                        <span id="story-banner-bairro">Bairro: [Bairro]</span>
+                    </section>
+                    
+                    <section class="story-circles-container">
+                        <div id="story-banner-c1" class="story-circle-img img-placeholder">C1</div>
+                        <div id="story-banner-c2" class="story-circle-img img-placeholder">C2</div>
+                        <div id="story-banner-c3" class="story-circle-img img-placeholder">C3</div>
+                    </section>
+                    
+                    <section class="story-features-grid">
+                        <div class="story-feature-item">
+                            <i class="fas fa-bed"></i>
+                            <span id="story-banner-f1">[Recurso 1]</span>
+                        </div>
+                        <div class="story-feature-item">
+                            <i class="fas fa-bath"></i>
+                            <span id="story-banner-f2">[Recurso 2]</span>
+                        </div>
+                        <div class="story-feature-item">
+                            <i class="fas fa-couch"></i>
+                            <span id="story-banner-f3">[Recurso 3]</span>
+                        </div>
+                        <div class="story-feature-item">
+                            <i class="fas fa-utensils"></i>
+                            <span id="story-banner-f4">[Recurso 4]</span>
+                        </div>
+                        <div class="story-feature-item">
+                            <i class="fas fa-sink"></i> <span id="story-banner-f5">[Recurso 5]</span>
+                        </div>
+                        <div class="story-feature-item">
+                            <i class="fas fa-car"></i>
+                            <span id="story-banner-f6">[Recurso 6]</span>
+                        </div>
+                    </section>
+                    
+                    <div class="story-cta-container" id="story-cta-container">
+                        <span id="story-banner-cta">
+                            <i class="fas fa-link"></i>
+                            <span>Saiba mais...</span>
+                        </span>
+                    </div>
+                    
+                    <footer class="story-footer">
+                        <i class="fas fa-house"></i> <span id="story-banner-broker-name">IMOBILIÁRIA BORCELLE</span>
+                    </footer>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navFlyerBtn = document.getElementById('nav-flyer-btn');
+            const navPostBtn = document.getElementById('nav-post-btn');
+            const navStoryBtn = document.getElementById('nav-story-btn');
+            
+            const flyerTool = document.getElementById('flyer-tool');
+            const postTool = document.getElementById('post-tool');
+            const storyTool = document.getElementById('story-tool');
+
+            navFlyerBtn.addEventListener('click', () => {
+                flyerTool.removeAttribute('hidden');
+                postTool.setAttribute('hidden', true);
+                storyTool.setAttribute('hidden', true);
+                
+                navFlyerBtn.classList.add('active');
+                navPostBtn.classList.remove('active');
+                navStoryBtn.classList.remove('active');
+            });
+
+            navPostBtn.addEventListener('click', () => {
+                flyerTool.setAttribute('hidden', true);
+                postTool.removeAttribute('hidden');
+                storyTool.setAttribute('hidden', true);
+                
+                navFlyerBtn.classList.remove('active');
+                navPostBtn.classList.add('active');
+                navStoryBtn.classList.remove('active');
+            });
+            
+            navStoryBtn.addEventListener('click', () => {
+                flyerTool.setAttribute('hidden', true);
+                postTool.setAttribute('hidden', true);
+                storyTool.removeAttribute('hidden');
+                
+                navFlyerBtn.classList.remove('active');
+                navPostBtn.classList.remove('active');
+                navStoryBtn.classList.add('active');
+            });
+        });
+    </script>
+    
+    <script>
+        function downloadElementAsPNG(element, filename, button) {
+            const originalText = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gerando PNG...';
+
+            html2canvas(element, { 
+                useCORS: true,
+                logging: false,
+                scale: 1.5
+            }).then(canvas => {
+                const dataUrl = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }).catch(err => {
+                console.error("Erro ao gerar PNG:", err);
+                alert("Ocorreu um erro ao gerar o PNG. Verifique o console.");
+            }).finally(() => {
+                button.disabled = false;
+                button.innerHTML = originalText;
+            });
+        }
+    </script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        let db = {};
+        let selectedProperty = null;
+        
+        const backupUpload = document.getElementById('flyer-backup-upload');
+        const propertySelector = document.getElementById('flyer-property-selector');
+        const dataForm = document.getElementById('flyer-data-form');
+        const generateBtn = document.getElementById('flyer-generate-btn');
+        const printBtn = document.getElementById('flyer-print-btn');
+        const outputArea = document.getElementById('flyer-output-area');
+
+        // ... (resto do script do panfleto inalterado) ...
+        const inputs = {
+            propName: document.getElementById('flyer-prop-name'),
+            propSlogan: document.getElementById('flyer-prop-slogan'),
+            propQuartos: document.getElementById('flyer-prop-quartos'),
+            propMetragem: document.getElementById('flyer-prop-metragem'), 
+            propBanheiros: document.getElementById('flyer-prop-banheiros'),
+            propVagas: document.getElementById('flyer-prop-vagas'),
+            propFeaturesText: document.getElementById('flyer-prop-features-text'),
+            brokerName: document.getElementById('flyer-broker-name'),
+            brokerTitle: document.getElementById('flyer-broker-title'),
+            brokerPhone: document.getElementById('flyer-broker-phone'),
+            brokerSocial: document.getElementById('flyer-broker-social'),
+            imageContainer: document.getElementById('flyer-image-selector-container')
+        };
+        
+        const bannerFields = {
+            imgSlot1: document.getElementById('flyer-img-slot-1'),
+            imgSlot2: document.getElementById('flyer-img-slot-2'),
+            imgSlot3: document.getElementById('flyer-img-slot-3'),
+            propName: document.getElementById('flyer-banner-prop-name'),
+            propSlogan: document.getElementById('flyer-banner-prop-slogan'),
+            propQuartos: document.getElementById('flyer-banner-prop-quartos'),
+            propMetragem: document.getElementById('flyer-banner-prop-metragem'), 
+            propBanheiros: document.getElementById('flyer-banner-prop-banheiros'),
+            propVagas: document.getElementById('flyer-banner-prop-vagas'),
+            featuresList: document.getElementById('flyer-banner-features-list'),
+            featuresTextContainer: document.getElementById('flyer-features-text-container'), 
+            brokerName: document.getElementById('flyer-banner-broker-name'),
+            brokerTitle: document.getElementById('flyer-banner-broker-title'),
+            brokerPhone: document.getElementById('flyer-banner-broker-phone'),
+            brokerSocial: document.getElementById('flyer-banner-broker-social')
+        };
+        
+        function capitalizeFirstLetterOnly(s) {
+            if (!s) return '';
+            const lower = s.toLowerCase();
+            return lower.charAt(0).toUpperCase() + lower.slice(1);
+        }
+
+        backupUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    db = JSON.parse(event.target.result);
+                    
+                    if (!db || !db.properties || !db.settings) {
+                        throw new Error('Formato de backup inválido. Não encontrou "properties" ou "settings".');
+                    }
+                    
+                    populatePropertySelector();
+                    autoFillBrokerData();
+                    alert('Backup (Panfleto) carregado com sucesso! Selecione um imóvel.');
+                    
+                } catch (err) {
+                    console.error('Erro ao ler o JSON:', err);
+                    alert('Erro ao carregar o arquivo. Verifique se é um backup válido do seu CRM.');
+                    propertySelector.innerHTML = '<option value="">Falha ao carregar</option>';
+                    propertySelector.disabled = true;
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        function populatePropertySelector() {
+            if (!db.properties) return;
+            
+            propertySelector.innerHTML = '<option value="">Selecione um imóvel...</option>';
+            db.properties.forEach(prop => {
+                const option = document.createElement('option');
+                option.value = prop.id;
+                option.textContent = prop.name;
+                propertySelector.appendChild(option);
+            });
+            propertySelector.disabled = false;
+        }
+        
+        function autoFillBrokerData() {
+            if (!db.settings) return;
+            inputs.brokerName.value = db.settings.brokerName || '';
+            inputs.brokerPhone.value = db.settings.brokerPhone || '';
+            
+            inputs.brokerTitle.value = "CORRETOR(A) DE IMÓVEIS";
+            inputs.brokerSocial.value = "";
+        }
+
+        propertySelector.addEventListener('change', (e) => {
+            const propId = e.target.value;
+            if (!propId) {
+                selectedProperty = null;
+                dataForm.style.display = 'none';
+                return;
+            }
+            
+            selectedProperty = db.properties.find(p => p.id == propId);
+            if (selectedProperty) {
+                autoFillPropertyData();
+                dataForm.style.display = 'block';
+                updateBanner();
+            }
+        });
+        
+        function autoFillPropertyData() {
+            if (!selectedProperty) return;
+            
+            inputs.propName.value = selectedProperty.name || '';
+            
+            inputs.propQuartos.value = findAmenityValue(selectedProperty.amenities, ['quarto', 'quartos']);
+            inputs.propMetragem.value = findAmenityValue(selectedProperty.amenities, ['m²', 'm2', 'metros']); 
+            inputs.propBanheiros.value = findAmenityValue(selectedProperty.amenities, ['banheiro', 'banheiros', 'suíte', 'suítes']);
+            inputs.propVagas.value = findAmenityValue(selectedProperty.amenities, ['vaga', 'vagas', 'garagem']);
+            
+            const features = (selectedProperty.amenities || []).filter(item => 
+                !item.toLowerCase().includes('quarto') &&
+                !item.toLowerCase().includes('banheiro') &&
+                !item.toLowerCase().includes('vaga') &&
+                !item.toLowerCase().includes('m²') && 
+                !item.toLowerCase().includes('m2') && 
+                !item.toLowerCase().includes('metros') 
+            );
+            inputs.propFeaturesText.value = features.join('\n');
+            
+            populateImageSelector();
+        }
+        
+        function findAmenityValue(amenities, keywords) {
+            if (!amenities) return '';
+            const regex = new RegExp(`(\\d+)\\s*(${keywords.join('|')})`, 'i');
+            for (const item of amenities) {
+                const match = item.match(regex);
+                if (match && match[1]) {
+                    return match[1];
+                }
+            }
+            return ''; 
+        }
+        
+        function populateImageSelector() {
+            inputs.imageContainer.innerHTML = '';
+            if (!selectedProperty || !selectedProperty.images || selectedProperty.images.length === 0) {
+                inputs.imageContainer.innerHTML = '<p>Este imóvel não possui imagens no CRM.</p>';
+                return;
+            }
+            
+            const images = selectedProperty.images;
+            const mainIndex = selectedProperty.mainImageIndex > -1 ? selectedProperty.mainImageIndex : 0;
+            
+            const optionsHtml = images.map((imgData, i) => 
+                `<option value="${i}">Imagem ${i + 1}</option>`
+            ).join('');
+            
+            const select1 = document.createElement('div');
+            select1.className = 'form-group';
+            select1.innerHTML = `<label for="flyer-img-select-1">Imagem 1 (Esquerda)</label>
+                                 <select id="flyer-img-select-1">${optionsHtml}</select>`;
+            
+            const select2 = document.createElement('div');
+            select2.className = 'form-group';
+            select2.innerHTML = `<label for="flyer-img-select-2">Imagem 2 (Centro/Principal)</label>
+                                 <select id="flyer-img-select-2">${optionsHtml}</select>`;
+
+            const select3 = document.createElement('div');
+            select3.className = 'form-group';
+            select3.innerHTML = `<label for="flyer-img-select-3">Imagem 3 (Direita)</label>
+                                 <select id="flyer-img-select-3">${optionsHtml}</select>`;
+
+            inputs.imageContainer.appendChild(select1);
+            inputs.imageContainer.appendChild(select2);
+            inputs.imageContainer.appendChild(select3);
+            
+            document.getElementById('flyer-img-select-1').value = images.length > 1 ? "1" : "0";
+            document.getElementById('flyer-img-select-2').value = mainIndex.toString();
+            document.getElementById('flyer-img-select-3').value = images.length > 2 ? "2" : "0";
+        }
+
+        generateBtn.addEventListener('click', updateBanner);
+        
+        function updateBanner() {
+            if (selectedProperty && selectedProperty.images && selectedProperty.images.length > 0) {
+                const images = selectedProperty.images;
+                
+                const idx1 = document.getElementById('flyer-img-select-1')?.value || 0;
+                const idx2 = document.getElementById('flyer-img-select-2')?.value || 0;
+                const idx3 = document.getElementById('flyer-img-select-3')?.value || 0;
+                
+                setImage(bannerFields.imgSlot1, images[idx1], 'flyer-img-placeholder');
+                setImage(bannerFields.imgSlot2, images[idx2], 'flyer-img-placeholder');
+                setImage(bannerFields.imgSlot3, images[idx3], 'flyer-img-placeholder');
+            } else {
+                setImage(bannerFields.imgSlot1, null, 'flyer-img-placeholder');
+                setImage(bannerFields.imgSlot2, null, 'flyer-img-placeholder');
+                setImage(bannerFields.imgSlot3, null, 'flyer-img-placeholder');
+            }
+
+            bannerFields.propName.textContent = inputs.propName.value || '[Nome do Imóvel]';
+            bannerFields.propSlogan.textContent = inputs.propSlogan.value || '[Slogan do Imóvel]';
+            
+            const quartos = inputs.propQuartos.value;
+            bannerFields.propQuartos.textContent = quartos ? `${quartos} Quartos` : '[X] Quartos';
+            
+            const metragem = inputs.propMetragem.value; 
+            bannerFields.propMetragem.textContent = metragem ? `${metragem} m²` : '[X] m²'; 
+            
+            const banheiros = inputs.propBanheiros.value;
+            bannerFields.propBanheiros.textContent = banheiros ? `${banheiros} Banheiros` : '[X] Banheiros';
+            
+            const vagas = inputs.propVagas.value;
+            bannerFields.propVagas.textContent = vagas ? `${vagas} Vaga(s)` : '[X] Vaga(s)';
+            
+            const featuresText = inputs.propFeaturesText.value;
+            const featuresArray = featuresText.split('\n').filter(item => item.trim().length > 0);
+            
+            if (featuresArray.length > 0) {
+                bannerFields.featuresTextContainer.style.display = 'block'; 
+                bannerFields.featuresList.innerHTML = featuresArray.map(item => 
+                    `<li>${capitalizeFirstLetterOnly(item.trim())}</li>`
+                ).join('');
+            } else {
+                bannerFields.featuresTextContainer.style.display = 'none'; 
+                bannerFields.featuresList.innerHTML = ''; 
+            }
+
+            bannerFields.brokerName.textContent = inputs.brokerName.value || '[Seu Nome]';
+            bannerFields.brokerTitle.textContent = inputs.brokerTitle.value || '[Seu Título]';
+            bannerFields.brokerPhone.textContent = inputs.brokerPhone.value || '[Seu WhatsApp]';
+            bannerFields.brokerSocial.textContent = inputs.brokerSocial.value || '[Seu Instagram]';
+            
+            outputArea.style.display = 'block';
+            printBtn.disabled = false;
+        }
+        
+        function setImage(element, base64Data, placeholderClass) {
+            if (base64Data) {
+                element.style.backgroundImage = `url(${base64Data})`;
+                element.classList.remove(placeholderClass);
+                element.textContent = '';
+            } else {
+                element.style.backgroundImage = 'none';
+                element.classList.add(placeholderClass);
+                element.textContent = 'Sem Imagem';
+            }
+        }
+        
+        // 4. ATUALIZADO: Salvar PNG
+        printBtn.addEventListener('click', () => {
+            const targetElement = document.getElementById('flyer-banner-preview');
+            downloadElementAsPNG(targetElement, 'panfleto.png', printBtn);
+        });
+
+    });
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        let db = {};
+        let selectedProperty = null;
+        
+        const backupUpload = document.getElementById('post-backup-upload');
+        const propertySelector = document.getElementById('post-property-selector');
+        const dataForm = document.getElementById('post-data-form');
+        const generateBtn = document.getElementById('post-generate-btn');
+        const printBtn = document.getElementById('post-print-btn');
+        const outputArea = document.getElementById('post-output-area');
+
+        // ... (resto do script do post inalterado) ...
+        const inputs = {
+            propSlogan: document.getElementById('post-prop-slogan'),
+            propBedrooms: document.getElementById('post-prop-bedrooms'),
+            propBathrooms: document.getElementById('post-prop-bathrooms'),
+            propGarage: document.getElementById('post-prop-garage'),
+            propArea: document.getElementById('post-prop-area'),
+            brokerSite: document.getElementById('post-broker-site'),
+            brokerPhone: document.getElementById('post-broker-phone'),
+            brokerAddress: document.getElementById('post-broker-address'),
+            imageContainer: document.getElementById('post-image-selector-container')
+        };
+        
+        const bannerFields = {
+            imgSlotMain: document.getElementById('post-img-slot-main'),
+            imgSlot1: document.getElementById('post-img-slot-1'),
+            imgSlot2: document.getElementById('post-img-slot-2'),
+            imgSlot3: document.getElementById('post-img-slot-3'),
+            propSlogan: document.getElementById('post-banner-prop-slogan'),
+            bannerBedrooms: document.getElementById('post-banner-prop-bedrooms'),
+            bannerBathrooms: document.getElementById('post-banner-prop-bathrooms'),
+            bannerGarage: document.getElementById('post-banner-prop-garage'),
+            bannerArea: document.getElementById('post-banner-prop-area'),
+            brokerSite: document.getElementById('post-banner-broker-site'),
+            brokerPhone: document.getElementById('post-banner-broker-phone'),
+            brokerAddress: document.getElementById('post-banner-broker-address')
+        };
+
+        backupUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    db = JSON.parse(event.target.result);
+                    if (!db || !db.properties || !db.settings) {
+                        throw new Error('Formato de backup inválido.');
+                    }
+                    populatePropertySelector();
+                    autoFillBrokerData();
+                    alert('Backup (Post) carregado com sucesso! Selecione um imóvel.');
+                } catch (err) {
+                    console.error('Erro ao ler o JSON:', err);
+                    alert('Erro ao carregar o arquivo. Verifique se é um backup válido do seu CRM.');
+                    propertySelector.innerHTML = '<option value="">Falha ao carregar</option>';
+                    propertySelector.disabled = true;
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        function populatePropertySelector() {
+            if (!db.properties) return;
+            propertySelector.innerHTML = '<option value="">Selecione um imóvel...</option>';
+            db.properties.forEach(prop => {
+                const option = document.createElement('option');
+                option.value = prop.id;
+                option.textContent = prop.name;
+                propertySelector.appendChild(option);
+            });
+            propertySelector.disabled = false;
+        }
+        
+        function autoFillBrokerData() {
+            if (!db.settings) return;
+            inputs.brokerPhone.value = db.settings.brokerPhone || '';
+            inputs.brokerSite.value = "@seu.instagram";
+            inputs.brokerAddress.value = "Seu Endereço, 123 - Cidade";
+        }
+
+        propertySelector.addEventListener('change', (e) => {
+            const propId = e.target.value;
+            if (!propId) {
+                selectedProperty = null;
+                dataForm.style.display = 'none';
+                return;
+            }
+            
+            selectedProperty = db.properties.find(p => p.id == propId);
+            if (selectedProperty) {
+                autoFillPropertyData();
+                dataForm.style.display = 'block';
+                updateBanner();
+            }
+        });
+        
+        function autoFillPropertyData() {
+            if (!selectedProperty) return;
+            
+            inputs.propBedrooms.value = selectedProperty.bedrooms || findAmenityValue(selectedProperty.amenities, ['quarto', 'quartos']);
+            inputs.propBathrooms.value = selectedProperty.bathrooms || findAmenityValue(selectedProperty.amenities, ['banheiro', 'banheiros', 'suíte']);
+            inputs.propGarage.value = selectedProperty.garage || findAmenityValue(selectedProperty.amenities, ['vaga', 'vagas', 'garagem']);
+            inputs.propArea.value = selectedProperty.area || findAmenityValue(selectedProperty.amenities, ['m²', 'm2', 'metros']);
+            
+            populateImageSelector();
+        }
+
+        function findAmenityValue(amenities, keywords) {
+            if (!amenities) return '';
+            const regex = new RegExp(`(\\d+)\\s*(${keywords.join('|')})`, 'i');
+            for (const item of amenities) {
+                const match = item.match(regex);
+                if (match && match[1]) {
+                    return match[1];
+                }
+            }
+            return ''; 
+        }
+        
+        function populateImageSelector() {
+            inputs.imageContainer.innerHTML = '';
+            if (!selectedProperty || !selectedProperty.images || selectedProperty.images.length === 0) {
+                inputs.imageContainer.innerHTML = '<p>Este imóvel não possui imagens no CRM.</p>';
+                return;
+            }
+            
+            const images = selectedProperty.images;
+            const mainIndex = selectedProperty.mainImageIndex > -1 ? selectedProperty.mainImageIndex : 0;
+            
+            const optionsHtml = images.map((imgData, i) => 
+                `<option value="${i}">Imagem ${i + 1}</option>`
+            ).join('');
+
+            const fields = [
+                { id: 'post-img-select-main', label: 'Imagem Principal (Esquerda)' },
+                { id: 'post-img-select-1', label: 'Imagem Secundária 1 (Topo)' },
+                { id: 'post-img-select-2', label: 'Imagem Secundária 2 (Meio)' },
+                { id: 'post-img-select-3', label: 'Imagem Secundária 3 (Base)' }
+            ];
+
+            fields.forEach(field => {
+                const selectDiv = document.createElement('div');
+                selectDiv.className = 'form-group';
+                selectDiv.innerHTML = `<label for="${field.id}">${field.label}</label>
+                                     <select id="${field.id}">${optionsHtml}</select>`;
+                inputs.imageContainer.appendChild(selectDiv);
+            });
+            
+            document.getElementById('post-img-select-main').value = mainIndex.toString();
+            if (images.length > 1) document.getElementById('post-img-select-1').value = (mainIndex + 1) % images.length;
+            if (images.length > 2) document.getElementById('post-img-select-2').value = (mainIndex + 2) % images.length;
+            if (images.length > 3) document.getElementById('post-img-select-3').value = (mainIndex + 3) % images.length;
+        }
+
+        generateBtn.addEventListener('click', updateBanner);
+        
+        function updateBanner() {
+            if (selectedProperty && selectedProperty.images && selectedProperty.images.length > 0) {
+                const images = selectedProperty.images;
+                
+                const idxMain = document.getElementById('post-img-select-main')?.value || 0;
+                const idx1 = document.getElementById('post-img-select-1')?.value || 0;
+                const idx2 = document.getElementById('post-img-select-2')?.value || 0;
+                const idx3 = document.getElementById('post-img-select-3')?.value || 0;
+                
+                setImage(bannerFields.imgSlotMain, images[idxMain], 'post-img-placeholder');
+                setImage(bannerFields.imgSlot1, images[idx1], 'post-img-placeholder');
+                setImage(bannerFields.imgSlot2, images[idx2], 'post-img-placeholder');
+                setImage(bannerFields.imgSlot3, images[idx3], 'post-img-placeholder');
+            } else {
+                setImage(bannerFields.imgSlotMain, null, 'post-img-placeholder');
+                setImage(bannerFields.imgSlot1, null, 'post-img-placeholder');
+                setImage(bannerFields.imgSlot2, null, 'post-img-placeholder');
+                setImage(bannerFields.imgSlot3, null, 'post-img-placeholder');
+            }
+
+            bannerFields.propSlogan.textContent = inputs.propSlogan.value || '[Slogan]';
+            bannerFields.bannerBedrooms.textContent = inputs.propBedrooms.value || '-';
+            bannerFields.bannerBathrooms.textContent = inputs.propBathrooms.value || '-';
+            bannerFields.bannerGarage.textContent = inputs.propGarage.value || '-';
+            
+            const areaValue = inputs.propArea.value;
+            bannerFields.bannerArea.textContent = areaValue ? `${areaValue} m²` : '-';
+            
+            bannerFields.brokerSite.textContent = inputs.brokerSite.value || '[@seu.instagram]';
+            bannerFields.brokerPhone.textContent = inputs.brokerPhone.value || '[Seu Telefone]';
+            bannerFields.brokerAddress.textContent = inputs.brokerAddress.value || '[Seu Endereço]';
+            
+            outputArea.style.display = 'block';
+            printBtn.disabled = false;
+        }
+        
+        function setImage(element, base64Data, placeholderClass) {
+            if (base64Data) {
+                element.style.backgroundImage = `url(${base64Data})`;
+                element.classList.remove(placeholderClass);
+                element.textContent = '';
+            } else {
+                element.style.backgroundImage = 'none';
+                element.classList.add(placeholderClass);
+                element.textContent = 'Sem Imagem';
+            }
+        }
+        
+        // 4. ATUALIZADO: Salvar PNG
+        printBtn.addEventListener('click', () => {
+            const targetElement = document.getElementById('post-banner-preview');
+            downloadElementAsPNG(targetElement, 'post-instagram.png', printBtn);
+        });
+
+    });
+    </script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        let db = {};
+        let selectedProperty = null;
+        
+        const backupUpload = document.getElementById('story-backup-upload');
+        const propertySelector = document.getElementById('story-property-selector');
+        const dataForm = document.getElementById('story-data-form');
+        const generateBtn = document.getElementById('story-generate-btn');
+        const printBtn = document.getElementById('story-print-btn');
+        const outputArea = document.getElementById('story-output-area');
+
+        // FORMULÁRIO DE INPUTS
+        const inputs = {
+            propTitle: document.getElementById('story-prop-title'),
+            propBairro: document.getElementById('story-prop-bairro'),
+            f1: document.getElementById('story-f1'),
+            f2: document.getElementById('story-f2'),
+            f3: document.getElementById('story-f3'),
+            f4: document.getElementById('story-f4'),
+            f5: document.getElementById('story-f5'),
+            f6: document.getElementById('story-f6'),
+            brokerName: document.getElementById('story-broker-name'),
+            ctaText: document.getElementById('story-cta-text'),
+            imageContainer: document.getElementById('story-image-selector-container')
+        };
+        
+        // CAMPOS DO BANNER DE DESTINO (Atualizado)
+        const bannerFields = {
+            bgBlur: document.getElementById('story-bg-blur'),
+            imgMain: document.getElementById('story-img-main'),
+            imgC1: document.getElementById('story-banner-c1'),
+            imgC2: document.getElementById('story-banner-c2'),
+            imgC3: document.getElementById('story-banner-c3'),
+            bannerTitle: document.getElementById('story-banner-title'),
+            bannerBairro: document.getElementById('story-banner-bairro'),
+            bannerF1: document.getElementById('story-banner-f1'),
+            bannerF2: document.getElementById('story-banner-f2'),
+            bannerF3: document.getElementById('story-banner-f3'),
+            bannerF4: document.getElementById('story-banner-f4'),
+            bannerF5: document.getElementById('story-banner-f5'),
+            bannerF6: document.getElementById('story-banner-f6'),
+            bannerCtaContainer: document.getElementById('story-cta-container'), // NOVO
+            bannerCtaText: document.getElementById('story-banner-cta').querySelector('span'),
+            bannerBrokerName: document.getElementById('story-banner-broker-name')
+        };
+
+        // 1. CARREGAR BACKUP
+        backupUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    db = JSON.parse(event.target.result);
+                    if (!db || !db.properties || !db.settings) {
+                        throw new Error('Formato de backup inválido.');
+                    }
+                    populatePropertySelector();
+                    autoFillBrokerData();
+                    alert('Backup (Story) carregado com sucesso! Selecione um imóvel.');
+                } catch (err) {
+                    console.error('Erro ao ler o JSON:', err);
+                    alert('Erro ao carregar o arquivo. Verifique se é um backup válido do seu CRM.');
+                    propertySelector.innerHTML = '<option value="">Falha ao carregar</option>';
+                    propertySelector.disabled = true;
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        function populatePropertySelector() {
+            if (!db.properties) return;
+            propertySelector.innerHTML = '<option value="">Selecione um imóvel...</option>';
+            db.properties.forEach(prop => {
+                const option = document.createElement('option');
+                option.value = prop.id;
+                option.textContent = prop.name;
+                propertySelector.appendChild(option);
+            });
+            propertySelector.disabled = false;
+        }
+        
+        // autoFillBrokerData (Atualizado)
+        function autoFillBrokerData() {
+            if (!db.settings) return;
+            inputs.brokerName.value = db.settings.brokerName || 'IMOBILIÁRIA';
+            inputs.propTitle.value = "CASA À VENDA";
+            inputs.ctaText.value = ""; // ATUALIZADO
+        }
+
+        // 2. SELECIONAR IMÓVEL
+        propertySelector.addEventListener('change', (e) => {
+            const propId = e.target.value;
+            if (!propId) {
+                selectedProperty = null;
+                dataForm.style.display = 'none';
+                return;
+            }
+            
+            selectedProperty = db.properties.find(p => p.id == propId);
+            if (selectedProperty) {
+                autoFillPropertyData();
+                dataForm.style.display = 'block';
+                updateBanner();
+            }
+        });
+        
+        function autoFillPropertyData() {
+            if (!selectedProperty) return;
+            
+            let val;
+            val = findAmenityValue(selectedProperty.amenities, ['quarto', 'quartos']);
+            inputs.f1.value = val ? `${val} quartos` : '4 quartos';
+            
+            val = findAmenityValue(selectedProperty.amenities, ['banheiro', 'banheiros', 'suíte']);
+            inputs.f2.value = val ? `${val} banheiros` : '2 banheiros';
+            
+            inputs.f3.value = 'Sala de estar'; // Padrão
+            inputs.f4.value = 'Sala de jantar'; // Padrão
+            inputs.f5.value = 'Cozinha ampla'; // Padrão
+            
+            val = findAmenityValue(selectedProperty.amenities, ['vaga', 'vagas', 'garagem']);
+            inputs.f6.value = val ? `${val} garagem` : 'Garagem';
+            
+            const nameMatch = selectedProperty.name.match(/em (.*)|no (.*)|na (.*)/i);
+            if (nameMatch) {
+                inputs.propBairro.value = nameMatch[1] || nameMatch[2] || nameMatch[3];
+            } else {
+                 inputs.propBairro.value = '[Bairro]'; // Padrão
+            }
+            
+            populateImageSelector();
+        }
+
+        function findAmenityValue(amenities, keywords) {
+            if (!amenities) return '';
+            const regex = new RegExp(`(\\d+)\\s*(${keywords.join('|')})`, 'i');
+            for (const item of amenities) {
+                const match = item.match(regex);
+                if (match && match[1]) {
+                    return match[1];
+                }
+            }
+            return ''; 
+        }
+        
+        function populateImageSelector() {
+            inputs.imageContainer.innerHTML = '';
+            if (!selectedProperty || !selectedProperty.images || selectedProperty.images.length === 0) {
+                inputs.imageContainer.innerHTML = '<p>Este imóvel não possui imagens no CRM.</p>';
+                return;
+            }
+            
+            const images = selectedProperty.images;
+            const mainIndex = selectedProperty.mainImageIndex > -1 ? selectedProperty.mainImageIndex : 0;
+            
+            const optionsHtml = images.map((imgData, i) => 
+                `<option value="${i}">Imagem ${i + 1}</option>`
+            ).join('');
+
+            const fields = [
+                { id: 'story-img-select-main', label: 'Imagem Principal (Topo e Fundo)' },
+                { id: 'story-img-select-c1', label: 'Círculo 1 (Esquerda)' },
+                { id: 'story-img-select-c2', label: 'Círculo 2 (Meio)' },
+                { id: 'story-img-select-c3', label: 'Círculo 3 (Direita)' }
+            ];
+
+            fields.forEach(field => {
+                const selectDiv = document.createElement('div');
+                selectDiv.className = 'form-group';
+                selectDiv.innerHTML = `<label for="${field.id}">${field.label}</label>
+                                     <select id="${field.id}">${optionsHtml}</select>`;
+                inputs.imageContainer.appendChild(selectDiv);
+            });
+            
+            document.getElementById('story-img-select-main').value = mainIndex.toString();
+            if (images.length > 1) document.getElementById('story-img-select-c1').value = (mainIndex + 1) % images.length;
+            if (images.length > 2) document.getElementById('story-img-select-c2').value = (mainIndex + 2) % images.length;
+            if (images.length > 3) document.getElementById('story-img-select-c3').value = (mainIndex + 3) % images.length;
+        }
+
+        // 3. GERAR STORY (Atualizado)
+        generateBtn.addEventListener('click', updateBanner);
+        
+        function updateBanner() {
+            // --- Atualiza Imagens ---
+            if (selectedProperty && selectedProperty.images && selectedProperty.images.length > 0) {
+                const images = selectedProperty.images;
+                
+                const idxMain = document.getElementById('story-img-select-main')?.value || 0;
+                const idxC1 = document.getElementById('story-img-select-c1')?.value || 0;
+                const idxC2 = document.getElementById('story-img-select-c2')?.value || 0;
+                const idxC3 = document.getElementById('story-img-select-c3')?.value || 0;
+                
+                setImage(bannerFields.bgBlur, images[idxMain], 'img-placeholder');
+                setImage(bannerFields.imgMain, images[idxMain], 'img-placeholder');
+                setImage(bannerFields.imgC1, images[idxC1], 'img-placeholder');
+                setImage(bannerFields.imgC2, images[idxC2], 'img-placeholder');
+                setImage(bannerFields.imgC3, images[idxC3], 'img-placeholder');
+            } else {
+                setImage(bannerFields.bgBlur, null, 'img-placeholder');
+                setImage(bannerFields.imgMain, null, 'img-placeholder');
+                setImage(bannerFields.imgC1, null, 'img-placeholder');
+                setImage(bannerFields.imgC2, null, 'img-placeholder');
+                setImage(bannerFields.imgC3, null, 'img-placeholder');
+            }
+
+            // --- Atualiza Textos ---
+            bannerFields.bannerTitle.textContent = inputs.propTitle.value || '[Título]';
+            bannerFields.bannerBairro.textContent = `Bairro: ${inputs.propBairro.value || '[Bairro]'}`;
+            
+            bannerFields.bannerF1.textContent = inputs.f1.value || '[Recurso 1]';
+            bannerFields.bannerF2.textContent = inputs.f2.value || '[Recurso 2]';
+            bannerFields.bannerF3.textContent = inputs.f3.value || '[Recurso 3]';
+            bannerFields.bannerF4.textContent = inputs.f4.value || '[Recurso 4]';
+            bannerFields.bannerF5.textContent = inputs.f5.value || '[Recurso 5]';
+            bannerFields.bannerF6.textContent = inputs.f6.value || '[Recurso 6]';
+            
+            // ATUALIZADO: Lógica do CTA
+            const ctaValue = inputs.ctaText.value;
+            if (ctaValue) {
+                bannerFields.bannerCtaText.textContent = ctaValue;
+                bannerFields.bannerCtaContainer.style.display = 'block';
+            } else {
+                bannerFields.bannerCtaText.textContent = '';
+                bannerFields.bannerCtaContainer.style.display = 'none';
+            }
+            
+            bannerFields.bannerBrokerName.textContent = inputs.brokerName.value || '[Imobiliária]';
+            
+            outputArea.style.display = 'block';
+            printBtn.disabled = false;
+        }
+        
+        function setImage(element, base64Data, placeholderClass) {
+            if (base64Data) {
+                element.style.backgroundImage = `url(${base64Data})`;
+                if (element.classList.contains(placeholderClass)) {
+                    element.classList.remove(placeholderClass);
+                    element.textContent = '';
+                }
+            } else {
+                element.style.backgroundImage = 'none';
+                element.classList.add(placeholderClass);
+                element.textContent = 'Sem Imagem';
+            }
+        }
+        
+        // 4. ATUALIZADO: Salvar PNG
+        printBtn.addEventListener('click', () => {
+            const targetElement = document.getElementById('story-banner-preview');
+            downloadElementAsPNG(targetElement, 'story-instagram.png', printBtn);
+        });
+
+    });
+    </script>
+</body>
+</html>
