@@ -968,185 +968,81 @@
             }
             /* ... (todo o resto do CSS de impressão foi mantido, mas omitido aqui por brevidade) ... */
         }
-
-        /* === ESTILOS RESPONSIVOS PARA CELULARES (NOVO) === */
-        @media (max-width: 768px) {
+        
+    </style>
+    
+    <style>
+        @media (max-width: 900px) {
             body {
-                padding: 0.5rem; /* Reduz o padding geral */
+                padding: 0.5rem; /* Menos preenchimento em telas pequenas */
             }
 
             .tool-nav {
-                flex-direction: column; /* Empilha os botões de navegação */
-                gap: 0.25rem;
+                flex-wrap: wrap; /* Permite que os botões quebrem a linha */
+                margin-bottom: 1rem;
             }
 
+            .nav-btn {
+                font-size: 0.85rem; /* Fonte menor nos botões */
+                padding: 0.7rem 0.5rem;
+                flex-basis: 30%; /* Tenta caber 3, mas quebra se não der */
+                flex-grow: 1;
+            }
+
+            /* Faz o layout principal empilhar verticalmente */
             .tool-wrapper {
-                flex-direction: column; /* Empilha o painel de controle e o preview */
+                flex-direction: column;
                 gap: 1.5rem;
             }
 
-            /* --- Ajustes Gerais dos Painéis --- */
+            /* Faz os painéis de controle ocuparem a largura total */
             #flyer-tool #flyer-controls,
             #post-tool #post-controls,
             #story-tool #story-controls {
-                width: 100%; /* Ocupa a largura total */
-                box-sizing: border-box; /* Garante que o padding não quebre o layout */
-                max-height: 60vh; /* Limita a altura do painel, ativando o scroll interno */
-                order: 1; /* Coloca o painel de controle em primeiro */
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box; /* Garante que o padding não estoure a largura */
+                max-height: none; /* Remove a altura máxima no mobile */
+                overflow-y: visible; /* Remove a rolagem interna dos controles */
             }
-            
+
+            /* CHAVE DA SOLUÇÃO:
+              A área de preview (output) se torna um container com 
+              rolagem horizontal. Isso permite que os controles 
+              fiquem 100% responsivos, enquanto o preview
+              (ex: 800px de largura) mantém seu tamanho original
+              intacto, garantindo que o PNG salvo seja idêntico.
+            */
             #flyer-tool #flyer-output-area,
             #post-tool #post-output-area,
             #story-tool #story-output-area {
                 width: 100%;
-                order: 2; /* Coloca o preview depois */
-            }
-            
-            /* Ajusta os botões de download */
-            #flyer-tool .btn-secondary,
-            #post-tool .btn-secondary,
-            #story-tool .btn-secondary {
-                width: 100%;
-                margin-bottom: 1rem;
+                overflow-x: auto;
             }
 
-            /* --- Ajustes nos Previews --- */
+            /* Centraliza o preview dentro da área de rolagem */
             #flyer-tool #flyer-banner-preview,
             #post-tool #post-banner-preview,
             #story-tool #story-banner-preview {
-                width: 100%; /* Previews ocupam 100% da largura */
-                margin: 0;
-                box-sizing: border-box;
-            }
-
-            /* --- 1. Panfleto (Flyer) --- */
-            #flyer-tool #flyer-banner-preview {
-                min-height: auto; /* Remove altura mínima fixa, deixa o conteúdo mandar */
-                /* Escalona a fonte base. Isso faz com que todas as unidades 'rem'
-                   dentro do preview sejam recalculadas para um tamanho menor. */
-                font-size: 8px; 
-            }
-
-            /* Ajusta o layout interno do panfleto */
-            #flyer-tool .banner-header {
-                min-height: auto;
-                padding: 1rem;
-            }
-            #flyer-tool .image-collage {
-                flex-direction: column; /* Empilha as imagens */
-                gap: 1rem;
-            }
-            #flyer-tool .img-center {
-                order: -1; /* Imagem principal primeiro */
-                width: 90%;
-                height: 300px; /* Altura proporcional */
-            }
-            #flyer-tool .img-left,
-            #flyer-tool .img-right {
-                width: 80%;
-                height: 250px; /* Altura proporcional */
+                margin: 0 auto 1.5rem auto;
             }
             
-            #flyer-tool .features-icons {
-                flex-direction: column; /* Empilha os ícones */
-                gap: 1.5rem;
-                align-items: flex-start; /* Alinha à esquerda */
-                padding: 0 1rem;
+            /* Ajuste nos grids de formulário para melhor visualização */
+            #flyer-tool .form-grid-3,
+            #story-tool .form-group-grid-3 {
+                grid-template-columns: 1fr 1fr; /* 3 colunas vira 2 */
             }
             
-            #flyer-tool .icon-feature {
-                flex-basis: auto;
-                flex-direction: row; /* Ícone e texto lado a lado */
-                text-align: left;
-                gap: 1rem;
+            #post-tool .form-group-grid {
+                flex-wrap: wrap; /* Permite que os 4 itens quebrem a linha */
             }
-            #flyer-tool .icon-feature i {
-                font-size: 2rem; /* Garante que o ícone não fique pequeno demais */
-            }
-            
-            #flyer-tool .banner-footer-section {
-                flex-direction: column; /* Empilha o rodapé */
-                gap: 1rem;
-                text-align: center; /* Centraliza o texto do corretor */
-            }
-            #flyer-tool .footer-contact p {
-                justify-content: center; /* Centraliza os contatos (zap, insta) */
-            }
-            
-            #flyer-tool .banner-features-section,
-            #flyer-tool .banner-footer-section {
-                padding: 1.5rem; /* Reduz padding interno */
-            }
-
-            /* --- 2. Post (Instagram) --- */
-            #post-tool #post-banner-preview {
-                flex-direction: column; /* Empilha a imagem principal e a barra lateral */
-                height: auto;
-                aspect-ratio: auto; /* Remove a proporção 1:1 do container geral */
-            }
-            
-            #post-tool .left-pane,
-            #post-tool .right-pane {
-                width: 100%;
-                height: auto;
-            }
-            
-            #post-tool .left-pane {
-                aspect-ratio: 1 / 1; /* Mantém a foto principal quadrada */
-            }
-            
-            #post-tool .right-pane {
-                padding: 1rem;
-            }
-            
-            #post-tool .secondary-images {
-                flex-direction: row; /* Deixa as 3 imagens em linha */
-                gap: 10px;
-            }
-            #post-tool .secondary-img {
-                width: 33.33%;
-                padding-bottom: 25%; /* Ajusta a proporção */
-            }
-            
-            /* Ajusta a fonte base para 10px para escalar as 'rem' */
-            #post-tool #post-banner-preview {
-                font-size: 10px;
-            }
-            
-            /* Posição dos elementos na foto principal */
-            #post-tool #post-banner-prop-slogan {
-                top: 20px;
-                left: 20px;
-            }
-            #post-tool #post-banner-prop-features {
-                bottom: 20px;
-                left: 20px;
-                right: 20px; /* Permite que ocupe a largura */
-                justify-content: space-around; /* Espaça melhor */
-            }
-
-
-            /* --- 3. Story (Instagram) --- */
-            #story-tool #story-banner-preview {
-                height: auto;
-                aspect-ratio: 9 / 16; /* Mantém a proporção correta de story */
-                
-                /* Escala a fonte base. A largura original era 450px.
-                   Num celular de ~360px, isso é ~80% (0.8x) do tamanho.
-                   Fonte base de 16px * 0.8 = 12.8px. Vamos usar 13px. */
-                font-size: 13px;
-            }
-            
-            /* O layout do Story já é vertical e se adapta bem,
-               apenas o escalonamento da fonte acima deve ser suficiente.
-               Vamos ajustar o padding do wrapper. */
-            #story-tool .story-content-wrapper {
-                padding: 15px;
-                gap: 10px;
+            #post-tool .form-group-grid .form-group {
+                flex-basis: 40%; /* Tenta caber 2 por linha */
+                flex-grow: 1;
             }
         }
-        
     </style>
+    
 </head>
 <body>
 
