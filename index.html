@@ -198,6 +198,34 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 
 @media(max-width:420px){.story-circle{width:80px;height:80px}.flyer-img-side{width:78px;height:120px}.flyer-img-center{width:110px;height:155px}}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--brand-light);border-radius:10px}
+
+/* === SYNC BANNER === */
+.sync-banner{border-radius:var(--radius-md);padding:13px 15px;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1.5px solid transparent;transition:var(--t)}
+.sync-banner.connecting{background:#fffbeb;border-color:#fde68a}
+.sync-banner.connected{background:#f0fdf4;border-color:#86efac}
+.sync-banner.disconnected{background:#fff1f2;border-color:#fecdd3}
+.sync-banner.manual{background:#f8f9ff;border-color:#c7d2fe}
+.sync-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sync-banner.connecting .sync-dot{background:#f59e0b;animation:pulse .8s infinite alternate}
+.sync-banner.connected .sync-dot{background:#22c55e}
+.sync-banner.disconnected .sync-dot{background:#ef4444}
+.sync-banner.manual .sync-dot{background:#6366f1}
+@keyframes pulse{from{opacity:.4}to{opacity:1}}
+.sync-info{flex:1;min-width:0}
+.sync-title{font-size:.8rem;font-weight:700;color:var(--text-primary)}
+.sync-sub{font-size:.71rem;color:var(--text-muted);margin-top:1px}
+.sync-actions{display:flex;gap:7px;align-items:center;flex-shrink:0}
+.sync-btn{border:none;border-radius:50px;padding:5px 11px;font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:700;cursor:pointer;transition:var(--t)}
+.sync-btn.refresh{background:var(--brand-primary);color:#fff}
+.sync-btn.refresh:hover{background:var(--brand-mid)}
+.sync-btn.manual-btn{background:transparent;color:var(--brand-primary);text-decoration:underline;padding:5px 4px}
+/* === IMPORT SECTION LIGHT === */
+.import-section-light{background:linear-gradient(135deg,#fdf8f5,#f7ede8);border:1.5px solid var(--brand-light);border-radius:var(--radius-md);padding:13px;margin-bottom:14px}
+.import-section-light .import-label{font-size:.75rem;font-weight:700;color:var(--brand-primary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.import-section-light.hidden{display:none}
+/* fallback file input section */
+.fallback-section{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
+.fallback-label{font-size:.7rem;color:var(--text-muted);margin-bottom:6px;display:flex;align-items:center;gap:5px}
 </style>
 </head>
 <body>
@@ -216,17 +244,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 
 <div class="app-body">
 
+<!-- === BANNER IMOBIPRO SYNC === -->
+<div id="sync-banner" class="sync-banner connecting">
+  <div class="sync-dot"></div>
+  <div class="sync-info">
+    <div class="sync-title" id="sync-title">Conectando ao ImobiPro...</div>
+    <div class="sync-sub" id="sync-sub">Buscando imóveis no banco de dados local</div>
+  </div>
+  <div class="sync-actions">
+    <button class="sync-btn refresh" id="sync-refresh-btn" onclick="autoSync()" title="Recarregar dados"><i class="fas fa-sync-alt"></i></button>
+  </div>
+</div>
+
 <!-- ======= FLYER ======= -->
 <div id="flyer-tool" class="tool-wrapper">
   <div class="panel">
     <div class="panel-header"><i class="fas fa-file-alt"></i><h2>Panfleto Imobiliário</h2></div>
     <div class="panel-body">
-      <div class="import-section">
-        <div class="import-label"><i class="fas fa-database"></i> Importar dados do backup</div>
-        <div class="form-group"><label>Backup JSON</label><input type="file" id="flyer-backup" accept=".json"></div>
-        <div class="form-group"><label>Selecionar imóvel</label><select id="flyer-select" disabled><option value="">— Carregue um backup primeiro —</option></select></div>
+      <div class="import-section-light" id="flyer-import-section">
+        <div class="import-label"><i class="fas fa-home"></i> Imóvel do ImobiPro</div>
+        <div class="form-group"><label>Selecionar imóvel</label><select id="flyer-select" disabled><option value="">— Aguardando sincronização... —</option></select></div>
         <div id="flyer-import-status"></div>
         <button class="btn-skip" id="flyer-skip">ou preencher manualmente →</button>
+        <div class="fallback-section" id="flyer-fallback" style="display:none">
+          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON manualmente</div>
+          <div class="form-group"><input type="file" id="flyer-backup" accept=".json"></div>
+        </div>
       </div>
       <div id="flyer-form" style="display:none">
         <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
@@ -294,12 +337,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
   <div class="panel">
     <div class="panel-header"><i class="fas fa-th-large"></i><h2>Post Quadrado (Feed)</h2></div>
     <div class="panel-body">
-      <div class="import-section">
-        <div class="import-label"><i class="fas fa-database"></i> Importar dados do backup</div>
-        <div class="form-group"><label>Backup JSON</label><input type="file" id="post-backup" accept=".json"></div>
-        <div class="form-group"><label>Selecionar imóvel</label><select id="post-select" disabled><option value="">— Carregue um backup primeiro —</option></select></div>
+      <div class="import-section-light" id="post-import-section">
+        <div class="import-label"><i class="fas fa-home"></i> Imóvel do ImobiPro</div>
+        <div class="form-group"><label>Selecionar imóvel</label><select id="post-select" disabled><option value="">— Aguardando sincronização... —</option></select></div>
         <div id="post-import-status"></div>
         <button class="btn-skip" id="post-skip">ou preencher manualmente →</button>
+        <div class="fallback-section" id="post-fallback" style="display:none">
+          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON manualmente</div>
+          <div class="form-group"><input type="file" id="post-backup" accept=".json"></div>
+        </div>
       </div>
       <div id="post-form" style="display:none">
         <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
@@ -368,12 +414,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
   <div class="panel">
     <div class="panel-header"><i class="fas fa-mobile-alt"></i><h2>Story (9:16)</h2></div>
     <div class="panel-body">
-      <div class="import-section">
-        <div class="import-label"><i class="fas fa-database"></i> Importar dados do backup</div>
-        <div class="form-group"><label>Backup JSON</label><input type="file" id="story-backup" accept=".json"></div>
-        <div class="form-group"><label>Selecionar imóvel</label><select id="story-select" disabled><option value="">— Carregue um backup primeiro —</option></select></div>
+      <div class="import-section-light" id="story-import-section">
+        <div class="import-label"><i class="fas fa-home"></i> Imóvel do ImobiPro</div>
+        <div class="form-group"><label>Selecionar imóvel</label><select id="story-select" disabled><option value="">— Aguardando sincronização... —</option></select></div>
         <div id="story-import-status"></div>
         <button class="btn-skip" id="story-skip">ou preencher manualmente →</button>
+        <div class="fallback-section" id="story-fallback" style="display:none">
+          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON manualmente</div>
+          <div class="form-group"><input type="file" id="story-backup" accept=".json"></div>
+        </div>
       </div>
       <div id="story-form" style="display:none">
         <div class="section-title"><i class="fas fa-font"></i> Textos</div>
@@ -425,12 +474,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
   <div class="panel">
     <div class="panel-header"><i class="fas fa-portrait"></i><h2>Post Vertical</h2></div>
     <div class="panel-body">
-      <div class="import-section">
-        <div class="import-label"><i class="fas fa-database"></i> Importar dados do backup</div>
-        <div class="form-group"><label>Backup JSON</label><input type="file" id="vertical-backup" accept=".json"></div>
-        <div class="form-group"><label>Selecionar imóvel</label><select id="vertical-select" disabled><option value="">— Carregue um backup primeiro —</option></select></div>
+      <div class="import-section-light" id="vertical-import-section">
+        <div class="import-label"><i class="fas fa-home"></i> Imóvel do ImobiPro</div>
+        <div class="form-group"><label>Selecionar imóvel</label><select id="vertical-select" disabled><option value="">— Aguardando sincronização... —</option></select></div>
         <div id="vertical-import-status"></div>
         <button class="btn-skip" id="vertical-skip">ou preencher manualmente →</button>
+        <div class="fallback-section" id="vertical-fallback" style="display:none">
+          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON manualmente</div>
+          <div class="form-group"><input type="file" id="vertical-backup" accept=".json"></div>
+        </div>
       </div>
       <div id="vertical-form" style="display:none">
         <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
@@ -563,25 +615,105 @@ function getImg(toolId,idx){
   return (activeImgs[toolId]&&activeImgs[toolId][idx])||manualImages[toolId][idx]||null;
 }
 
-/* BACKUP */
-function processBackup(file,toolId,cb){
+/* =====================================================
+   INTEGRAÇÃO IMOBIPRO — IndexedDB AUTOMÁTICO
+   ===================================================== */
+
+async function loadFromImobiProDB(){
+  return new Promise((resolve,reject)=>{
+    if(!window.indexedDB)return reject(new Error('IndexedDB não suportado'));
+    const req=indexedDB.open('ImobiProDB');
+    req.onerror=()=>reject(new Error('Sem acesso ao ImobiProDB'));
+    req.onupgradeneeded=e=>{e.target.result.close();reject(new Error('ImobiPro não instalado'));};
+    req.onsuccess=function(e){
+      const db=e.target.result;
+      const stores=Array.from(db.objectStoreNames);
+      if(!stores.includes('imoveis')){db.close();return reject(new Error('Store "imoveis" inexistente'));}
+      const txStores=stores.includes('settings')?['imoveis','settings']:['imoveis'];
+      const tx=db.transaction(txStores,'readonly');
+      const result={imoveis:[],settings:null};
+      tx.objectStore('imoveis').getAll().onsuccess=ev=>{result.imoveis=ev.target.result||[];};
+      if(stores.includes('settings'))
+        tx.objectStore('settings').get('main').onsuccess=ev=>{result.settings=ev.target.result||null;};
+      tx.oncomplete=()=>{db.close();resolve(result);};
+      tx.onerror=()=>{db.close();reject(new Error('Erro ao ler dados'));};
+    };
+  });
+}
+
+function setSyncState(state,title,sub){
+  const b=$('sync-banner');if(!b)return;
+  b.className=`sync-banner ${state}`;
+  $('sync-title').textContent=title;
+  $('sync-sub').textContent=sub;
+}
+
+function populateAllSelects(imoveis){
+  ['flyer','post','story','vertical'].forEach(toolId=>{
+    const sel=$(toolId+'-select');if(!sel)return;
+    sel.innerHTML='<option value="">— Selecione um imóvel —</option>';
+    imoveis.forEach(im=>{
+      const o=document.createElement('option');
+      o.value=im.id;
+      const label=[im.titulo,im.tipo,im.endereco].filter(Boolean)[0]||'Imóvel sem título';
+      o.textContent=label;
+      sel.appendChild(o);
+    });
+    sel.disabled=false;
+    const st=$(toolId+'-import-status');
+    if(st)st.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} imóvel(is) do ImobiPro</div>`;
+  });
+}
+
+async function autoSync_(){
+  setSyncState('connecting','Conectando ao ImobiPro…','Lendo banco de dados local');
+  const btn=$('sync-refresh-btn');
+  if(btn){btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';btn.disabled=true;}
+  try{
+    const data=await loadFromImobiProDB();
+    backupData=data;
+    if(!data.imoveis.length){
+      setSyncState('manual','ImobiPro conectado — nenhum imóvel','Cadastre imóveis no ImobiPro e clique em atualizar');
+    }else{
+      setSyncState('connected',`✓ Sincronizado com ImobiPro — ${data.imoveis.length} imóvel(is)`,'Dados carregados automaticamente');
+      populateAllSelects(data.imoveis);
+      toast(`${data.imoveis.length} imóvel(is) carregado(s) do ImobiPro!`,'success');
+    }
+    // Ocultar fallback de arquivo
+    ['flyer','post','story','vertical'].forEach(t=>{const fb=$(t+'-fallback');if(fb)fb.style.display='none';});
+  }catch(err){
+    console.warn('[ArtPro] ImobiProDB não acessível:',err.message);
+    setSyncState('disconnected','ImobiPro não encontrado neste dispositivo','Abra o ImobiPro no mesmo navegador — ou importe um backup abaixo');
+    // Exibir fallback de arquivo para todos
+    ['flyer','post','story','vertical'].forEach(t=>{
+      const fb=$(t+'-fallback');if(fb)fb.style.display='block';
+      const sel=$(t+'-select');
+      if(sel){sel.innerHTML='<option value="">— Importe um backup abaixo —</option>';sel.disabled=true;}
+    });
+  }finally{
+    if(btn){btn.innerHTML='<i class="fas fa-sync-alt"></i>';btn.disabled=false;}
+  }
+}
+window.autoSync=()=>autoSync_();
+
+/* Fallback — arquivo JSON */
+function processBackup(file,cb){
   if(!file)return;
   const reader=new FileReader();
   reader.onload=e=>{
     try{
       const p=JSON.parse(e.target.result);
-      if(!p.imoveis||!Array.isArray(p.imoveis))throw new Error('Formato de backup inválido');
-      backupData=p;
-      const sel=$(`${toolId}-select`);
-      sel.innerHTML='<option value="">— Selecione um imóvel —</option>';
-      backupData.imoveis.forEach(im=>{const o=document.createElement('option');o.value=im.id;o.textContent=im.titulo||'Sem título';sel.appendChild(o);});
-      sel.disabled=false;
-      const st=$(`${toolId}-import-status`);
-      if(st)st.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${backupData.imoveis.length} imóvel(is) carregado(s)</div>`;
-      toast(`Backup carregado — ${backupData.imoveis.length} imóvel(is)!`,'success');
-      cb();
+      let imoveis=[];
+      if(p.imoveis&&Array.isArray(p.imoveis)){backupData=p;imoveis=p.imoveis;}
+      else if(Array.isArray(p)){backupData={imoveis:p,settings:null};imoveis=p;}
+      else throw new Error('Formato inválido. Use o backup completo ou o backup de imóveis do ImobiPro.');
+      populateAllSelects(imoveis);
+      setSyncState('manual',`Backup carregado — ${imoveis.length} imóvel(is)`,'Dados importados manualmente do arquivo JSON');
+      toast(`${imoveis.length} imóvel(is) carregado(s)!`,'success');
+      if(cb)cb();
     }catch(err){toast('Erro: '+err.message,'error');}
-  };reader.readAsText(file);
+  };
+  reader.readAsText(file);
 }
 
 /* ============ FLYER ============ */
@@ -768,14 +900,28 @@ $$('#vertical-chips .chip').forEach(c=>c.addEventListener('click',()=>setTimeout
 
 /* ============ SETUP TOOL ============ */
 function setupTool(toolId,cfg){
-  const backupInput=$(`${toolId}-backup`);
-  backupInput.addEventListener('change',e=>processBackup(e.target.files[0],toolId,()=>$(`${toolId}-form`).style.display='block'));
+  // Seletor de imóvel (populado pelo autoSync)
   $(`${toolId}-select`).addEventListener('change',e=>{
     if(!e.target.value)return;
-    const im=backupData.imoveis.find(i=>i.id==e.target.value);
-    if(im){cfg.autoFill(im,backupData.settings);cfg.update();}
+    if(!backupData||!backupData.imoveis)return;
+    const im=backupData.imoveis.find(i=>String(i.id)==String(e.target.value));
+    if(im){
+      cfg.autoFill(im,backupData.settings);
+      cfg.update();
+      $(`${toolId}-form`).style.display='block';
+    }
   });
-  $(`${toolId}-skip`).addEventListener('click',()=>{$(`${toolId}-skip`).closest('.import-section').style.display='none';$(`${toolId}-form`).style.display='block';});
+  // Botão "preencher manualmente"
+  $(`${toolId}-skip`).addEventListener('click',()=>{
+    const sec=$(toolId+'-import-section');if(sec)sec.style.display='none';
+    $(`${toolId}-form`).style.display='block';
+  });
+  // Fallback — input de arquivo JSON
+  const fbInput=$(toolId+'-backup');
+  if(fbInput)fbInput.addEventListener('change',e=>{
+    processBackup(e.target.files[0],()=>$(`${toolId}-form`).style.display='block');
+    e.target.value='';
+  });
   $(`${toolId}-atualizar`).addEventListener('click',cfg.update);
   $(`${toolId}-salvar`).addEventListener('click',()=>downloadPNG($(`${toolId}-preview`),`imobipro-${toolId}-${Date.now()}.png`,`${toolId}-salvar`,`${toolId}-progress`));
 }
@@ -798,6 +944,9 @@ $$('.nav-btn').forEach(btn=>{
  ['story',updateStoryPreview,['story-titulo','story-endereco','story-f1','story-f2','story-f3','story-f4','story-f5','story-f6']],
  ['vertical',updateVerticalPreview,['vertical-titulo','vertical-endereco','vertical-f1l1','vertical-f1l2','vertical-f2l1','vertical-f3l1']]
 ].forEach(([,fn,ids])=>ids.forEach(id=>{const e=$(id);if(e)e.addEventListener('input',fn);}));
+
+/* ===== INICIALIZAÇÃO: lê ImobiPro automaticamente ao carregar ===== */
+autoSync_();
 
 })();
 </script>
