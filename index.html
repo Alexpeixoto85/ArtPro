@@ -5,12 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 <title>ImobiPro — Criativos Profissionais</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
-:root {
+:root{
   --brand-dark:#1a0e10;--brand-primary:#6a3a41;--brand-mid:#9b5f68;--brand-light:#c9a08a;
   --brand-cream:#f7f2ed;--brand-gold:#c8a96e;--accent-blue:#004a91;--accent-green:#3a4d33;
   --text-primary:#1a1a1a;--text-muted:#6b7280;--border:#e5e7eb;--bg-app:#f0ece8;--bg-card:#ffffff;
@@ -21,11 +19,13 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-primary);min-height:100vh;overflow-x:hidden}
+
 /* HEADER */
 .app-header{background:var(--brand-dark);padding:13px 18px 11px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.4)}
 .app-logo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:900;color:#fff;letter-spacing:-.5px}
 .app-logo span{color:var(--brand-gold)}
 .app-tagline{font-size:.68rem;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-left:auto}
+
 /* NAV */
 .tool-nav{display:flex;background:var(--brand-dark);padding:0 14px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:1px solid rgba(255,255,255,.06)}
 .tool-nav::-webkit-scrollbar{display:none}
@@ -33,20 +33,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .nav-btn:hover{background:rgba(255,255,255,.14);color:#fff}
 .nav-btn.active{background:var(--brand-primary);color:#fff;box-shadow:0 3px 12px rgba(106,58,65,.5)}
 .nav-btn i{font-size:.75rem}
+
 /* BODY */
 .app-body{padding:14px}
 .tool-wrapper{display:flex;flex-direction:column;gap:14px;animation:fadeIn .28s ease}
 .tool-wrapper[hidden]{display:none}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
 /* PANEL */
 .panel{background:var(--bg-card);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);overflow:hidden}
 .panel-header{padding:15px 18px 13px;background:linear-gradient(135deg,var(--brand-primary),var(--brand-mid));display:flex;align-items:center;gap:9px}
 .panel-header h2{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:-.3px}
 .panel-header i{color:rgba(255,255,255,.65);font-size:.95rem}
 .panel-body{padding:18px}
-/* IMPORT SECTION */
-.import-section{background:linear-gradient(135deg,#fdf8f5,#f7ede8);border:1.5px dashed var(--brand-light);border-radius:var(--radius-md);padding:14px;margin-bottom:14px}
-.import-label{font-size:.75rem;font-weight:700;color:var(--brand-primary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px;display:flex;align-items:center;gap:6px}
+
 /* FORM */
 .form-group{margin-bottom:12px}
 .form-group label{display:block;font-size:.73rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
@@ -56,6 +56,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .form-group input:disabled,.form-group select:disabled{opacity:.45;cursor:not-allowed}
 .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
+
 /* CHIPS */
 .chips-group{display:flex;flex-wrap:wrap;gap:7px;margin:7px 0}
 .chip{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:50px;border:1.5px solid var(--border);background:#f9f9f9;font-size:.75rem;font-weight:600;color:var(--text-muted);cursor:pointer;transition:var(--t);user-select:none}
@@ -63,9 +64,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .chip input[type="checkbox"]{display:none}
 .chip.selected{background:var(--brand-primary);border-color:var(--brand-primary);color:#fff}
 .chip i{font-size:.65rem}
+
 /* SECTION TITLE */
 .section-title{font-size:.71rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--brand-primary);margin:16px 0 9px;display:flex;align-items:center;gap:7px}
 .section-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--brand-light),transparent)}
+
 /* BUTTONS */
 .btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:12px 18px;border:none;border-radius:var(--radius-md);font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:var(--t);letter-spacing:.02em}
 .btn:active{transform:scale(.98)}
@@ -75,7 +78,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .btn-save:hover{box-shadow:0 6px 20px rgba(200,169,110,.5);transform:translateY(-1px)}
 .btn-save:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
 .btn-skip{background:none;border:none;color:var(--brand-primary);font-size:.8rem;font-weight:600;text-decoration:underline;cursor:pointer;padding:4px 0;font-family:inherit}
-/* IMAGE UPLOAD WIDGET */
+
+/* IMG UPLOAD WIDGET */
 .img-upload-widget{display:flex;gap:9px;align-items:center;padding:9px 11px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:#fafafa;cursor:pointer;transition:var(--t)}
 .img-upload-widget:hover{border-color:var(--brand-primary);background:#fff}
 .img-upload-widget .thumb{width:42px;height:42px;border-radius:8px;background:#eee;background-size:cover;background-position:center;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:.85rem}
@@ -85,31 +89,116 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .img-upload-widget input[type="file"]{display:none}
 .img-upload-widget .status-dot{width:8px;height:8px;border-radius:50%;background:#d1d5db;flex-shrink:0}
 .img-upload-widget.has-image .status-dot{background:#22c55e}
+
 /* OUTPUT */
 .output-panel{display:flex;flex-direction:column;align-items:center}
 .preview-wrapper{width:100%;max-width:450px;margin:0 auto;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);background:#fff}
 .preview-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);text-align:center;margin-bottom:9px}
 .img-placeholder{display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(135deg,#f0f0f0,#e8e8e8);color:#bbb;font-size:.73rem;font-weight:500;gap:4px;border:2px dashed #d4d4d4}
 .img-placeholder::before{content:'\f03e';font-family:'Font Awesome 6 Free';font-weight:900;font-size:1.3rem;color:#ccc}
+
 /* PROGRESS */
 .save-progress{width:100%;height:3px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:7px;display:none}
 .save-progress.active{display:block}
 .save-progress-bar{height:100%;background:linear-gradient(to right,var(--brand-gold),var(--brand-light));border-radius:3px;animation:progressAnim 1.5s ease-in-out infinite}
 @keyframes progressAnim{0%{width:0%}50%{width:70%}100%{width:100%}}
+
 /* TOAST */
 #toast-container{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:7px;pointer-events:none}
 .toast{background:var(--brand-dark);color:#fff;padding:9px 17px;border-radius:50px;font-size:.82rem;font-weight:600;display:flex;align-items:center;gap:7px;box-shadow:0 6px 20px rgba(0,0,0,.3);animation:toastIn .28s ease,toastOut .28s ease 2.5s forwards;white-space:nowrap}
 .toast.success i{color:#22c55e}.toast.error i{color:#ef4444}.toast.info i{color:var(--brand-gold)}
 @keyframes toastIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes toastOut{from{opacity:1}to{opacity:0;transform:translateY(20px)}}
+
 /* IMPORT STATUS */
 .import-status{display:flex;align-items:center;gap:7px;padding:7px 11px;border-radius:var(--radius-sm);font-size:.78rem;font-weight:600;margin-top:7px}
 .import-status.ok{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
 .import-status i{font-size:.82rem}
 
-/* =============================================================
+/* ====================================================
+   SYNC BANNER
+==================================================== */
+.sync-banner{border-radius:var(--radius-md);padding:13px 15px;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1.5px solid transparent;transition:var(--t)}
+.sync-banner.connecting{background:#fffbeb;border-color:#fde68a}
+.sync-banner.connected{background:#f0fdf4;border-color:#86efac}
+.sync-banner.disconnected{background:#fff1f2;border-color:#fecdd3}
+.sync-banner.manual{background:#f8f9ff;border-color:#c7d2fe}
+.sync-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sync-banner.connecting .sync-dot{background:#f59e0b;animation:pulse .8s infinite alternate}
+.sync-banner.connected .sync-dot{background:#22c55e}
+.sync-banner.disconnected .sync-dot{background:#ef4444}
+.sync-banner.manual .sync-dot{background:#6366f1}
+@keyframes pulse{from{opacity:.4}to{opacity:1}}
+.sync-info{flex:1;min-width:0}
+.sync-title{font-size:.8rem;font-weight:700;color:var(--text-primary)}
+.sync-sub{font-size:.71rem;color:var(--text-muted);margin-top:1px}
+.sync-btn{border:none;border-radius:50px;padding:5px 11px;font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:700;cursor:pointer;transition:var(--t)}
+.sync-btn.refresh{background:var(--brand-primary);color:#fff}
+.sync-btn.refresh:hover{background:var(--brand-mid)}
+
+/* ====================================================
+   IMPORT SECTION LIGHT + FALLBACK
+==================================================== */
+.import-section-light{background:linear-gradient(135deg,#fdf8f5,#f7ede8);border:1.5px solid var(--brand-light);border-radius:var(--radius-md);padding:13px;margin-bottom:14px}
+.import-section-light .import-label{font-size:.75rem;font-weight:700;color:var(--brand-primary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.fallback-section{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
+.fallback-label{font-size:.7rem;color:var(--text-muted);margin-bottom:6px;display:flex;align-items:center;gap:5px}
+
+/* ====================================================
+   TIPO BADGE — indicador de tipo do imóvel carregado
+==================================================== */
+.tipo-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:50px;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px}
+.tipo-badge.residencial{background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd}
+.tipo-badge.lote,.tipo-badge.terreno{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
+.tipo-badge.galpao{background:#f3e8ff;color:#6b21a8;border:1px solid #e9d5ff}
+
+/* ====================================================
+   CAMPOS ADAPTATIVOS — oculto por tipo
+==================================================== */
+.campo-adaptativo{transition:opacity .2s,max-height .25s;overflow:hidden}
+.campo-adaptativo.oculto{display:none}
+
+/* ====================================================
+   PHOTO SLOT CARDS — seletor visual de fotos
+==================================================== */
+.photo-slots-wrapper{display:flex;flex-direction:column;gap:8px;margin-bottom:4px}
+.photo-slot-card{display:flex;align-items:center;gap:11px;padding:9px 11px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:#fafafa;transition:var(--t)}
+.photo-slot-card:hover{border-color:var(--brand-primary);background:#fff}
+.photo-slot-thumb{width:54px;height:54px;border-radius:8px;background:#e8e8e8 center/cover;flex-shrink:0;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:.9rem}
+.photo-slot-thumb.has-photo::before{display:none}
+.photo-slot-thumb::before{content:'\f03e';font-family:'Font Awesome 6 Free';font-weight:900}
+.photo-slot-info{flex:1;min-width:0}
+.photo-slot-info strong{display:block;font-size:.8rem;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.photo-slot-info span{font-size:.71rem;color:var(--text-muted)}
+.photo-slot-btn{flex-shrink:0;border:none;border-radius:50px;background:var(--brand-primary);color:#fff;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;padding:5px 12px;cursor:pointer;transition:var(--t);display:flex;align-items:center;gap:4px}
+.photo-slot-btn:hover{background:var(--brand-mid)}
+.photo-slot-btn i{font-size:.65rem}
+
+/* ====================================================
+   PHOTO PICKER MODAL
+==================================================== */
+#photo-picker-modal{position:fixed;inset:0;z-index:5000;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.55);backdrop-filter:blur(4px)}
+#photo-picker-modal.open{display:flex}
+.pp-sheet{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:520px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 -8px 40px rgba(0,0,0,.25);animation:slideUp .28s cubic-bezier(.4,0,.2,1)}
+@keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+.pp-header{padding:16px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.pp-header h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--brand-primary);flex:1}
+.pp-header .pp-slot-name{font-size:.75rem;font-weight:600;color:var(--text-muted);background:var(--bg-app);padding:3px 9px;border-radius:20px}
+.pp-close{border:none;background:none;width:30px;height:30px;border-radius:50%;background:var(--bg-app);color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:var(--t);flex-shrink:0}
+.pp-close:hover{background:var(--border);color:var(--text-primary)}
+.pp-body{overflow-y:auto;padding:14px;flex:1}
+.pp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pp-thumb{position:relative;aspect-ratio:1;border-radius:10px;background:#eee center/cover;cursor:pointer;border:2.5px solid transparent;transition:var(--t);overflow:hidden}
+.pp-thumb:hover{border-color:var(--brand-primary);transform:scale(1.03)}
+.pp-thumb.selecionada{border-color:var(--brand-gold);box-shadow:0 0 0 3px rgba(200,169,110,.3)}
+.pp-thumb .pp-num{position:absolute;top:5px;left:5px;background:rgba(0,0,0,.55);color:#fff;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:10px}
+.pp-thumb .pp-check{position:absolute;top:5px;right:5px;width:20px;height:20px;border-radius:50%;background:var(--brand-gold);display:none;align-items:center;justify-content:center;color:#3a2505;font-size:.6rem}
+.pp-thumb.selecionada .pp-check{display:flex}
+.pp-footer{padding:12px 16px;border-top:1px solid var(--border);font-size:.74rem;color:var(--text-muted);text-align:center}
+
+/* ====================================================
    FLYER PREVIEW
-============================================================= */
+==================================================== */
 #flyer-preview{width:100%;background:#fdfaf8;font-family:'DM Sans',sans-serif}
 .flyer-hero{position:relative;background:var(--brand-dark);padding:1.2rem 1rem;min-height:210px;display:flex;align-items:center;justify-content:center;gap:8px;overflow:hidden}
 .flyer-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 110%,rgba(106,58,65,.45) 0%,transparent 65%);pointer-events:none}
@@ -138,9 +227,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .flyer-contact-info p{display:flex;align-items:center;gap:6px;font-size:.76rem;color:rgba(255,255,255,.78);margin:4px 0}
 .flyer-contact-info i{color:var(--brand-gold);width:13px}
 
-/* =============================================================
-   POST PREVIEW
-============================================================= */
+/* POST */
 #post-preview{width:100%;max-width:450px;height:450px;display:flex;background:#fff;font-family:'DM Sans',sans-serif;overflow:hidden}
 .post-left{width:60%;height:100%;position:relative;flex-shrink:0}
 #pimg-0{width:100%;height:100%;background-size:cover;background-position:center}
@@ -161,9 +248,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .post-extra-tag{background:rgba(200,169,110,.2);color:var(--brand-gold);border:1px solid rgba(200,169,110,.3);padding:2px 6px;border-radius:9px;font-size:.6rem;font-weight:600}
 .post-addr{font-size:.66rem;color:rgba(255,255,255,.46);margin-top:5px;display:flex;align-items:flex-start;gap:4px;line-height:1.4}
 
-/* =============================================================
-   STORY PREVIEW
-============================================================= */
+/* STORY */
 #story-preview{width:100%;max-width:400px;height:720px;position:relative;overflow:hidden;background:#e8e0d8;font-family:'DM Sans',sans-serif}
 #story-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(22px) brightness(.62) saturate(.8);transform:scale(1.15)}
 .story-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;padding:13px 11px;gap:8px}
@@ -178,9 +263,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .story-feat-card{background:rgba(0,74,145,.8);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);color:white;border-radius:13px;padding:7px 9px;display:flex;align-items:center;gap:7px;font-size:.78rem;font-weight:500}
 .story-feat-card i{width:25px;height:25px;border-radius:7px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0}
 
-/* =============================================================
-   VERTICAL PREVIEW
-============================================================= */
+/* VERTICAL */
 #vertical-preview{width:100%;max-width:400px;background:#dde3d5;padding:18px 14px;display:flex;flex-direction:column;gap:13px;font-family:'DM Sans',sans-serif}
 .vpost-bubble{background:linear-gradient(135deg,var(--accent-green),#2e3d28);color:white;border-radius:var(--radius-xl);padding:17px 15px;text-align:center;position:relative;margin-bottom:15px;box-shadow:0 6px 20px rgba(58,77,51,.35)}
 .vpost-bubble::after{content:'';position:absolute;bottom:-12px;left:50%;transform:translateX(-50%) rotate(45deg);width:25px;height:25px;background:#2e3d28}
@@ -196,36 +279,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .vpost-address{background:linear-gradient(135deg,var(--accent-green),#2e3d28);color:white;border-radius:var(--radius-md);padding:10px 13px;text-align:center;font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
 .vpost-address i{color:rgba(255,255,255,.55)}
 
-@media(max-width:420px){.story-circle{width:80px;height:80px}.flyer-img-side{width:78px;height:120px}.flyer-img-center{width:110px;height:155px}}
+@media(max-width:420px){.story-circle{width:80px;height:80px}.flyer-img-side{width:78px;height:120px}.flyer-img-center{width:110px;height:155px}.pp-grid{grid-template-columns:repeat(3,1fr)}}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--brand-light);border-radius:10px}
-
-/* === SYNC BANNER === */
-.sync-banner{border-radius:var(--radius-md);padding:13px 15px;margin-bottom:14px;display:flex;align-items:center;gap:10px;border:1.5px solid transparent;transition:var(--t)}
-.sync-banner.connecting{background:#fffbeb;border-color:#fde68a}
-.sync-banner.connected{background:#f0fdf4;border-color:#86efac}
-.sync-banner.disconnected{background:#fff1f2;border-color:#fecdd3}
-.sync-banner.manual{background:#f8f9ff;border-color:#c7d2fe}
-.sync-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.sync-banner.connecting .sync-dot{background:#f59e0b;animation:pulse .8s infinite alternate}
-.sync-banner.connected .sync-dot{background:#22c55e}
-.sync-banner.disconnected .sync-dot{background:#ef4444}
-.sync-banner.manual .sync-dot{background:#6366f1}
-@keyframes pulse{from{opacity:.4}to{opacity:1}}
-.sync-info{flex:1;min-width:0}
-.sync-title{font-size:.8rem;font-weight:700;color:var(--text-primary)}
-.sync-sub{font-size:.71rem;color:var(--text-muted);margin-top:1px}
-.sync-actions{display:flex;gap:7px;align-items:center;flex-shrink:0}
-.sync-btn{border:none;border-radius:50px;padding:5px 11px;font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:700;cursor:pointer;transition:var(--t)}
-.sync-btn.refresh{background:var(--brand-primary);color:#fff}
-.sync-btn.refresh:hover{background:var(--brand-mid)}
-.sync-btn.manual-btn{background:transparent;color:var(--brand-primary);text-decoration:underline;padding:5px 4px}
-/* === IMPORT SECTION LIGHT === */
-.import-section-light{background:linear-gradient(135deg,#fdf8f5,#f7ede8);border:1.5px solid var(--brand-light);border-radius:var(--radius-md);padding:13px;margin-bottom:14px}
-.import-section-light .import-label{font-size:.75rem;font-weight:700;color:var(--brand-primary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.import-section-light.hidden{display:none}
-/* fallback file input section */
-.fallback-section{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
-.fallback-label{font-size:.7rem;color:var(--text-muted);margin-bottom:6px;display:flex;align-items:center;gap:5px}
 </style>
 </head>
 <body>
@@ -242,18 +297,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
   <button class="nav-btn" data-tool="vertical"><i class="fas fa-portrait"></i> Vertical</button>
 </nav>
 
+<!-- PHOTO PICKER MODAL -->
+<div id="photo-picker-modal">
+  <div class="pp-sheet">
+    <div class="pp-header">
+      <h3>Escolher foto</h3>
+      <span class="pp-slot-name" id="pp-slot-name">—</span>
+      <button class="pp-close" onclick="closePhotoPicker()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="pp-body">
+      <div class="pp-grid" id="pp-grid"></div>
+    </div>
+    <div class="pp-footer"><i class="fas fa-info-circle"></i> Toque em uma foto para atribuir a este slot</div>
+  </div>
+</div>
+
 <div class="app-body">
 
-<!-- === BANNER IMOBIPRO SYNC === -->
+<!-- SYNC BANNER -->
 <div id="sync-banner" class="sync-banner connecting">
   <div class="sync-dot"></div>
   <div class="sync-info">
     <div class="sync-title" id="sync-title">Conectando ao ImobiPro...</div>
     <div class="sync-sub" id="sync-sub">Buscando imóveis no banco de dados local</div>
   </div>
-  <div class="sync-actions">
-    <button class="sync-btn refresh" id="sync-refresh-btn" onclick="autoSync()" title="Recarregar dados"><i class="fas fa-sync-alt"></i></button>
-  </div>
+  <button class="sync-btn refresh" id="sync-refresh-btn" onclick="autoSync()" title="Recarregar"><i class="fas fa-sync-alt"></i></button>
 </div>
 
 <!-- ======= FLYER ======= -->
@@ -267,24 +335,39 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
         <div id="flyer-import-status"></div>
         <button class="btn-skip" id="flyer-skip">ou preencher manualmente →</button>
         <div class="fallback-section" id="flyer-fallback" style="display:none">
-          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON manualmente</div>
+          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON</div>
           <div class="form-group"><input type="file" id="flyer-backup" accept=".json"></div>
         </div>
       </div>
       <div id="flyer-form" style="display:none">
+        <div id="flyer-tipo-badge"></div>
         <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
         <div class="form-group"><label>Nome / Empreendimento</label><input type="text" id="flyer-nome" placeholder="Ex: Residencial Bella Vista"></div>
         <div class="form-group"><label>Slogan</label><input type="text" id="flyer-slogan" placeholder="Ex: Seu lar dos sonhos está aqui"></div>
         <div class="form-group"><label>Endereço</label><input type="text" id="flyer-endereco" placeholder="Rua, Bairro – Cidade"></div>
         <div class="form-grid-2">
-          <div class="form-group"><label>Quartos</label><input type="text" id="flyer-quartos" placeholder="3"></div>
-          <div class="form-group"><label>Metragem (m²)</label><input type="text" id="flyer-metragem" placeholder="85"></div>
-          <div class="form-group"><label>Banheiros</label><input type="text" id="flyer-banheiros" placeholder="2"></div>
-          <div class="form-group"><label>Vagas</label><input type="text" id="flyer-vagas" placeholder="1"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Quartos</label><input type="text" id="flyer-quartos" placeholder="3"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno"><label id="flyer-label-metragem">Metragem (m²)</label><input type="text" id="flyer-metragem" placeholder="85"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno"><label>Banheiros</label><input type="text" id="flyer-banheiros" placeholder="2"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno"><label>Vagas</label><input type="text" id="flyer-vagas" placeholder="1"></div>
+        </div>
+        <!-- Campos exclusivos lote/terreno -->
+        <div class="form-grid-2 campo-adaptativo oculto" data-visivel-para="lote,terreno">
+          <div class="form-group"><label>Área do lote (m²)</label><input type="text" id="flyer-area-lote" placeholder="360"></div>
+          <div class="form-group"><label>Testada (m)</label><input type="text" id="flyer-testada" placeholder="12"></div>
+          <div class="form-group"><label>Dimensões</label><input type="text" id="flyer-dimensoes" placeholder="12x30 m"></div>
+          <div class="form-group"><label>Zoneamento</label><input type="text" id="flyer-zoneamento" placeholder="Residencial"></div>
+        </div>
+        <!-- Campos exclusivos galpão -->
+        <div class="form-grid-2 campo-adaptativo oculto" data-visivel-para="galpao">
+          <div class="form-group"><label>Área construída (m²)</label><input type="text" id="flyer-area-construida" placeholder="800"></div>
+          <div class="form-group"><label>Pé-direito (m)</label><input type="text" id="flyer-pe-direito" placeholder="6"></div>
+          <div class="form-group"><label>Docas</label><input type="text" id="flyer-docas" placeholder="2"></div>
+          <div class="form-group"><label>Vagas caminhão</label><input type="text" id="flyer-vagas-caminhao" placeholder="5"></div>
         </div>
         <div class="form-group"><label>Diferenciais (um por linha)</label><textarea id="flyer-infra" rows="3" placeholder="Piscina&#10;Academia&#10;Playground"></textarea></div>
         <div class="section-title"><i class="fas fa-tags"></i> Recursos adicionais</div>
-        <div class="chips-group" id="flyer-chips">
+        <div class="chips-group campo-adaptativo" id="flyer-chips" data-oculto-para="lote,terreno,galpao">
           <label class="chip" data-val="Sala e cozinha integrados"><input type="checkbox"><i class="fas fa-plus"></i> Sala integrada</label>
           <label class="chip" data-val="Suíte reversível"><input type="checkbox"><i class="fas fa-plus"></i> Suíte reversível</label>
           <label class="chip" data-val="Área de serviço"><input type="checkbox"><i class="fas fa-plus"></i> Área de serviço</label>
@@ -292,7 +375,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
           <label class="chip" data-val="Varanda gourmet"><input type="checkbox"><i class="fas fa-plus"></i> Varanda gourmet</label>
           <label class="chip" data-val="Pé-direito duplo"><input type="checkbox"><i class="fas fa-plus"></i> Pé-direito duplo</label>
         </div>
+        <div class="chips-group campo-adaptativo oculto" id="flyer-chips-lote" data-visivel-para="lote,terreno">
+          <label class="chip" data-val="Escritura registrada"><input type="checkbox"><i class="fas fa-plus"></i> Escritura</label>
+          <label class="chip" data-val="Água e luz na rua"><input type="checkbox"><i class="fas fa-plus"></i> Água e luz</label>
+          <label class="chip" data-val="Acesso asfaltado"><input type="checkbox"><i class="fas fa-plus"></i> Asfalto</label>
+          <label class="chip" data-val="Murado"><input type="checkbox"><i class="fas fa-plus"></i> Murado</label>
+          <label class="chip" data-val="Plano e nível"><input type="checkbox"><i class="fas fa-plus"></i> Plano</label>
+          <label class="chip" data-val="Financiável"><input type="checkbox"><i class="fas fa-plus"></i> Financiável</label>
+        </div>
+        <div class="chips-group campo-adaptativo oculto" id="flyer-chips-galpao" data-visivel-para="galpao">
+          <label class="chip" data-val="Piso industrial"><input type="checkbox"><i class="fas fa-plus"></i> Piso industrial</label>
+          <label class="chip" data-val="Trifásico 220/380V"><input type="checkbox"><i class="fas fa-plus"></i> Trifásico</label>
+          <label class="chip" data-val="Sprinklers"><input type="checkbox"><i class="fas fa-plus"></i> Sprinklers</label>
+          <label class="chip" data-val="Refeitório"><input type="checkbox"><i class="fas fa-plus"></i> Refeitório</label>
+          <label class="chip" data-val="Escritório administrativo"><input type="checkbox"><i class="fas fa-plus"></i> Escritório</label>
+          <label class="chip" data-val="Guarita 24h"><input type="checkbox"><i class="fas fa-plus"></i> Guarita 24h</label>
+        </div>
         <div class="section-title"><i class="fas fa-images"></i> Fotos do imóvel</div>
+        <div id="flyer-photo-slots"></div>
         <div id="flyer-imagens-manual">
           <div class="img-upload-widget" id="flyer-mw-0" onclick="document.getElementById('flyer-mf-0').click()">
             <div class="thumb" id="flyer-mt-0"><i class="fas fa-image"></i></div>
@@ -313,7 +413,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
             <input type="file" id="flyer-mf-2" accept="image/*">
           </div>
         </div>
-        <div id="flyer-imagens"></div>
         <div class="section-title"><i class="fas fa-user-tie"></i> Seus dados</div>
         <div class="form-group"><label>Nome do(a) corretor(a)</label><input type="text" id="flyer-corretor" placeholder="João Silva"></div>
         <div class="form-grid-2">
@@ -343,55 +442,68 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
         <div id="post-import-status"></div>
         <button class="btn-skip" id="post-skip">ou preencher manualmente →</button>
         <div class="fallback-section" id="post-fallback" style="display:none">
-          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON manualmente</div>
+          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON</div>
           <div class="form-group"><input type="file" id="post-backup" accept=".json"></div>
         </div>
       </div>
       <div id="post-form" style="display:none">
+        <div id="post-tipo-badge"></div>
         <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
         <div class="form-group"><label>Endereço</label><input type="text" id="post-endereco" placeholder="Bairro – Cidade"></div>
         <div class="form-group"><label>Slogan</label><input type="text" id="post-slogan" value="Seu novo lar está esperando por você"></div>
         <div class="form-grid-2">
-          <div class="form-group"><label>Quartos</label><input type="text" id="post-quartos" placeholder="3"></div>
-          <div class="form-group"><label>Banheiros</label><input type="text" id="post-banheiros" placeholder="2"></div>
-          <div class="form-group"><label>Vagas</label><input type="text" id="post-vagas" placeholder="1"></div>
-          <div class="form-group"><label>Área (m²)</label><input type="text" id="post-area" placeholder="85"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Quartos</label><input type="text" id="post-quartos" placeholder="3"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Banheiros</label><input type="text" id="post-banheiros" placeholder="2"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno"><label>Vagas</label><input type="text" id="post-vagas" placeholder="1"></div>
+          <div class="form-group"><label id="post-label-area">Área (m²)</label><input type="text" id="post-area" placeholder="85"></div>
+        </div>
+        <div class="form-grid-2 campo-adaptativo oculto" data-visivel-para="lote,terreno">
+          <div class="form-group"><label>Testada (m)</label><input type="text" id="post-testada" placeholder="12"></div>
+          <div class="form-group"><label>Zoneamento</label><input type="text" id="post-zoneamento" placeholder="Residencial"></div>
         </div>
         <div class="section-title"><i class="fas fa-tags"></i> Recursos adicionais</div>
-        <div class="chips-group" id="post-chips">
+        <div class="chips-group campo-adaptativo" id="post-chips" data-oculto-para="lote,terreno,galpao">
           <label class="chip" data-val="Sala integrada"><input type="checkbox"><i class="fas fa-plus"></i> Sala integrada</label>
           <label class="chip" data-val="Suíte reversível"><input type="checkbox"><i class="fas fa-plus"></i> Suíte reversível</label>
           <label class="chip" data-val="Área de serviço"><input type="checkbox"><i class="fas fa-plus"></i> Área de serviço</label>
           <label class="chip" data-val="Varanda gourmet"><input type="checkbox"><i class="fas fa-plus"></i> Varanda gourmet</label>
         </div>
+        <div class="chips-group campo-adaptativo oculto" id="post-chips-lote" data-visivel-para="lote,terreno">
+          <label class="chip" data-val="Escritura registrada"><input type="checkbox"><i class="fas fa-plus"></i> Escritura</label>
+          <label class="chip" data-val="Água e luz na rua"><input type="checkbox"><i class="fas fa-plus"></i> Água e luz</label>
+          <label class="chip" data-val="Acesso asfaltado"><input type="checkbox"><i class="fas fa-plus"></i> Asfalto</label>
+          <label class="chip" data-val="Plano e nível"><input type="checkbox"><i class="fas fa-plus"></i> Plano</label>
+        </div>
+        <div class="chips-group campo-adaptativo oculto" id="post-chips-galpao" data-visivel-para="galpao">
+          <label class="chip" data-val="Piso industrial"><input type="checkbox"><i class="fas fa-plus"></i> Piso industrial</label>
+          <label class="chip" data-val="Trifásico 220/380V"><input type="checkbox"><i class="fas fa-plus"></i> Trifásico</label>
+          <label class="chip" data-val="Sprinklers"><input type="checkbox"><i class="fas fa-plus"></i> Sprinklers</label>
+          <label class="chip" data-val="Guarita 24h"><input type="checkbox"><i class="fas fa-plus"></i> Guarita 24h</label>
+        </div>
         <div class="section-title"><i class="fas fa-images"></i> Fotos do imóvel</div>
+        <div id="post-photo-slots"></div>
         <div id="post-imagens-manual">
           <div class="img-upload-widget" onclick="document.getElementById('post-mf-0').click()">
             <div class="thumb" id="post-mt-0"><i class="fas fa-image"></i></div>
             <div class="meta"><strong>Foto principal</strong><span>Imagem de destaque</span></div>
-            <div class="status-dot" id="post-ms-0"></div>
-            <input type="file" id="post-mf-0" accept="image/*">
+            <div class="status-dot" id="post-ms-0"></div><input type="file" id="post-mf-0" accept="image/*">
           </div>
           <div class="img-upload-widget" onclick="document.getElementById('post-mf-1').click()" style="margin-top:7px">
             <div class="thumb" id="post-mt-1"><i class="fas fa-image"></i></div>
             <div class="meta"><strong>Foto secundária 1</strong><span>Painel direito</span></div>
-            <div class="status-dot" id="post-ms-1"></div>
-            <input type="file" id="post-mf-1" accept="image/*">
+            <div class="status-dot" id="post-ms-1"></div><input type="file" id="post-mf-1" accept="image/*">
           </div>
           <div class="img-upload-widget" onclick="document.getElementById('post-mf-2').click()" style="margin-top:7px">
             <div class="thumb" id="post-mt-2"><i class="fas fa-image"></i></div>
             <div class="meta"><strong>Foto secundária 2</strong><span>Painel direito</span></div>
-            <div class="status-dot" id="post-ms-2"></div>
-            <input type="file" id="post-mf-2" accept="image/*">
+            <div class="status-dot" id="post-ms-2"></div><input type="file" id="post-mf-2" accept="image/*">
           </div>
           <div class="img-upload-widget" onclick="document.getElementById('post-mf-3').click()" style="margin-top:7px">
             <div class="thumb" id="post-mt-3"><i class="fas fa-image"></i></div>
             <div class="meta"><strong>Foto secundária 3</strong><span>Painel direito</span></div>
-            <div class="status-dot" id="post-ms-3"></div>
-            <input type="file" id="post-mf-3" accept="image/*">
+            <div class="status-dot" id="post-ms-3"></div><input type="file" id="post-mf-3" accept="image/*">
           </div>
         </div>
-        <div id="post-imagens"></div>
         <div class="section-title"><i class="fas fa-phone"></i> Contato</div>
         <div class="form-grid-2">
           <div class="form-group"><label>WhatsApp</label><input type="text" id="post-whats" placeholder="(82) 9 9999-9999"></div>
@@ -420,11 +532,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
         <div id="story-import-status"></div>
         <button class="btn-skip" id="story-skip">ou preencher manualmente →</button>
         <div class="fallback-section" id="story-fallback" style="display:none">
-          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON manualmente</div>
+          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON</div>
           <div class="form-group"><input type="file" id="story-backup" accept=".json"></div>
         </div>
       </div>
       <div id="story-form" style="display:none">
+        <div id="story-tipo-badge"></div>
         <div class="section-title"><i class="fas fa-font"></i> Textos</div>
         <div class="form-group"><label>Título (badge)</label><input type="text" id="story-titulo" value="LANÇAMENTO"></div>
         <div class="form-group"><label>Localização</label><input type="text" id="story-endereco" placeholder="Antares – Maceió"></div>
@@ -438,7 +551,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
           <div class="form-group"><label>Item 6</label><input type="text" id="story-f6"></div>
         </div>
         <div class="section-title"><i class="fas fa-magic"></i> Preenchimento rápido</div>
-        <div class="chips-group" id="story-chips">
+        <div class="chips-group campo-adaptativo" id="story-chips" data-oculto-para="lote,terreno,galpao">
           <label class="chip" data-val="Sala integrada"><input type="checkbox"><i class="fas fa-plus"></i> Sala integrada</label>
           <label class="chip" data-val="Suíte reversível"><input type="checkbox"><i class="fas fa-plus"></i> Suíte reversível</label>
           <label class="chip" data-val="Área de serviço"><input type="checkbox"><i class="fas fa-plus"></i> Área de serviço</label>
@@ -446,17 +559,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
           <label class="chip" data-val="Varanda gourmet"><input type="checkbox"><i class="fas fa-plus"></i> Varanda gourmet</label>
           <label class="chip" data-val="Pé-direito duplo"><input type="checkbox"><i class="fas fa-plus"></i> Pé-direito duplo</label>
         </div>
+        <div class="chips-group campo-adaptativo oculto" id="story-chips-lote" data-visivel-para="lote,terreno">
+          <label class="chip" data-val="Escritura registrada"><input type="checkbox"><i class="fas fa-plus"></i> Escritura</label>
+          <label class="chip" data-val="Água e luz na rua"><input type="checkbox"><i class="fas fa-plus"></i> Água e luz</label>
+          <label class="chip" data-val="Acesso asfaltado"><input type="checkbox"><i class="fas fa-plus"></i> Asfalto</label>
+          <label class="chip" data-val="Plano e nível"><input type="checkbox"><i class="fas fa-plus"></i> Plano</label>
+          <label class="chip" data-val="Financiável"><input type="checkbox"><i class="fas fa-plus"></i> Financiável</label>
+          <label class="chip" data-val="Murado"><input type="checkbox"><i class="fas fa-plus"></i> Murado</label>
+        </div>
+        <div class="chips-group campo-adaptativo oculto" id="story-chips-galpao" data-visivel-para="galpao">
+          <label class="chip" data-val="Piso industrial"><input type="checkbox"><i class="fas fa-plus"></i> Piso industrial</label>
+          <label class="chip" data-val="Trifásico 220/380V"><input type="checkbox"><i class="fas fa-plus"></i> Trifásico</label>
+          <label class="chip" data-val="Docas de carga"><input type="checkbox"><i class="fas fa-plus"></i> Docas</label>
+          <label class="chip" data-val="Sprinklers"><input type="checkbox"><i class="fas fa-plus"></i> Sprinklers</label>
+          <label class="chip" data-val="Guarita 24h"><input type="checkbox"><i class="fas fa-plus"></i> Guarita 24h</label>
+          <label class="chip" data-val="Escritório administrativo"><input type="checkbox"><i class="fas fa-plus"></i> Escritório</label>
+        </div>
         <div class="section-title"><i class="fas fa-images"></i> Fotos (principal + 6 círculos)</div>
+        <div id="story-photo-slots"></div>
         <div id="story-imagens-manual">
           <div class="img-upload-widget" onclick="document.getElementById('story-mf-0').click()">
             <div class="thumb" id="story-mt-0"><i class="fas fa-star"></i></div>
             <div class="meta"><strong>Foto principal</strong><span>Fundo desfocado + banner</span></div>
-            <div class="status-dot" id="story-ms-0"></div>
-            <input type="file" id="story-mf-0" accept="image/*">
+            <div class="status-dot" id="story-ms-0"></div><input type="file" id="story-mf-0" accept="image/*">
           </div>
           <div id="story-circle-uploads" style="display:flex;flex-direction:column;gap:7px;margin-top:7px"></div>
         </div>
-        <div id="story-imagens"></div>
         <button type="button" class="btn btn-primary" id="story-atualizar"><i class="fas fa-sync-alt"></i> Gerar Story</button>
       </div>
     </div>
@@ -480,37 +608,58 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
         <div id="vertical-import-status"></div>
         <button class="btn-skip" id="vertical-skip">ou preencher manualmente →</button>
         <div class="fallback-section" id="vertical-fallback" style="display:none">
-          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON manualmente</div>
+          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON</div>
           <div class="form-group"><input type="file" id="vertical-backup" accept=".json"></div>
         </div>
       </div>
       <div id="vertical-form" style="display:none">
+        <div id="vertical-tipo-badge"></div>
         <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
         <div class="form-group"><label>Título</label><input type="text" id="vertical-titulo" value="Apartamento à venda!"></div>
         <div class="form-group"><label>Endereço</label><input type="text" id="vertical-endereco" placeholder="Bairro – Cidade"></div>
         <div class="form-grid-2">
-          <div class="form-group"><label>Recurso 1</label><input type="text" id="vertical-f1l1" placeholder="3 quartos"></div>
-          <div class="form-group"><label>Detalhe 1</label><input type="text" id="vertical-f1l2" placeholder="sendo 1 suíte"></div>
-          <div class="form-group"><label>Recurso 2</label><input type="text" id="vertical-f2l1" placeholder="2 banheiros"></div>
-          <div class="form-group"><label>Recurso 3</label><input type="text" id="vertical-f3l1" placeholder="1 vaga"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Recurso 1</label><input type="text" id="vertical-f1l1" placeholder="3 quartos"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Detalhe 1</label><input type="text" id="vertical-f1l2" placeholder="sendo 1 suíte"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Recurso 2</label><input type="text" id="vertical-f2l1" placeholder="2 banheiros"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno"><label>Recurso 3</label><input type="text" id="vertical-f3l1" placeholder="1 vaga"></div>
+        </div>
+        <!-- Campos lote/terreno/galpão para vertical -->
+        <div class="form-grid-2 campo-adaptativo oculto" data-visivel-para="lote,terreno">
+          <div class="form-group"><label>Área (m²)</label><input type="text" id="vertical-area-lote" placeholder="360"></div>
+          <div class="form-group"><label>Testada</label><input type="text" id="vertical-testada" placeholder="12m"></div>
+        </div>
+        <div class="form-grid-2 campo-adaptativo oculto" data-visivel-para="galpao">
+          <div class="form-group"><label>Área construída</label><input type="text" id="vertical-area-galpao" placeholder="800m²"></div>
+          <div class="form-group"><label>Pé-direito</label><input type="text" id="vertical-pe-direito" placeholder="6m"></div>
         </div>
         <div class="section-title"><i class="fas fa-tags"></i> Recursos adicionais</div>
-        <div class="chips-group" id="vertical-chips">
+        <div class="chips-group campo-adaptativo" id="vertical-chips" data-oculto-para="lote,terreno,galpao">
           <label class="chip" data-val="Sala integrada"><input type="checkbox"><i class="fas fa-plus"></i> Sala integrada</label>
           <label class="chip" data-val="Suíte reversível"><input type="checkbox"><i class="fas fa-plus"></i> Suíte reversível</label>
           <label class="chip" data-val="Área de serviço"><input type="checkbox"><i class="fas fa-plus"></i> Área de serviço</label>
           <label class="chip" data-val="Garagem rotativa"><input type="checkbox"><i class="fas fa-plus"></i> Garagem rotativa</label>
         </div>
+        <div class="chips-group campo-adaptativo oculto" id="vertical-chips-lote" data-visivel-para="lote,terreno">
+          <label class="chip" data-val="Escritura registrada"><input type="checkbox"><i class="fas fa-plus"></i> Escritura</label>
+          <label class="chip" data-val="Acesso asfaltado"><input type="checkbox"><i class="fas fa-plus"></i> Asfalto</label>
+          <label class="chip" data-val="Plano e nível"><input type="checkbox"><i class="fas fa-plus"></i> Plano</label>
+          <label class="chip" data-val="Financiável"><input type="checkbox"><i class="fas fa-plus"></i> Financiável</label>
+        </div>
+        <div class="chips-group campo-adaptativo oculto" id="vertical-chips-galpao" data-visivel-para="galpao">
+          <label class="chip" data-val="Piso industrial"><input type="checkbox"><i class="fas fa-plus"></i> Piso industrial</label>
+          <label class="chip" data-val="Trifásico 220/380V"><input type="checkbox"><i class="fas fa-plus"></i> Trifásico</label>
+          <label class="chip" data-val="Guarita 24h"><input type="checkbox"><i class="fas fa-plus"></i> Guarita 24h</label>
+          <label class="chip" data-val="Sprinklers"><input type="checkbox"><i class="fas fa-plus"></i> Sprinklers</label>
+        </div>
         <div class="section-title"><i class="fas fa-image"></i> Foto principal</div>
+        <div id="vertical-photo-slots"></div>
         <div id="vertical-imagens-manual">
           <div class="img-upload-widget" onclick="document.getElementById('vertical-mf-0').click()">
             <div class="thumb" id="vertical-mt-0"><i class="fas fa-image"></i></div>
             <div class="meta"><strong>Foto do imóvel</strong><span>Clique para selecionar</span></div>
-            <div class="status-dot" id="vertical-ms-0"></div>
-            <input type="file" id="vertical-mf-0" accept="image/*">
+            <div class="status-dot" id="vertical-ms-0"></div><input type="file" id="vertical-mf-0" accept="image/*">
           </div>
         </div>
-        <div id="vertical-imagens"></div>
         <button type="button" class="btn btn-primary" id="vertical-atualizar"><i class="fas fa-sync-alt"></i> Gerar Post Vertical</button>
       </div>
     </div>
@@ -531,7 +680,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 const $=id=>document.getElementById(id);
 const $$=s=>document.querySelectorAll(s);
 
-/* TOAST */
+/* ---- TOAST ---- */
 function toast(msg,type='info'){
   const icons={success:'fa-check-circle',error:'fa-times-circle',info:'fa-info-circle'};
   const el=document.createElement('div');el.className=`toast ${type}`;
@@ -539,23 +688,20 @@ function toast(msg,type='info'){
   $('toast-container').appendChild(el);setTimeout(()=>el.remove(),3000);
 }
 
-/* BASE64 */
+/* ---- BASE64 ---- */
 function readBase64(file){return new Promise(res=>{if(!file)return res(null);const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=()=>res(null);r.readAsDataURL(file);});}
 
-/* SET IMAGE */
+/* ---- SET IMAGE ---- */
 function setImg(el,src){
   if(!el)return;
   if(src){el.style.backgroundImage=`url(${src})`;el.classList.remove('img-placeholder');el.innerHTML='';}
   else{el.style.backgroundImage='';el.classList.add('img-placeholder');}
 }
 
-/* GET VALUE */
 function gv(id){const e=$(id);return e?e.value.trim():'';}
-
-/* GET CHIPS */
 function getChips(cid){const c=[];$$(`#${cid} .chip.selected`).forEach(ch=>c.push(ch.dataset.val));return c;}
 
-/* DOWNLOAD PNG */
+/* ---- DOWNLOAD PNG ---- */
 async function downloadPNG(el,filename,btnId,progId){
   const btn=$(btnId),prog=$(progId),orig=btn.innerHTML;
   btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Gerando...';prog.classList.add('active');
@@ -567,17 +713,16 @@ async function downloadPNG(el,filename,btnId,progId){
   finally{btn.disabled=false;btn.innerHTML=orig;prog.classList.remove('active');}
 }
 
-/* CHIPS TOGGLE */
-$$('.chip').forEach(chip=>{
-  chip.addEventListener('click',()=>{
-    chip.classList.toggle('selected');
-    const cb=chip.querySelector('input[type=checkbox]');if(cb)cb.checked=chip.classList.contains('selected');
-  });
+/* ---- CHIPS TOGGLE ---- */
+document.addEventListener('click',e=>{
+  const chip=e.target.closest('.chip');
+  if(!chip)return;
+  chip.classList.toggle('selected');
+  const cb=chip.querySelector('input[type=checkbox]');if(cb)cb.checked=chip.classList.contains('selected');
 });
 
-/* MANUAL IMAGES STATE */
+/* ---- MANUAL IMAGES ---- */
 const manualImages={flyer:[null,null,null],post:[null,null,null,null],story:[null,null,null,null,null,null,null],vertical:[null]};
-
 function setupUpload(inputId,thumbId,statusId,widgetId,onLoad){
   const inp=$(inputId);if(!inp)return;
   inp.addEventListener('change',async()=>{
@@ -588,37 +733,188 @@ function setupUpload(inputId,thumbId,statusId,widgetId,onLoad){
     if(onLoad)onLoad(b64);
   });
 }
-
-// Flyer manual
-for(let i=0;i<3;i++){const idx=i;setupUpload(`flyer-mf-${i}`,`flyer-mt-${i}`,`flyer-ms-${i}`,`flyer-mw-${i}`,b64=>{manualImages.flyer[idx]=b64;});}
-// Post manual
-for(let i=0;i<4;i++){const idx=i;setupUpload(`post-mf-${i}`,`post-mt-${i}`,`post-ms-${i}`,null,b64=>{manualImages.post[idx]=b64;});}
-// Story main
-setupUpload('story-mf-0','story-mt-0','story-ms-0',null,b64=>{manualImages.story[0]=b64;});
-// Story circles - build dynamically
+for(let i=0;i<3;i++){const idx=i;setupUpload(`flyer-mf-${i}`,`flyer-mt-${i}`,`flyer-ms-${i}`,`flyer-mw-${i}`,b64=>{manualImages.flyer[idx]=b64;updateFlyerPreview();});}
+for(let i=0;i<4;i++){const idx=i;setupUpload(`post-mf-${i}`,`post-mt-${i}`,`post-ms-${i}`,null,b64=>{manualImages.post[idx]=b64;updatePostPreview();});}
+setupUpload('story-mf-0','story-mt-0','story-ms-0',null,b64=>{manualImages.story[0]=b64;updateStoryPreview();});
 const scc=$('story-circle-uploads');
 for(let i=1;i<=6;i++){
   const idx=i;
   const div=document.createElement('div');div.className='img-upload-widget';div.id=`story-cw-${i}`;
   div.innerHTML=`<div class="thumb" id="story-ct-${i}"><i class="fas fa-circle-notch"></i></div><div class="meta"><strong>Círculo ${i}</strong><span>Clique para selecionar</span></div><div class="status-dot" id="story-cs-${i}"></div><input type="file" id="story-cf-${i}" accept="image/*">`;
   div.onclick=()=>$(`story-cf-${i}`).click();scc.appendChild(div);
-  setupUpload(`story-cf-${idx}`,`story-ct-${idx}`,`story-cs-${idx}`,`story-cw-${idx}`,b64=>{manualImages.story[idx]=b64;});
+  setupUpload(`story-cf-${idx}`,`story-ct-${idx}`,`story-cs-${idx}`,`story-cw-${idx}`,b64=>{manualImages.story[idx]=b64;updateStoryPreview();});
 }
-// Vertical manual
-setupUpload('vertical-mf-0','vertical-mt-0','vertical-ms-0',null,b64=>{manualImages.vertical[0]=b64;});
+setupUpload('vertical-mf-0','vertical-mt-0','vertical-ms-0',null,b64=>{manualImages.vertical[0]=b64;updateVerticalPreview();});
 
-/* GLOBAL STATE */
+/* ---- GLOBAL STATE ---- */
 let backupData=null;
 const activeImgs={flyer:[],post:[],story:[],vertical:[]};
+// photoAssignments[toolId][slotIndex] = imageIndex into activeImgs[toolId]
+const photoAssignments={flyer:[0,1,2],post:[0,1,2,3],story:[0,1,2,3,4,5,6],vertical:[0]};
 
-function getImg(toolId,idx){
-  return (activeImgs[toolId]&&activeImgs[toolId][idx])||manualImages[toolId][idx]||null;
+/* ======================================================
+   TIPO DE IMÓVEL — detecção e adaptação de formulário
+   ====================================================== */
+const TIPOS_LOTE    = ['lote','terreno','gleba','chácara','área','area'];
+const TIPOS_GALPAO  = ['galpão','galpao','barracão','barracao','pavilhão','pavilhao','depósito','deposito','armazém','armazem','industrial'];
+
+function classificarTipo(tipo){
+  if(!tipo)return 'residencial';
+  const t=tipo.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  if(TIPOS_GALPAO.some(g=>t.includes(g)))return 'galpao';
+  if(TIPOS_LOTE.some(l=>t.includes(l)))return 'lote';
+  return 'residencial';
 }
 
-/* =====================================================
-   INTEGRAÇÃO IMOBIPRO — IndexedDB AUTOMÁTICO
-   ===================================================== */
+function renderTipoBadge(badgeId,tipoClass,tipoOriginal){
+  const el=$(badgeId);if(!el)return;
+  if(tipoClass==='residencial'){el.innerHTML='';return;}
+  const labels={lote:'🏞️ Lote / Terreno',galpao:'🏭 Galpão / Industrial'};
+  el.innerHTML=`<div class="tipo-badge ${tipoClass}">${labels[tipoClass]||tipoOriginal}</div>`;
+}
 
+function adaptarFormulario(toolId,tipoClass){
+  const form=$(toolId+'-form');if(!form)return;
+  const todos=form.querySelectorAll('.campo-adaptativo');
+  todos.forEach(el=>{
+    const ocultar=(el.dataset.ocultoParaParses||el.dataset.ocultoParaParse||
+      (el.dataset.ocultoParaParse===undefined&&el.hasAttribute('data-oculto-para')?el.getAttribute('data-oculto-para'):null));
+    const mostrar=(el.hasAttribute('data-visivel-para')?el.getAttribute('data-visivel-para'):null);
+    if(ocultar){
+      const lista=ocultar.split(',').map(s=>s.trim());
+      el.classList.toggle('oculto',lista.includes(tipoClass));
+    }
+    if(mostrar){
+      const lista=mostrar.split(',').map(s=>s.trim());
+      el.classList.toggle('oculto',!lista.includes(tipoClass));
+    }
+  });
+}
+
+// Corrigir leitura dos data attributes (camelCase vs hyphen)
+function getTipoAttr(el,attr){
+  // attr: 'oculto-para' or 'visivel-para'
+  return el.getAttribute('data-'+attr);
+}
+// patch adaptarFormulario to read correctly
+function adaptarFormulario2(toolId,tipoClass){
+  const form=$(toolId+'-form');if(!form)return;
+  form.querySelectorAll('.campo-adaptativo').forEach(el=>{
+    const ocultar=getTipoAttr(el,'oculto-para');
+    const mostrar=getTipoAttr(el,'visivel-para');
+    if(ocultar){
+      const lista=ocultar.split(',').map(s=>s.trim());
+      el.classList.toggle('oculto',lista.includes(tipoClass));
+    }else if(mostrar){
+      const lista=mostrar.split(',').map(s=>s.trim());
+      el.classList.toggle('oculto',!lista.includes(tipoClass));
+    }
+  });
+}
+
+/* ======================================================
+   PHOTO PICKER — seletor visual de fotos
+   ====================================================== */
+let ppState={toolId:null,slotIdx:null,updateFn:null};
+
+function buildPhotoSlots(toolId,slotLabels,imagens,updateFn){
+  const wrapper=$(toolId+'-photo-slots');
+  const manual=$(toolId+'-imagens-manual');
+  if(!wrapper)return;
+  if(!imagens||!imagens.length){
+    wrapper.innerHTML='';
+    if(manual)manual.style.display='block';
+    return;
+  }
+  if(manual)manual.style.display='none';
+  // Auto-assign em sequência se não atribuído
+  slotLabels.forEach((_,i)=>{
+    if(photoAssignments[toolId][i]===undefined||photoAssignments[toolId][i]===null||photoAssignments[toolId][i]>=imagens.length)
+      photoAssignments[toolId][i]=i<imagens.length?i:0;
+  });
+  let html=`<div class="photo-slots-wrapper">`;
+  slotLabels.forEach((lbl,i)=>{
+    const assignedIdx=photoAssignments[toolId][i];
+    const src=imagens[assignedIdx]||'';
+    const num=assignedIdx+1;
+    const thumbStyle=src?`background-image:url(${src})`:'';
+    html+=`<div class="photo-slot-card">
+      <div class="photo-slot-thumb ${src?'has-photo':''}" style="${thumbStyle}" id="pslot-thumb-${toolId}-${i}"></div>
+      <div class="photo-slot-info">
+        <strong>${lbl}</strong>
+        <span id="pslot-lbl-${toolId}-${i}">${src?`Foto ${num} de ${imagens.length}`:'Sem foto'}</span>
+      </div>
+      <button class="photo-slot-btn" onclick="openPhotoPicker('${toolId}',${i},'${lbl}')">
+        <i class="fas fa-exchange-alt"></i> Trocar
+      </button>
+    </div>`;
+  });
+  html+='</div>';
+  wrapper.innerHTML=html;
+}
+
+function openPhotoPicker(toolId,slotIdx,slotName){
+  const imagens=activeImgs[toolId];
+  if(!imagens||!imagens.length){toast('Nenhuma foto disponível para este imóvel','error');return;}
+  ppState={toolId,slotIdx,slotName};
+  $('pp-slot-name').textContent=slotName;
+  const grid=$('pp-grid');
+  const current=photoAssignments[toolId][slotIdx];
+  grid.innerHTML='';
+  imagens.forEach((src,idx)=>{
+    const div=document.createElement('div');
+    div.className='pp-thumb'+(idx===current?' selecionada':'');
+    div.style.backgroundImage=`url(${src})`;
+    div.innerHTML=`<span class="pp-num">Foto ${idx+1}</span><span class="pp-check"><i class="fas fa-check"></i></span>`;
+    div.onclick=()=>assignPhoto(toolId,slotIdx,idx);
+    grid.appendChild(div);
+  });
+  $('photo-picker-modal').classList.add('open');
+}
+
+function assignPhoto(toolId,slotIdx,imgIdx){
+  photoAssignments[toolId][slotIdx]=imgIdx;
+  const imagens=activeImgs[toolId];
+  const src=imagens[imgIdx]||'';
+  // Atualiza thumb do slot
+  const thumb=$(`pslot-thumb-${toolId}-${slotIdx}`);
+  if(thumb){
+    thumb.style.backgroundImage=`url(${src})`;
+    thumb.classList.toggle('has-photo',!!src);
+  }
+  const lbl=$(`pslot-lbl-${toolId}-${slotIdx}`);
+  if(lbl)lbl.textContent=`Foto ${imgIdx+1} de ${imagens.length}`;
+  // Atualiza highlight no modal
+  $$('#pp-grid .pp-thumb').forEach((el,i)=>el.classList.toggle('selecionada',i===imgIdx));
+  // Dispara update do preview
+  const updateFns={flyer:updateFlyerPreview,post:updatePostPreview,story:updateStoryPreview,vertical:updateVerticalPreview};
+  if(updateFns[toolId])updateFns[toolId]();
+  closePhotoPicker();
+}
+
+function closePhotoPicker(){
+  $('photo-picker-modal').classList.remove('open');
+}
+// Fechar ao clicar no backdrop
+$('photo-picker-modal').addEventListener('click',e=>{if(e.target===$('photo-picker-modal'))closePhotoPicker();});
+
+// Expõe globalmente
+window.openPhotoPicker=openPhotoPicker;
+window.closePhotoPicker=closePhotoPicker;
+
+// Helper: pega a imagem efetiva de um slot
+function getSlotImg(toolId,slotIdx){
+  const imgs=activeImgs[toolId];
+  if(imgs&&imgs.length){
+    const idx=photoAssignments[toolId][slotIdx];
+    return imgs[idx]||null;
+  }
+  return manualImages[toolId][slotIdx]||null;
+}
+
+/* ======================================================
+   INTEGRAÇÃO IMOBIPRO — IndexedDB
+   ====================================================== */
 async function loadFromImobiProDB(){
   return new Promise((resolve,reject)=>{
     if(!window.indexedDB)return reject(new Error('IndexedDB não suportado'));
@@ -655,7 +951,7 @@ function populateAllSelects(imoveis){
     imoveis.forEach(im=>{
       const o=document.createElement('option');
       o.value=im.id;
-      const label=[im.titulo,im.tipo,im.endereco].filter(Boolean)[0]||'Imóvel sem título';
+      const label=im.titulo||(im.tipo?im.tipo+' – ':'')+im.endereco||'Imóvel sem título';
       o.textContent=label;
       sel.appendChild(o);
     });
@@ -679,12 +975,10 @@ async function autoSync_(){
       populateAllSelects(data.imoveis);
       toast(`${data.imoveis.length} imóvel(is) carregado(s) do ImobiPro!`,'success');
     }
-    // Ocultar fallback de arquivo
     ['flyer','post','story','vertical'].forEach(t=>{const fb=$(t+'-fallback');if(fb)fb.style.display='none';});
   }catch(err){
     console.warn('[ArtPro] ImobiProDB não acessível:',err.message);
     setSyncState('disconnected','ImobiPro não encontrado neste dispositivo','Abra o ImobiPro no mesmo navegador — ou importe um backup abaixo');
-    // Exibir fallback de arquivo para todos
     ['flyer','post','story','vertical'].forEach(t=>{
       const fb=$(t+'-fallback');if(fb)fb.style.display='block';
       const sel=$(t+'-select');
@@ -696,7 +990,6 @@ async function autoSync_(){
 }
 window.autoSync=()=>autoSync_();
 
-/* Fallback — arquivo JSON */
 function processBackup(file,cb){
   if(!file)return;
   const reader=new FileReader();
@@ -708,7 +1001,7 @@ function processBackup(file,cb){
       else if(Array.isArray(p)){backupData={imoveis:p,settings:null};imoveis=p;}
       else throw new Error('Formato inválido. Use o backup completo ou o backup de imóveis do ImobiPro.');
       populateAllSelects(imoveis);
-      setSyncState('manual',`Backup carregado — ${imoveis.length} imóvel(is)`,'Dados importados manualmente do arquivo JSON');
+      setSyncState('manual',`Backup carregado — ${imoveis.length} imóvel(is)`,'Dados importados manualmente');
       toast(`${imoveis.length} imóvel(is) carregado(s)!`,'success');
       if(cb)cb();
     }catch(err){toast('Erro: '+err.message,'error');}
@@ -716,32 +1009,76 @@ function processBackup(file,cb){
   reader.readAsText(file);
 }
 
-/* ============ FLYER ============ */
-function autoFillFlyer(im,s){
-  $('flyer-nome').value=im.titulo||'';$('flyer-slogan').value='';$('flyer-endereco').value=im.endereco||'';
-  $('flyer-quartos').value=im.quartos||'';$('flyer-metragem').value=im.area||'';
-  $('flyer-banheiros').value=im.banheiros||'';$('flyer-vagas').value=im.vagas||'';
-  $('flyer-infra').value=im.descricao||'';
-  $('flyer-corretor').value=s&&s.nome?s.nome:'';$('flyer-whats').value=s&&s.telefone?s.telefone:'';$('flyer-instagram').value='';
-  $$('#flyer-chips .chip').forEach(c=>c.classList.remove('selected'));
-  activeImgs.flyer=im.imagens||[];
-  const c=$('flyer-imagens');
-  if(im.imagens&&im.imagens.length){
-    let h='<div class="section-title"><i class="fas fa-images"></i> Selecionar fotos</div>';
-    ['Lateral esquerda','Central (destaque)','Lateral direita'].forEach((lbl,i)=>{
-      h+=`<div class="form-group"><label>${lbl}</label><select id="flyer-img-${i}">`;
-      im.imagens.forEach((_,idx)=>h+=`<option value="${idx}">Foto ${idx+1}</option>`);h+='</select></div>';
-    });c.innerHTML=h;$('flyer-imagens-manual').style.display='none';
-  }
+/* ======================================================
+   AUTO FILL — cada ferramenta
+   ====================================================== */
+const SLOT_LABELS={
+  flyer:['Lateral esquerda','Central (destaque)','Lateral direita'],
+  post:['Principal (grande)','Secundária 1','Secundária 2','Secundária 3'],
+  story:['Principal (fundo + banner)','Círculo 1','Círculo 2','Círculo 3','Círculo 4','Círculo 5','Círculo 6'],
+  vertical:['Foto do imóvel']
+};
+
+function carregarImagem(toolId,im){
+  // Reset assignments in sequence
+  const slotCount=SLOT_LABELS[toolId].length;
+  photoAssignments[toolId]=Array.from({length:slotCount},(_,i)=>i<(im.imagens||[]).length?i:0);
+  activeImgs[toolId]=im.imagens||[];
 }
+
+/* FLYER */
+function autoFillFlyer(im,s){
+  const tc=classificarTipo(im.tipo||im.categoria||'');
+  renderTipoBadge('flyer-tipo-badge',tc,im.tipo||'');
+  adaptarFormulario2('flyer',tc);
+  $('flyer-nome').value=im.titulo||'';
+  $('flyer-slogan').value='';
+  $('flyer-endereco').value=im.endereco||'';
+  if(tc==='residencial'){
+    $('flyer-quartos').value=im.quartos||'';
+    $('flyer-banheiros').value=im.banheiros||'';
+    $('flyer-vagas').value=im.vagas||'';
+    $('flyer-metragem').value=im.area||'';
+  }else if(tc==='lote'||tc==='terreno'){
+    const areaEl=$('flyer-area-lote');if(areaEl)areaEl.value=im.area||im.areaLote||'';
+    const testEl=$('flyer-testada');if(testEl)testEl.value=im.testada||'';
+    const dimEl=$('flyer-dimensoes');if(dimEl)dimEl.value=im.dimensoes||'';
+    const zonEl=$('flyer-zoneamento');if(zonEl)zonEl.value=im.zoneamento||'';
+  }else if(tc==='galpao'){
+    const acEl=$('flyer-area-construida');if(acEl)acEl.value=im.area||im.areaConstruida||'';
+    const pdEl=$('flyer-pe-direito');if(pdEl)pdEl.value=im.peDireito||'';
+    const dEl=$('flyer-docas');if(dEl)dEl.value=im.docas||'';
+    const vcEl=$('flyer-vagas-caminhao');if(vcEl)vcEl.value=im.vagasCaminhao||'';
+    $('flyer-banheiros').value=im.banheiros||'';
+    $('flyer-vagas').value=im.vagas||'';
+  }
+  $('flyer-infra').value=im.descricao||'';
+  $('flyer-corretor').value=s&&s.nome?s.nome:'';
+  $('flyer-whats').value=s&&s.telefone?s.telefone:'';
+  $('flyer-instagram').value=s&&s.instagram?s.instagram:'';
+  $$(`#flyer-chips .chip,#flyer-chips-lote .chip,#flyer-chips-galpao .chip`).forEach(c=>c.classList.remove('selected'));
+  carregarImagem('flyer',im);
+  buildPhotoSlots('flyer',SLOT_LABELS.flyer,im.imagens,updateFlyerPreview);
+}
+
 function updateFlyerPreview(){
   const nome=gv('flyer-nome'),slogan=gv('flyer-slogan'),endereco=gv('flyer-endereco');
   const quartos=gv('flyer-quartos'),metragem=gv('flyer-metragem'),banheiros=gv('flyer-banheiros'),vagas=gv('flyer-vagas');
+  const areaLote=gv('flyer-area-lote')||'',testada=gv('flyer-testada')||'';
+  const aconstruida=gv('flyer-area-construida')||'',peDireito=gv('flyer-pe-direito')||'';
   const infra=gv('flyer-infra'),corretor=gv('flyer-corretor'),whats=gv('flyer-whats'),insta=gv('flyer-instagram');
-  const extras=getChips('flyer-chips');
+  const extras=[...getChips('flyer-chips'),...getChips('flyer-chips-lote'),...getChips('flyer-chips-galpao')];
   let feats='';
-  const fd=[{v:quartos,i:'fa-bed',l:quartos+' Quarto'+(quartos>1?'s':'')},{v:metragem,i:'fa-vector-square',l:metragem+' m²'},{v:banheiros,i:'fa-shower',l:banheiros+' Banh.'},{v:vagas,i:'fa-car',l:vagas+' Vaga'+(vagas>1?'s':'')}];
-  fd.filter(f=>f.v).forEach(f=>{feats+=`<div class="flyer-feat-item"><div class="fi-icon"><i class="fas ${f.i}"></i></div><span>${f.l}</span></div>`;});
+  const fd=[];
+  if(quartos)fd.push({v:quartos,i:'fa-bed',l:quartos+' Quarto'+(+quartos>1?'s':'')});
+  if(metragem)fd.push({v:metragem,i:'fa-vector-square',l:metragem+' m²'});
+  if(banheiros)fd.push({v:banheiros,i:'fa-shower',l:banheiros+' Banh.'});
+  if(vagas)fd.push({v:vagas,i:'fa-car',l:vagas+' Vaga'+(+vagas>1?'s':'')});
+  if(areaLote)fd.push({v:areaLote,i:'fa-ruler-combined',l:areaLote+' m²'});
+  if(testada)fd.push({v:testada,i:'fa-arrows-alt-h',l:'Testada '+testada+'m'});
+  if(aconstruida)fd.push({v:aconstruida,i:'fa-warehouse',l:aconstruida+' m²'});
+  if(peDireito)fd.push({v:peDireito,i:'fa-arrows-alt-v',l:'Pé '+peDireito+'m'});
+  fd.forEach(f=>{feats+=`<div class="flyer-feat-item"><div class="fi-icon"><i class="fas ${f.i}"></i></div><span>${f.l}</span></div>`;});
   let items=(infra?infra.split('\n').filter(l=>l.trim()):[]).concat(extras);
   let infraHTML=items.length?`<div class="flyer-infra-section"><h3>Diferenciais</h3><ul>${items.map(it=>`<li>${it}</li>`).join('')}</ul></div>`:'';
   $('flyer-preview').innerHTML=`
@@ -762,29 +1099,40 @@ function updateFlyerPreview(){
         <p><i class="fas fa-map-marker-alt"></i> ${endereco||'[Endereço]'}</p>
       </div>
     </div>`;
-  for(let i=0;i<3;i++){const sel=$(`flyer-img-${i}`);const src=sel&&activeImgs.flyer.length?activeImgs.flyer[sel.value]:manualImages.flyer[i];setImg($(`fimg-${i}`),src);}
+  for(let i=0;i<3;i++)setImg($(`fimg-${i}`),getSlotImg('flyer',i));
   $('flyer-salvar').disabled=false;
 }
 
-/* ============ POST ============ */
+/* POST */
 function autoFillPost(im,s){
-  $('post-endereco').value=im.endereco||'';$('post-slogan').value='Seu novo lar está esperando por você';
-  $('post-quartos').value=im.quartos||'';$('post-banheiros').value=im.banheiros||'';$('post-vagas').value=im.vagas||'';$('post-area').value=im.area||'';
-  $('post-whats').value=s&&s.telefone?s.telefone:'';$('post-instagram').value='';
-  $$('#post-chips .chip').forEach(c=>c.classList.remove('selected'));
-  activeImgs.post=im.imagens||[];
-  const c=$('post-imagens');
-  if(im.imagens&&im.imagens.length){
-    let h='<div class="section-title"><i class="fas fa-images"></i> Selecionar fotos</div>';
-    ['Principal (grande)','Secundária 1','Secundária 2','Secundária 3'].forEach((lbl,i)=>{
-      h+=`<div class="form-group"><label>${lbl}</label><select id="post-img-${i}">`;
-      im.imagens.forEach((_,idx)=>h+=`<option value="${idx}">Foto ${idx+1}</option>`);h+='</select></div>';
-    });c.innerHTML=h;$('post-imagens-manual').style.display='none';
+  const tc=classificarTipo(im.tipo||im.categoria||'');
+  renderTipoBadge('post-tipo-badge',tc,im.tipo||'');
+  adaptarFormulario2('post',tc);
+  $('post-endereco').value=im.endereco||'';
+  $('post-slogan').value=tc==='lote'||tc==='terreno'?'Invista no seu futuro — lote ideal!':tc==='galpao'?'Espaço industrial perfeito para seu negócio':'Seu novo lar está esperando por você';
+  if(tc==='residencial'){
+    $('post-quartos').value=im.quartos||'';
+    $('post-banheiros').value=im.banheiros||'';
+    $('post-vagas').value=im.vagas||'';
+    $('post-area').value=im.area||'';
+  }else if(tc==='lote'||tc==='terreno'){
+    $('post-area').value=im.area||im.areaLote||'';
+    const t=$('post-testada');if(t)t.value=im.testada||'';
+    const z=$('post-zoneamento');if(z)z.value=im.zoneamento||'';
+  }else if(tc==='galpao'){
+    $('post-area').value=im.area||im.areaConstruida||'';
+    $('post-vagas').value=im.vagas||'';
   }
+  $('post-whats').value=s&&s.telefone?s.telefone:'';
+  $('post-instagram').value=s&&s.instagram?s.instagram:'';
+  $$(`#post-chips .chip,#post-chips-lote .chip,#post-chips-galpao .chip`).forEach(c=>c.classList.remove('selected'));
+  carregarImagem('post',im);
+  buildPhotoSlots('post',SLOT_LABELS.post,im.imagens,updatePostPreview);
 }
+
 function updatePostPreview(){
   const endereco=gv('post-endereco'),slogan=gv('post-slogan'),quartos=gv('post-quartos'),banheiros=gv('post-banheiros'),vagas=gv('post-vagas'),area=gv('post-area'),whats=gv('post-whats'),insta=gv('post-instagram');
-  const extras=getChips('post-chips');
+  const extras=[...getChips('post-chips'),...getChips('post-chips-lote'),...getChips('post-chips-galpao')];
   let feats='';
   if(quartos)feats+=`<div class="post-feat-chip"><i class="fas fa-bed"></i>${quartos}</div>`;
   if(banheiros)feats+=`<div class="post-feat-chip"><i class="fas fa-bath"></i>${banheiros}</div>`;
@@ -814,34 +1162,48 @@ function updatePostPreview(){
         ${tags?`<div class="post-extra-tags">${tags}</div>`:''}
       </div>
     </div>`;
-  for(let i=0;i<4;i++){const sel=$(`post-img-${i}`);const src=sel&&activeImgs.post.length?activeImgs.post[sel.value]:manualImages.post[i];setImg($(`pimg-${i}`),src);}
+  for(let i=0;i<4;i++)setImg($(`pimg-${i}`),getSlotImg('post',i));
   $('post-salvar').disabled=false;
 }
 
-/* ============ STORY ============ */
-const FEAT_ICONS=['fa-bed','fa-bath','fa-couch','fa-utensils','fa-sink','fa-car'];
+/* STORY */
+const FEAT_ICONS=['fa-bed','fa-bath','fa-couch','fa-utensils','fa-ruler-combined','fa-car'];
 function autoFillStory(im,s){
+  const tc=classificarTipo(im.tipo||im.categoria||'');
+  renderTipoBadge('story-tipo-badge',tc,im.tipo||'');
+  adaptarFormulario2('story',tc);
   let bairro='';if(im.endereco){const p=im.endereco.split(',');bairro=p[1]?p[1].trim():p[0];}
-  $('story-titulo').value='LANÇAMENTO';$('story-endereco').value=bairro;
-  $('story-f1').value=im.quartos?im.quartos+' quartos':'2 quartos';$('story-f2').value=im.banheiros?im.banheiros+' banheiros':'2 banheiros';
-  $('story-f3').value='Sala e cozinha integrados';$('story-f4').value='Sala de jantar';$('story-f5').value='Cozinha planejada';$('story-f6').value=im.vagas?im.vagas+' vagas':'1 vaga';
-  $$('#story-chips .chip').forEach(c=>c.classList.remove('selected'));
-  activeImgs.story=im.imagens||[];
-  const c=$('story-imagens');
-  if(im.imagens&&im.imagens.length){
-    let h='<div class="section-title"><i class="fas fa-images"></i> Selecionar fotos</div>';
-    ['Principal (fundo+banner)','Círculo 1','Círculo 2','Círculo 3','Círculo 4','Círculo 5','Círculo 6'].forEach((lbl,i)=>{
-      h+=`<div class="form-group"><label>${lbl}</label><select id="story-img-${i}">`;
-      im.imagens.forEach((_,idx)=>h+=`<option value="${idx}">Foto ${idx+1}</option>`);h+='</select></div>';
-    });c.innerHTML=h;$('story-imagens-manual').style.display='none';
+  $('story-titulo').value=tc==='lote'||tc==='terreno'?'LOTE À VENDA':tc==='galpao'?'GALPÃO':'LANÇAMENTO';
+  $('story-endereco').value=bairro;
+  if(tc==='residencial'){
+    $('story-f1').value=im.quartos?im.quartos+' quartos':'2 quartos';
+    $('story-f2').value=im.banheiros?im.banheiros+' banheiros':'2 banheiros';
+    $('story-f3').value='Sala e cozinha integrados';$('story-f4').value='Sala de jantar';
+    $('story-f5').value='Cozinha planejada';$('story-f6').value=im.vagas?im.vagas+' vagas':'1 vaga';
+  }else if(tc==='lote'||tc==='terreno'){
+    $('story-f1').value=im.area?im.area+' m²':'Área ampla';
+    $('story-f2').value=im.testada?'Testada '+im.testada+'m':'Testada generosa';
+    $('story-f3').value=im.zoneamento||'Zoneamento residencial';
+    $('story-f4').value='Água e luz na rua';$('story-f5').value='Acesso asfaltado';$('story-f6').value='Escritura registrada';
+  }else if(tc==='galpao'){
+    $('story-f1').value=im.area?im.area+' m²':'Ampla área';
+    $('story-f2').value=im.peDireito?'Pé-direito '+im.peDireito+'m':'Alto pé-direito';
+    $('story-f3').value=im.docas?im.docas+' docas':'Docas de carga';
+    $('story-f4').value='Piso industrial';$('story-f5').value='Trifásico 220/380V';$('story-f6').value='Guarita 24h';
   }
+  $$(`#story-chips .chip,#story-chips-lote .chip,#story-chips-galpao .chip`).forEach(c=>c.classList.remove('selected'));
+  carregarImagem('story',im);
+  buildPhotoSlots('story',SLOT_LABELS.story,im.imagens,updateStoryPreview);
 }
+
 function applyStoryChips(){
-  const vals=getChips('story-chips');const fields=['story-f1','story-f2','story-f3','story-f4','story-f5','story-f6'];
-  fields.forEach(f=>{if($(f))$(f).value='';});vals.forEach((v,i)=>{if(i<fields.length&&$(fields[i]))$(fields[i]).value=v;});
+  const vals=[...getChips('story-chips'),...getChips('story-chips-lote'),...getChips('story-chips-galpao')];
+  const fields=['story-f1','story-f2','story-f3','story-f4','story-f5','story-f6'];
+  fields.forEach(f=>{if($(f))$(f).value='';});
+  vals.forEach((v,i)=>{if(i<fields.length&&$(fields[i]))$(fields[i]).value=v;});
   updateStoryPreview();
 }
-$$('#story-chips .chip').forEach(c=>c.addEventListener('click',()=>setTimeout(applyStoryChips,50)));
+$$('#story-chips .chip,#story-chips-lote .chip,#story-chips-galpao .chip').forEach(c=>c.addEventListener('click',()=>setTimeout(applyStoryChips,50)));
 
 function updateStoryPreview(){
   const titulo=gv('story-titulo'),endereco=gv('story-endereco');
@@ -857,31 +1219,49 @@ function updateStoryPreview(){
       <div class="story-circles">${circles}</div>
       <div class="story-feats-grid">${fh}</div>
     </div>`;
-  const mainSel=$('story-img-0');const mainSrc=mainSel&&activeImgs.story.length?activeImgs.story[mainSel.value]:manualImages.story[0];
-  setImg($('story-bg'),mainSrc);setImg($('story-img-main'),mainSrc);
-  for(let i=1;i<=6;i++){const sel=$(`story-img-${i}`);const src=sel&&activeImgs.story.length?activeImgs.story[sel.value]:manualImages.story[i];setImg($(`sc-${i}`),src);}
+  setImg($('story-bg'),getSlotImg('story',0));
+  setImg($('story-img-main'),getSlotImg('story',0));
+  for(let i=1;i<=6;i++)setImg($(`sc-${i}`),getSlotImg('story',i));
   $('story-salvar').disabled=false;
 }
 
-/* ============ VERTICAL ============ */
+/* VERTICAL */
 function autoFillVertical(im,s){
-  $('vertical-titulo').value=im.titulo||'Apartamento à venda!';$('vertical-endereco').value=im.endereco||'';
-  $('vertical-f1l1').value=im.quartos?im.quartos+' quartos':'3 quartos';$('vertical-f1l2').value='sendo 1 suíte';
-  $('vertical-f2l1').value=im.banheiros?im.banheiros+' banheiros':'2 banheiros';$('vertical-f3l1').value=im.vagas?im.vagas+' vagas':'1 vaga';
-  $$('#vertical-chips .chip').forEach(c=>c.classList.remove('selected'));
-  activeImgs.vertical=im.imagens||[];
-  const c=$('vertical-imagens');
-  if(im.imagens&&im.imagens.length){
-    let h='<div class="section-title"><i class="fas fa-image"></i> Selecionar foto</div>';
-    h+='<div class="form-group"><label>Foto principal</label><select id="vertical-img-sel">';
-    im.imagens.forEach((_,idx)=>h+=`<option value="${idx}">Foto ${idx+1}</option>`);h+='</select></div>';
-    c.innerHTML=h;$('vertical-imagens-manual').style.display='none';
+  const tc=classificarTipo(im.tipo||im.categoria||'');
+  renderTipoBadge('vertical-tipo-badge',tc,im.tipo||'');
+  adaptarFormulario2('vertical',tc);
+  if(tc==='residencial'){
+    $('vertical-titulo').value=im.titulo||'Apartamento à venda!';
+    $('vertical-f1l1').value=im.quartos?im.quartos+' quartos':'3 quartos';$('vertical-f1l2').value='sendo 1 suíte';
+    $('vertical-f2l1').value=im.banheiros?im.banheiros+' banheiros':'2 banheiros';$('vertical-f3l1').value=im.vagas?im.vagas+' vagas':'1 vaga';
+  }else if(tc==='lote'||tc==='terreno'){
+    $('vertical-titulo').value=im.titulo||'Lote à venda!';
+    const al=$('vertical-area-lote');if(al)al.value=im.area||im.areaLote||'';
+    const vt=$('vertical-testada');if(vt)vt.value=im.testada?im.testada+'m':'';
+  }else if(tc==='galpao'){
+    $('vertical-titulo').value=im.titulo||'Galpão industrial!';
+    const ag=$('vertical-area-galpao');if(ag)ag.value=im.area||im.areaConstruida||'';
+    const vp=$('vertical-pe-direito');if(vp)vp.value=im.peDireito?im.peDireito+'m':'';
   }
+  $('vertical-endereco').value=im.endereco||'';
+  $$(`#vertical-chips .chip,#vertical-chips-lote .chip,#vertical-chips-galpao .chip`).forEach(c=>c.classList.remove('selected'));
+  carregarImagem('vertical',im);
+  buildPhotoSlots('vertical',SLOT_LABELS.vertical,im.imagens,updateVerticalPreview);
 }
+
 function updateVerticalPreview(){
   const titulo=gv('vertical-titulo'),endereco=gv('vertical-endereco');
   let f1l1=gv('vertical-f1l1'),f1l2=gv('vertical-f1l2'),f2l1=gv('vertical-f2l1'),f3l1=gv('vertical-f3l1');
-  const ext=getChips('vertical-chips');if(ext[0])f1l1=ext[0];if(ext[1])f2l1=ext[1];if(ext[2])f3l1=ext[2];
+  // Lote/terreno override
+  const aLote=gv('vertical-area-lote'),testada=gv('vertical-testada');
+  if(aLote){f1l1=aLote+' m²';f1l2='Área total';}
+  if(testada){f2l1='Testada '+testada;}
+  // Galpão override
+  const aGalpao=gv('vertical-area-galpao'),peDireito=gv('vertical-pe-direito');
+  if(aGalpao){f1l1=aGalpao+' m²';f1l2='Área construída';}
+  if(peDireito){f2l1='Pé-direito '+peDireito;}
+  const ext=[...getChips('vertical-chips'),...getChips('vertical-chips-lote'),...getChips('vertical-chips-galpao')];
+  if(ext[0]&&!aLote&&!aGalpao)f1l1=ext[0];if(ext[1])f2l1=ext[1];if(ext[2])f3l1=ext[2];
   let fh='';
   if(f1l1)fh+=`<div class="vpost-feat-item"><i class="fas fa-house"></i><p>${f1l1}</p>${f1l2?`<div class="sub">${f1l2}</div>`:''}</div>`;
   if(f2l1)fh+=`<div class="vpost-feat-item"><i class="fas fa-bath"></i><p>${f2l1}</p></div>`;
@@ -893,44 +1273,38 @@ function updateVerticalPreview(){
       <div class="vpost-features">${fh}</div>
       <div class="vpost-address"><i class="fas fa-map-marker-alt"></i> ${endereco||'[Endereço]'}</div>
     </div>`;
-  const sel=$('vertical-img-sel');const src=sel&&activeImgs.vertical.length?activeImgs.vertical[sel.value]:manualImages.vertical[0];setImg($('vimg-0'),src);
+  setImg($('vimg-0'),getSlotImg('vertical',0));
   $('vertical-salvar').disabled=false;
 }
-$$('#vertical-chips .chip').forEach(c=>c.addEventListener('click',()=>setTimeout(updateVerticalPreview,50)));
+$$('#vertical-chips .chip,#vertical-chips-lote .chip,#vertical-chips-galpao .chip').forEach(c=>c.addEventListener('click',()=>setTimeout(updateVerticalPreview,50)));
 
-/* ============ SETUP TOOL ============ */
-function setupTool(toolId,cfg){
-  // Seletor de imóvel (populado pelo autoSync)
-  $(`${toolId}-select`).addEventListener('change',e=>{
+/* ======================================================
+   SETUP TOOL
+   ====================================================== */
+const AUTOFILLS={flyer:autoFillFlyer,post:autoFillPost,story:autoFillStory,vertical:autoFillVertical};
+const UPDATES={flyer:updateFlyerPreview,post:updatePostPreview,story:updateStoryPreview,vertical:updateVerticalPreview};
+
+function setupTool(toolId){
+  $(toolId+'-select').addEventListener('change',e=>{
     if(!e.target.value)return;
     if(!backupData||!backupData.imoveis)return;
-    const im=backupData.imoveis.find(i=>String(i.id)==String(e.target.value));
-    if(im){
-      cfg.autoFill(im,backupData.settings);
-      cfg.update();
-      $(`${toolId}-form`).style.display='block';
-    }
+    const im=backupData.imoveis.find(i=>String(i.id)===String(e.target.value));
+    if(im){AUTOFILLS[toolId](im,backupData.settings);UPDATES[toolId]();$(toolId+'-form').style.display='block';}
   });
-  // Botão "preencher manualmente"
-  $(`${toolId}-skip`).addEventListener('click',()=>{
+  $(toolId+'-skip').addEventListener('click',()=>{
     const sec=$(toolId+'-import-section');if(sec)sec.style.display='none';
-    $(`${toolId}-form`).style.display='block';
+    $(toolId+'-form').style.display='block';
   });
-  // Fallback — input de arquivo JSON
-  const fbInput=$(toolId+'-backup');
-  if(fbInput)fbInput.addEventListener('change',e=>{
-    processBackup(e.target.files[0],()=>$(`${toolId}-form`).style.display='block');
-    e.target.value='';
-  });
-  $(`${toolId}-atualizar`).addEventListener('click',cfg.update);
-  $(`${toolId}-salvar`).addEventListener('click',()=>downloadPNG($(`${toolId}-preview`),`imobipro-${toolId}-${Date.now()}.png`,`${toolId}-salvar`,`${toolId}-progress`));
+  const fb=$(toolId+'-backup');
+  if(fb)fb.addEventListener('change',e=>{processBackup(e.target.files[0],()=>$(toolId+'-form').style.display='block');e.target.value='';});
+  $(toolId+'-atualizar').addEventListener('click',UPDATES[toolId]);
+  $(toolId+'-salvar').addEventListener('click',()=>downloadPNG($(toolId+'-preview'),`imobipro-${toolId}-${Date.now()}.png`,`${toolId}-salvar`,`${toolId}-progress`));
 }
-setupTool('flyer',{autoFill:autoFillFlyer,update:updateFlyerPreview});
-setupTool('post',{autoFill:autoFillPost,update:updatePostPreview});
-setupTool('story',{autoFill:autoFillStory,update:updateStoryPreview});
-setupTool('vertical',{autoFill:autoFillVertical,update:updateVerticalPreview});
+['flyer','post','story','vertical'].forEach(setupTool);
 
-/* NAVEGAÇÃO */
+/* ======================================================
+   NAVEGAÇÃO
+   ====================================================== */
 $$('.nav-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     $$('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
@@ -939,13 +1313,13 @@ $$('.nav-btn').forEach(btn=>{
 });
 
 /* REALTIME UPDATE */
-[['flyer',updateFlyerPreview,['flyer-nome','flyer-slogan','flyer-endereco','flyer-quartos','flyer-metragem','flyer-banheiros','flyer-vagas','flyer-corretor','flyer-whats','flyer-instagram','flyer-infra']],
- ['post',updatePostPreview,['post-endereco','post-slogan','post-quartos','post-banheiros','post-vagas','post-area','post-whats','post-instagram']],
+[['flyer',updateFlyerPreview,['flyer-nome','flyer-slogan','flyer-endereco','flyer-quartos','flyer-metragem','flyer-banheiros','flyer-vagas','flyer-corretor','flyer-whats','flyer-instagram','flyer-infra','flyer-area-lote','flyer-testada','flyer-dimensoes','flyer-zoneamento','flyer-area-construida','flyer-pe-direito','flyer-docas','flyer-vagas-caminhao']],
+ ['post',updatePostPreview,['post-endereco','post-slogan','post-quartos','post-banheiros','post-vagas','post-area','post-whats','post-instagram','post-testada','post-zoneamento']],
  ['story',updateStoryPreview,['story-titulo','story-endereco','story-f1','story-f2','story-f3','story-f4','story-f5','story-f6']],
- ['vertical',updateVerticalPreview,['vertical-titulo','vertical-endereco','vertical-f1l1','vertical-f1l2','vertical-f2l1','vertical-f3l1']]
+ ['vertical',updateVerticalPreview,['vertical-titulo','vertical-endereco','vertical-f1l1','vertical-f1l2','vertical-f2l1','vertical-f3l1','vertical-area-lote','vertical-testada','vertical-area-galpao','vertical-pe-direito']]
 ].forEach(([,fn,ids])=>ids.forEach(id=>{const e=$(id);if(e)e.addEventListener('input',fn);}));
 
-/* ===== INICIALIZAÇÃO: lê ImobiPro automaticamente ao carregar ===== */
+/* INIT */
 autoSync_();
 
 })();
