@@ -1,1216 +1,805 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>ImobiPro Criativos Mobile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            background-color: #e9e9e9;
-            font-family: 'Montserrat', sans-serif;
-            padding: 10px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .tool-nav {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 15px;
-            background: #fff;
-            padding: 8px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .nav-btn {
-            flex: 1 0 auto;
-            padding: 12px 8px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            background-color: #f0f0f0;
-            color: #555;
-            transition: 0.2s;
-            min-width: 70px;
-            cursor: pointer;
-        }
-        .nav-btn.active {
-            background-color: #6a3a41;
-            color: white;
-        }
-        .tool-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .tool-wrapper[hidden] { display: none; }
-        .controls {
-            background: #fff;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            width: 100%;
-        }
-        .controls h2 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #b99a8b;
-            padding-bottom: 5px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-        .form-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .form-grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-        }
-        .checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 10px 0;
-        }
-        .checkbox-group label {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 400;
-            cursor: pointer;
-        }
-        .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 10px;
-        }
-        .btn-primary {
-            background-color: #6a3a41;
-            color: white;
-        }
-        .btn-secondary {
-            background-color: #b99a8b;
-            color: white;
-        }
-        .btn-skip {
-            background: none;
-            border: none;
-            color: #6a3a41;
-            text-decoration: underline;
-            font-size: 0.9rem;
-            margin-top: 5px;
-            cursor: pointer;
-        }
-        .output-area {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .preview-container {
-            width: 100%;
-            max-width: 450px;
-            margin: 0 auto;
-            background: #fff;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        .img-placeholder {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #f0f0f0;
-            color: #999;
-            font-size: 0.9rem;
-            border: 2px dashed #ccc;
-            min-height: 80px;
-            width: 100%;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>ImobiPro — Criativos Profissionais</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root {
+  --brand-dark:#1a0e10;--brand-primary:#6a3a41;--brand-mid:#9b5f68;--brand-light:#c9a08a;
+  --brand-cream:#f7f2ed;--brand-gold:#c8a96e;--accent-blue:#004a91;--accent-green:#3a4d33;
+  --text-primary:#1a1a1a;--text-muted:#6b7280;--border:#e5e7eb;--bg-app:#f0ece8;--bg-card:#ffffff;
+  --radius-sm:8px;--radius-md:14px;--radius-lg:22px;--radius-xl:32px;
+  --shadow-sm:0 1px 4px rgba(0,0,0,.08);--shadow-md:0 4px 16px rgba(0,0,0,.12);--shadow-lg:0 10px 40px rgba(0,0,0,.18);
+  --t:.22s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-primary);min-height:100vh;overflow-x:hidden}
+/* HEADER */
+.app-header{background:var(--brand-dark);padding:13px 18px 11px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.4)}
+.app-logo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:900;color:#fff;letter-spacing:-.5px}
+.app-logo span{color:var(--brand-gold)}
+.app-tagline{font-size:.68rem;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-left:auto}
+/* NAV */
+.tool-nav{display:flex;background:var(--brand-dark);padding:0 14px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:1px solid rgba(255,255,255,.06)}
+.tool-nav::-webkit-scrollbar{display:none}
+.nav-btn{flex:0 0 auto;padding:8px 16px;border:none;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);transition:var(--t);cursor:pointer;white-space:nowrap;letter-spacing:.02em;margin-right:5px;display:flex;align-items:center;gap:5px}
+.nav-btn:hover{background:rgba(255,255,255,.14);color:#fff}
+.nav-btn.active{background:var(--brand-primary);color:#fff;box-shadow:0 3px 12px rgba(106,58,65,.5)}
+.nav-btn i{font-size:.75rem}
+/* BODY */
+.app-body{padding:14px}
+.tool-wrapper{display:flex;flex-direction:column;gap:14px;animation:fadeIn .28s ease}
+.tool-wrapper[hidden]{display:none}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* PANEL */
+.panel{background:var(--bg-card);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);overflow:hidden}
+.panel-header{padding:15px 18px 13px;background:linear-gradient(135deg,var(--brand-primary),var(--brand-mid));display:flex;align-items:center;gap:9px}
+.panel-header h2{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:-.3px}
+.panel-header i{color:rgba(255,255,255,.65);font-size:.95rem}
+.panel-body{padding:18px}
+/* IMPORT SECTION */
+.import-section{background:linear-gradient(135deg,#fdf8f5,#f7ede8);border:1.5px dashed var(--brand-light);border-radius:var(--radius-md);padding:14px;margin-bottom:14px}
+.import-label{font-size:.75rem;font-weight:700;color:var(--brand-primary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px;display:flex;align-items:center;gap:6px}
+/* FORM */
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:.73rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:.93rem;color:var(--text-primary);background:#fafafa;transition:var(--t);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--brand-primary);background:#fff;box-shadow:0 0 0 3px rgba(106,58,65,.1)}
+.form-group input[type="file"]{padding:8px 12px;font-size:.82rem;cursor:pointer}
+.form-group input:disabled,.form-group select:disabled{opacity:.45;cursor:not-allowed}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
+/* CHIPS */
+.chips-group{display:flex;flex-wrap:wrap;gap:7px;margin:7px 0}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:50px;border:1.5px solid var(--border);background:#f9f9f9;font-size:.75rem;font-weight:600;color:var(--text-muted);cursor:pointer;transition:var(--t);user-select:none}
+.chip:hover{border-color:var(--brand-primary);color:var(--brand-primary)}
+.chip input[type="checkbox"]{display:none}
+.chip.selected{background:var(--brand-primary);border-color:var(--brand-primary);color:#fff}
+.chip i{font-size:.65rem}
+/* SECTION TITLE */
+.section-title{font-size:.71rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--brand-primary);margin:16px 0 9px;display:flex;align-items:center;gap:7px}
+.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--brand-light),transparent)}
+/* BUTTONS */
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:12px 18px;border:none;border-radius:var(--radius-md);font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:var(--t);letter-spacing:.02em}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:linear-gradient(135deg,var(--brand-primary),var(--brand-mid));color:#fff;box-shadow:0 4px 16px rgba(106,58,65,.35);margin-top:5px}
+.btn-primary:hover{box-shadow:0 6px 20px rgba(106,58,65,.45);transform:translateY(-1px)}
+.btn-save{background:linear-gradient(135deg,var(--brand-gold),#e0b87a);color:#3a2505;box-shadow:0 4px 14px rgba(200,169,110,.4);margin-bottom:12px}
+.btn-save:hover{box-shadow:0 6px 20px rgba(200,169,110,.5);transform:translateY(-1px)}
+.btn-save:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-skip{background:none;border:none;color:var(--brand-primary);font-size:.8rem;font-weight:600;text-decoration:underline;cursor:pointer;padding:4px 0;font-family:inherit}
+/* IMAGE UPLOAD WIDGET */
+.img-upload-widget{display:flex;gap:9px;align-items:center;padding:9px 11px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:#fafafa;cursor:pointer;transition:var(--t)}
+.img-upload-widget:hover{border-color:var(--brand-primary);background:#fff}
+.img-upload-widget .thumb{width:42px;height:42px;border-radius:8px;background:#eee;background-size:cover;background-position:center;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:.85rem}
+.img-upload-widget .meta{flex:1;min-width:0}
+.img-upload-widget .meta strong{display:block;font-size:.8rem;font-weight:600;color:var(--text-primary)}
+.img-upload-widget .meta span{font-size:.72rem;color:var(--text-muted)}
+.img-upload-widget input[type="file"]{display:none}
+.img-upload-widget .status-dot{width:8px;height:8px;border-radius:50%;background:#d1d5db;flex-shrink:0}
+.img-upload-widget.has-image .status-dot{background:#22c55e}
+/* OUTPUT */
+.output-panel{display:flex;flex-direction:column;align-items:center}
+.preview-wrapper{width:100%;max-width:450px;margin:0 auto;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);background:#fff}
+.preview-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);text-align:center;margin-bottom:9px}
+.img-placeholder{display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(135deg,#f0f0f0,#e8e8e8);color:#bbb;font-size:.73rem;font-weight:500;gap:4px;border:2px dashed #d4d4d4}
+.img-placeholder::before{content:'\f03e';font-family:'Font Awesome 6 Free';font-weight:900;font-size:1.3rem;color:#ccc}
+/* PROGRESS */
+.save-progress{width:100%;height:3px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:7px;display:none}
+.save-progress.active{display:block}
+.save-progress-bar{height:100%;background:linear-gradient(to right,var(--brand-gold),var(--brand-light));border-radius:3px;animation:progressAnim 1.5s ease-in-out infinite}
+@keyframes progressAnim{0%{width:0%}50%{width:70%}100%{width:100%}}
+/* TOAST */
+#toast-container{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:7px;pointer-events:none}
+.toast{background:var(--brand-dark);color:#fff;padding:9px 17px;border-radius:50px;font-size:.82rem;font-weight:600;display:flex;align-items:center;gap:7px;box-shadow:0 6px 20px rgba(0,0,0,.3);animation:toastIn .28s ease,toastOut .28s ease 2.5s forwards;white-space:nowrap}
+.toast.success i{color:#22c55e}.toast.error i{color:#ef4444}.toast.info i{color:var(--brand-gold)}
+@keyframes toastIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes toastOut{from{opacity:1}to{opacity:0;transform:translateY(20px)}}
+/* IMPORT STATUS */
+.import-status{display:flex;align-items:center;gap:7px;padding:7px 11px;border-radius:var(--radius-sm);font-size:.78rem;font-weight:600;margin-top:7px}
+.import-status.ok{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
+.import-status i{font-size:.82rem}
 
-        /* ===== FLYER ===== */
-        #flyer-preview {
-            width: 100%;
-            max-width: 450px;
-            background: #fdfaf8;
-            font-family: 'Montserrat', sans-serif;
-        }
-        .flyer-header {
-            position: relative;
-            padding: 1.5rem 1rem;
-            min-height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        .op-text {
-            font-family: 'EB Garamond', serif;
-            font-size: 0.9rem;
-            color: #b99a8b;
-            font-weight: 600;
-        }
-        .flyer-img-left, .flyer-img-right {
-            width: 90px;
-            height: 140px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 6px;
-        }
-        .flyer-img-center {
-            width: 120px;
-            height: 170px;
-            position: relative;
-        }
-        .flyer-img-center .frame {
-            position: absolute;
-            inset: 0;
-            border: 3px solid #b99a8b;
-            z-index: 1;
-        }
-        .flyer-img-center .bg {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-        }
-        .flyer-title-section {
-            background: #6a3a41;
-            color: white;
-            text-align: center;
-            padding: 1.2rem;
-        }
-        .flyer-title-section h1 { font-size: 1.8rem; margin-bottom: 5px; }
-        .flyer-title-section p { font-size: 1.1rem; }
-        .flyer-features {
-            display: flex;
-            justify-content: space-around;
-            padding: 1.2rem 0.5rem;
-            flex-wrap: wrap;
-        }
-        .flyer-feature {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 70px;
-            margin: 5px;
-        }
-        .flyer-feature i { font-size: 1.8rem; color: #333; }
-        .flyer-feature span { font-size: 0.9rem; font-weight: 600; text-align: center; }
-        .flyer-infra {
-            padding: 0 1rem 1rem;
-            border-top: 1px solid #eee;
-        }
-        .flyer-infra ul { list-style: none; padding-left: 0; }
-        .flyer-infra li { padding-left: 1.2rem; position: relative; margin-bottom: 5px; }
-        .flyer-infra li::before { content: '•'; color: #b99a8b; font-weight: bold; position: absolute; left: 0; }
-        .flyer-footer {
-            display: flex;
-            justify-content: space-between;
-            padding: 1.5rem 1rem;
-            border-top: 2px solid #eee;
-        }
-        .flyer-broker h2 { font-family: 'EB Garamond', serif; font-size: 1.8rem; margin: 0; }
-        .flyer-broker p { font-size: 0.9rem; }
-        .flyer-contact p { margin: 5px 0; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+/* =============================================================
+   FLYER PREVIEW
+============================================================= */
+#flyer-preview{width:100%;background:#fdfaf8;font-family:'DM Sans',sans-serif}
+.flyer-hero{position:relative;background:var(--brand-dark);padding:1.2rem 1rem;min-height:210px;display:flex;align-items:center;justify-content:center;gap:8px;overflow:hidden}
+.flyer-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 110%,rgba(106,58,65,.45) 0%,transparent 65%);pointer-events:none}
+.flyer-watermark{font-family:'Playfair Display',serif;font-size:.6rem;font-weight:700;color:rgba(200,169,110,.4);letter-spacing:.2em;text-transform:uppercase;position:absolute;top:8px;left:8px}
+.flyer-watermark.r{right:8px;left:auto}
+.flyer-img-side{width:95px;height:148px;background-size:cover;background-position:center;border-radius:10px;border:2px solid rgba(200,169,110,.45);flex-shrink:0}
+.flyer-img-center{width:130px;height:178px;position:relative;flex-shrink:0}
+.flyer-img-center .frame-border{position:absolute;inset:-4px;border:2px solid var(--brand-gold);border-radius:10px;z-index:1}
+.flyer-img-center .bg{width:100%;height:100%;background-size:cover;background-position:center;border-radius:8px}
+.flyer-badge{position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);background:var(--brand-gold);color:var(--brand-dark);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:3px 10px;border-radius:20px;white-space:nowrap;z-index:3;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+.flyer-title-band{background:linear-gradient(135deg,var(--brand-primary) 0%,#4a1f26 100%);color:white;text-align:center;padding:1.3rem 1rem 1.1rem}
+.flyer-title-band h1{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:900;letter-spacing:-.5px;margin-bottom:3px}
+.flyer-title-band .subtitle{font-size:.88rem;opacity:.72;font-weight:400}
+.flyer-features{display:flex;justify-content:space-around;padding:1rem .5rem;flex-wrap:wrap;background:var(--brand-cream);border-bottom:1px solid var(--border)}
+.flyer-feat-item{display:flex;flex-direction:column;align-items:center;min-width:60px;margin:4px;gap:4px}
+.flyer-feat-item .fi-icon{width:36px;height:36px;border-radius:50%;background:var(--brand-primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem}
+.flyer-feat-item span{font-size:.76rem;font-weight:600;color:var(--text-primary);text-align:center}
+.flyer-infra-section{padding:.85rem 1rem}
+.flyer-infra-section h3{font-family:'Playfair Display',serif;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--brand-primary);margin-bottom:7px}
+.flyer-infra-section ul{list-style:none;padding:0}
+.flyer-infra-section li{padding:3px 0 3px 15px;position:relative;font-size:.8rem;color:var(--text-muted)}
+.flyer-infra-section li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--brand-gold)}
+.flyer-footer{display:flex;justify-content:space-between;align-items:center;padding:1rem;border-top:2px solid #1a1a1a;background:var(--brand-dark);color:#fff;gap:8px}
+.flyer-broker-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--brand-gold)}
+.flyer-broker-role{font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-top:1px}
+.flyer-contact-info p{display:flex;align-items:center;gap:6px;font-size:.76rem;color:rgba(255,255,255,.78);margin:4px 0}
+.flyer-contact-info i{color:var(--brand-gold);width:13px}
 
-        /* ===== POST ===== */
-        #post-preview {
-            width: 100%;
-            max-width: 450px;
-            height: 450px;
-            display: flex;
-            background: #fff;
-        }
-        .post-left {
-            width: 60%;
-            height: 100%;
-            position: relative;
-            background: #eee;
-        }
-        #post-img-main {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-        }
-        #post-slogan {
-            position: absolute;
-            top: 20px;
-            left: 15px;
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #000;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
-        }
-        #post-features {
-            position: absolute;
-            bottom: 20px;
-            left: 15px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 8px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        .post-feature-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
-        }
-        .post-right {
-            width: 40%;
-            height: 100%;
-            background: #E1D9D1;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .post-secondary {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .post-secondary-img {
-            width: 100%;
-            height: 80px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 6px;
-        }
-        .post-contact p {
-            margin: 8px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        .post-extra-features {
-            margin-top: 10px;
-            font-size: 0.8rem;
-            background: rgba(255,255,255,0.5);
-            padding: 5px;
-            border-radius: 6px;
-        }
-        .post-extra-features span {
-            display: inline-block;
-            background: #6a3a41;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 12px;
-            margin: 2px;
-        }
+/* =============================================================
+   POST PREVIEW
+============================================================= */
+#post-preview{width:100%;max-width:450px;height:450px;display:flex;background:#fff;font-family:'DM Sans',sans-serif;overflow:hidden}
+.post-left{width:60%;height:100%;position:relative;flex-shrink:0}
+#pimg-0{width:100%;height:100%;background-size:cover;background-position:center}
+.post-ov-top{position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,transparent 100%)}
+.post-ov-bot{position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%)}
+#post-slogan-el{position:absolute;top:13px;left:11px;right:7px;font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1.25;z-index:2;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+#post-feats-el{position:absolute;bottom:11px;left:9px;right:7px;z-index:2;display:flex;flex-wrap:wrap;gap:4px}
+.post-feat-chip{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);color:#fff;padding:3px 8px;border-radius:20px;font-size:.68rem;font-weight:600}
+.post-right{flex:1;height:100%;background:linear-gradient(160deg,var(--brand-primary) 0%,var(--brand-dark) 100%);padding:13px 11px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.post-right-logo{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:900;color:var(--brand-gold);letter-spacing:-.3px;margin-bottom:8px}
+.post-right-logo span{color:rgba(255,255,255,.45);font-size:.62rem;font-weight:400;display:block;font-family:'DM Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.post-imgs-stack{display:flex;flex-direction:column;gap:6px;flex:1}
+.post-secondary-img{flex:1;background-size:cover;background-position:center;border-radius:7px;min-height:55px;border:1.5px solid rgba(255,255,255,.1)}
+.post-contact-block{margin-top:7px}
+.post-contact-block p{display:flex;align-items:center;gap:5px;font-size:.7rem;color:rgba(255,255,255,.72);margin:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.post-contact-block i{color:var(--brand-gold);width:11px}
+.post-extra-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.post-extra-tag{background:rgba(200,169,110,.2);color:var(--brand-gold);border:1px solid rgba(200,169,110,.3);padding:2px 6px;border-radius:9px;font-size:.6rem;font-weight:600}
+.post-addr{font-size:.66rem;color:rgba(255,255,255,.46);margin-top:5px;display:flex;align-items:flex-start;gap:4px;line-height:1.4}
 
-        /* ===== STORY ===== */
-        #story-preview {
-            width: 100%;
-            max-width: 400px;
-            height: 700px;
-            position: relative;
-            overflow: hidden;
-            background: #f0f0f0;
-        }
-        #story-bg {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            filter: blur(20px) brightness(0.8);
-            transform: scale(1.1);
-        }
-        .story-content {
-            position: relative;
-            z-index: 2;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 15px;
-            gap: 10px;
-        }
-        #story-img-main {
-            height: 35%;
-            background-size: cover;
-            background-position: center;
-            border-radius: 15px;
-            border: 2px solid white;
-        }
-        .story-title {
-            background: rgba(255,255,255,0.9);
-            border-radius: 30px;
-            padding: 10px 15px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 1.8rem;
-            color: #f39c12;
-            margin-top: 10px;
-        }
-        .story-address {
-            background: rgba(255,255,255,0.9);
-            border-radius: 30px;
-            padding: 8px 15px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1rem;
-            margin: 0 10px;
-        }
-        .story-circles {
-            display: flex;
-            justify-content: space-around;
-            padding: 0 5px;
-        }
-        .story-circle {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background-size: cover;
-            background-position: center;
-            border: 3px solid white;
-        }
-        .story-features-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            padding: 0 5px;
-        }
-        .story-feature {
-            background: #004a91;
-            color: white;
-            border-radius: 20px;
-            padding: 8px 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-        }
-        .story-feature i { width: 18px; text-align: center; }
+/* =============================================================
+   STORY PREVIEW
+============================================================= */
+#story-preview{width:100%;max-width:400px;height:720px;position:relative;overflow:hidden;background:#e8e0d8;font-family:'DM Sans',sans-serif}
+#story-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(22px) brightness(.62) saturate(.8);transform:scale(1.15)}
+.story-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;padding:13px 11px;gap:8px}
+#story-img-main{height:31%;background-size:cover;background-position:center;border-radius:18px;border:2.5px solid rgba(255,255,255,.6);box-shadow:0 8px 24px rgba(0,0,0,.3);flex-shrink:0}
+.story-badge-row{display:flex;justify-content:center}
+.story-title-pill{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-radius:50px;padding:8px 20px;text-align:center;font-family:'Playfair Display',serif;font-weight:900;font-size:1.6rem;color:var(--brand-primary);letter-spacing:-.5px;box-shadow:0 4px 20px rgba(0,0,0,.15);line-height:1}
+.story-addr-pill{background:rgba(0,0,0,.38);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:50px;padding:7px 15px;text-align:center;font-size:.82rem;font-weight:600;color:#fff;display:flex;align-items:center;justify-content:center;gap:5px;margin:0 8px}
+.story-addr-pill i{color:var(--brand-gold);font-size:.76rem}
+.story-circles{display:flex;justify-content:space-between;flex-wrap:wrap;gap:7px;padding:0 2px}
+.story-circle{width:96px;height:96px;border-radius:50%;background-size:cover;background-position:center;border:3px solid rgba(255,255,255,.85);box-shadow:0 4px 16px rgba(0,0,0,.3);flex-shrink:0}
+.story-feats-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 2px}
+.story-feat-card{background:rgba(0,74,145,.8);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);color:white;border-radius:13px;padding:7px 9px;display:flex;align-items:center;gap:7px;font-size:.78rem;font-weight:500}
+.story-feat-card i{width:25px;height:25px;border-radius:7px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0}
 
-        /* ===== POST VERTICAL ===== */
-        #vertical-preview {
-            width: 100%;
-            max-width: 400px;
-            background: #dde3d5;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .vpost-bubble {
-            background: #3a4d33;
-            color: white;
-            border-radius: 30px;
-            padding: 15px;
-            text-align: center;
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .vpost-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%) rotate(45deg);
-            width: 24px;
-            height: 24px;
-            background: #3a4d33;
-        }
-        .vpost-bubble h1 { font-size: 1.8rem; margin-bottom: 5px; }
-        .vpost-bubble p { font-size: 1rem; }
-        .vpost-frame {
-            background: #b3a28c;
-            border-radius: 20px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        #vpost-img-main {
-            width: 100%;
-            height: 220px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 15px;
-        }
-        .vpost-features {
-            display: flex;
-            justify-content: space-between;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .vpost-feature {
-            background: #b3a28c;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            padding: 12px 5px;
-            text-align: center;
-            flex: 1 0 auto;
-            color: #4d433b;
-        }
-        .vpost-feature i { font-size: 1.8rem; margin-bottom: 5px; }
-        .vpost-feature p { font-size: 0.8rem; font-weight: 600; }
-        .vpost-address {
-            background: #3a4d33;
-            color: white;
-            border-radius: 20px;
-            padding: 12px;
-            text-align: center;
-            font-weight: 600;
-        }
-        .hidden-feature { display: none !important; }
-    </style>
+/* =============================================================
+   VERTICAL PREVIEW
+============================================================= */
+#vertical-preview{width:100%;max-width:400px;background:#dde3d5;padding:18px 14px;display:flex;flex-direction:column;gap:13px;font-family:'DM Sans',sans-serif}
+.vpost-bubble{background:linear-gradient(135deg,var(--accent-green),#2e3d28);color:white;border-radius:var(--radius-xl);padding:17px 15px;text-align:center;position:relative;margin-bottom:15px;box-shadow:0 6px 20px rgba(58,77,51,.35)}
+.vpost-bubble::after{content:'';position:absolute;bottom:-12px;left:50%;transform:translateX(-50%) rotate(45deg);width:25px;height:25px;background:#2e3d28}
+.vpost-bubble h1{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:900;letter-spacing:-.5px;margin-bottom:4px}
+.vpost-bubble p{font-size:.85rem;opacity:.72}
+.vpost-frame{background:rgba(255,255,255,.55);backdrop-filter:blur(4px);border-radius:var(--radius-lg);padding:13px;display:flex;flex-direction:column;gap:13px;border:1.5px solid rgba(255,255,255,.7);box-shadow:0 4px 16px rgba(0,0,0,.08)}
+#vimg-0{width:100%;height:230px;background-size:cover;background-position:center;border-radius:var(--radius-md);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.vpost-features{display:flex;justify-content:space-around;gap:7px}
+.vpost-feat-item{background:var(--accent-green);border-radius:var(--radius-md);padding:11px 7px;text-align:center;flex:1;color:#fff;display:flex;flex-direction:column;align-items:center;gap:4px}
+.vpost-feat-item i{font-size:1.2rem;color:rgba(255,255,255,.65)}
+.vpost-feat-item p{font-size:.73rem;font-weight:600;line-height:1.3}
+.vpost-feat-item .sub{font-size:.62rem;opacity:.62;font-weight:400}
+.vpost-address{background:linear-gradient(135deg,var(--accent-green),#2e3d28);color:white;border-radius:var(--radius-md);padding:10px 13px;text-align:center;font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
+.vpost-address i{color:rgba(255,255,255,.55)}
+
+@media(max-width:420px){.story-circle{width:80px;height:80px}.flyer-img-side{width:78px;height:120px}.flyer-img-center{width:110px;height:155px}}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--brand-light);border-radius:10px}
+</style>
 </head>
 <body>
-    <nav class="tool-nav">
-        <button class="nav-btn active" data-tool="flyer">Panfleto</button>
-        <button class="nav-btn" data-tool="post">Post</button>
-        <button class="nav-btn" data-tool="story">Story</button>
-        <button class="nav-btn" data-tool="vertical">Vertical</button>
-    </nav>
 
-    <!-- FLYER -->
-    <div id="flyer-tool" class="tool-wrapper">
-        <div class="controls">
-            <h2>Panfleto</h2>
-            <div class="form-group">
-                <label>Carregar backup (.json)</label>
-                <input type="file" id="flyer-backup" accept=".json">
-            </div>
-            <div class="form-group">
-                <label>Selecionar imóvel</label>
-                <select id="flyer-select" disabled><option>Carregue um backup</option></select>
-                <button class="btn-skip" id="flyer-skip">Preencher manual</button>
-            </div>
-            <form id="flyer-form" style="display:none">
-                <div class="form-group"><label>Endereço</label><input type="text" id="flyer-endereco"></div>
-                <div class="form-group"><label>Nome do imóvel</label><input type="text" id="flyer-nome"></div>
-                <div class="form-group"><label>Slogan</label><input type="text" id="flyer-slogan"></div>
-                <div class="form-grid-2">
-                    <div><label>Quartos</label><input type="text" id="flyer-quartos"></div>
-                    <div><label>Metragem</label><input type="text" id="flyer-metragem"></div>
-                    <div><label>Banheiros</label><input type="text" id="flyer-banheiros"></div>
-                    <div><label>Vagas</label><input type="text" id="flyer-vagas"></div>
-                </div>
-                <div class="form-group"><label>Infraestrutura (linhas)</label><textarea id="flyer-infra" rows="3"></textarea></div>
-                
-                <!-- Novos checkboxes para recursos adicionais -->
-                <div class="form-group">
-                    <label>Recursos adicionais (selecione para incluir)</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" id="flyer-recurso1" value="Sala e cozinha integrados"> Sala e cozinha integrados</label>
-                        <label><input type="checkbox" id="flyer-recurso2" value="Suíte reversível"> Suíte reversível</label>
-                        <label><input type="checkbox" id="flyer-recurso3" value="Área de serviço"> Área de serviço</label>
-                        <label><input type="checkbox" id="flyer-recurso4" value="Garagem rotativa"> Garagem rotativa</label>
-                    </div>
-                </div>
+<header class="app-header">
+  <div class="app-logo">Imobi<span>Pro</span></div>
+  <div class="app-tagline">Criativos Profissionais</div>
+</header>
 
-                <div id="flyer-imagens"></div>
-                <h3>Seus dados</h3>
-                <div class="form-group"><label>Nome corretor</label><input type="text" id="flyer-corretor"></div>
-                <div class="form-group"><label>WhatsApp</label><input type="text" id="flyer-whats"></div>
-                <div class="form-group"><label>Instagram</label><input type="text" id="flyer-instagram"></div>
-                <button type="button" class="btn btn-primary" id="flyer-atualizar">Atualizar</button>
-            </form>
+<nav class="tool-nav">
+  <button class="nav-btn active" data-tool="flyer"><i class="fas fa-file-alt"></i> Panfleto</button>
+  <button class="nav-btn" data-tool="post"><i class="fas fa-th-large"></i> Post</button>
+  <button class="nav-btn" data-tool="story"><i class="fas fa-mobile-alt"></i> Story</button>
+  <button class="nav-btn" data-tool="vertical"><i class="fas fa-portrait"></i> Vertical</button>
+</nav>
+
+<div class="app-body">
+
+<!-- ======= FLYER ======= -->
+<div id="flyer-tool" class="tool-wrapper">
+  <div class="panel">
+    <div class="panel-header"><i class="fas fa-file-alt"></i><h2>Panfleto Imobiliário</h2></div>
+    <div class="panel-body">
+      <div class="import-section">
+        <div class="import-label"><i class="fas fa-database"></i> Importar dados do backup</div>
+        <div class="form-group"><label>Backup JSON</label><input type="file" id="flyer-backup" accept=".json"></div>
+        <div class="form-group"><label>Selecionar imóvel</label><select id="flyer-select" disabled><option value="">— Carregue um backup primeiro —</option></select></div>
+        <div id="flyer-import-status"></div>
+        <button class="btn-skip" id="flyer-skip">ou preencher manualmente →</button>
+      </div>
+      <div id="flyer-form" style="display:none">
+        <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
+        <div class="form-group"><label>Nome / Empreendimento</label><input type="text" id="flyer-nome" placeholder="Ex: Residencial Bella Vista"></div>
+        <div class="form-group"><label>Slogan</label><input type="text" id="flyer-slogan" placeholder="Ex: Seu lar dos sonhos está aqui"></div>
+        <div class="form-group"><label>Endereço</label><input type="text" id="flyer-endereco" placeholder="Rua, Bairro – Cidade"></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>Quartos</label><input type="text" id="flyer-quartos" placeholder="3"></div>
+          <div class="form-group"><label>Metragem (m²)</label><input type="text" id="flyer-metragem" placeholder="85"></div>
+          <div class="form-group"><label>Banheiros</label><input type="text" id="flyer-banheiros" placeholder="2"></div>
+          <div class="form-group"><label>Vagas</label><input type="text" id="flyer-vagas" placeholder="1"></div>
         </div>
-        <div class="output-area">
-            <button class="btn btn-secondary" id="flyer-salvar" disabled>Salvar PNG</button>
-            <div class="preview-container" id="flyer-preview"></div>
+        <div class="form-group"><label>Diferenciais (um por linha)</label><textarea id="flyer-infra" rows="3" placeholder="Piscina&#10;Academia&#10;Playground"></textarea></div>
+        <div class="section-title"><i class="fas fa-tags"></i> Recursos adicionais</div>
+        <div class="chips-group" id="flyer-chips">
+          <label class="chip" data-val="Sala e cozinha integrados"><input type="checkbox"><i class="fas fa-plus"></i> Sala integrada</label>
+          <label class="chip" data-val="Suíte reversível"><input type="checkbox"><i class="fas fa-plus"></i> Suíte reversível</label>
+          <label class="chip" data-val="Área de serviço"><input type="checkbox"><i class="fas fa-plus"></i> Área de serviço</label>
+          <label class="chip" data-val="Garagem rotativa"><input type="checkbox"><i class="fas fa-plus"></i> Garagem rotativa</label>
+          <label class="chip" data-val="Varanda gourmet"><input type="checkbox"><i class="fas fa-plus"></i> Varanda gourmet</label>
+          <label class="chip" data-val="Pé-direito duplo"><input type="checkbox"><i class="fas fa-plus"></i> Pé-direito duplo</label>
         </div>
+        <div class="section-title"><i class="fas fa-images"></i> Fotos do imóvel</div>
+        <div id="flyer-imagens-manual">
+          <div class="img-upload-widget" id="flyer-mw-0" onclick="document.getElementById('flyer-mf-0').click()">
+            <div class="thumb" id="flyer-mt-0"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto lateral esquerda</strong><span>Clique para selecionar</span></div>
+            <div class="status-dot" id="flyer-ms-0"></div>
+            <input type="file" id="flyer-mf-0" accept="image/*">
+          </div>
+          <div class="img-upload-widget" id="flyer-mw-1" onclick="document.getElementById('flyer-mf-1').click()" style="margin-top:7px">
+            <div class="thumb" id="flyer-mt-1"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto central (destaque)</strong><span>Clique para selecionar</span></div>
+            <div class="status-dot" id="flyer-ms-1"></div>
+            <input type="file" id="flyer-mf-1" accept="image/*">
+          </div>
+          <div class="img-upload-widget" id="flyer-mw-2" onclick="document.getElementById('flyer-mf-2').click()" style="margin-top:7px">
+            <div class="thumb" id="flyer-mt-2"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto lateral direita</strong><span>Clique para selecionar</span></div>
+            <div class="status-dot" id="flyer-ms-2"></div>
+            <input type="file" id="flyer-mf-2" accept="image/*">
+          </div>
+        </div>
+        <div id="flyer-imagens"></div>
+        <div class="section-title"><i class="fas fa-user-tie"></i> Seus dados</div>
+        <div class="form-group"><label>Nome do(a) corretor(a)</label><input type="text" id="flyer-corretor" placeholder="João Silva"></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>WhatsApp</label><input type="text" id="flyer-whats" placeholder="(82) 9 9999-9999"></div>
+          <div class="form-group"><label>Instagram</label><input type="text" id="flyer-instagram" placeholder="@seuperfil"></div>
+        </div>
+        <button type="button" class="btn btn-primary" id="flyer-atualizar"><i class="fas fa-sync-alt"></i> Gerar Panfleto</button>
+      </div>
     </div>
+  </div>
+  <div class="output-panel">
+    <div class="save-progress" id="flyer-progress"><div class="save-progress-bar"></div></div>
+    <button class="btn btn-save" id="flyer-salvar" disabled><i class="fas fa-download"></i> Salvar PNG</button>
+    <div class="preview-label">Pré-visualização do Panfleto</div>
+    <div class="preview-wrapper" id="flyer-preview"></div>
+  </div>
+</div>
 
-    <!-- POST -->
-    <div id="post-tool" class="tool-wrapper" hidden>
-        <div class="controls">
-            <h2>Post Quadrado</h2>
-            <div class="form-group">
-                <label>Carregar backup (.json)</label>
-                <input type="file" id="post-backup" accept=".json">
-            </div>
-            <div class="form-group">
-                <label>Selecionar imóvel</label>
-                <select id="post-select" disabled><option>Carregue um backup</option></select>
-                <button class="btn-skip" id="post-skip">Preencher manual</button>
-            </div>
-            <form id="post-form" style="display:none">
-                <div class="form-group"><label>Endereço</label><input type="text" id="post-endereco"></div>
-                <div class="form-group"><label>Slogan</label><input type="text" id="post-slogan" value="Get Your Own Perfect Home"></div>
-                <div class="form-grid-2">
-                    <div><label>Quartos</label><input type="text" id="post-quartos"></div>
-                    <div><label>Banheiros</label><input type="text" id="post-banheiros"></div>
-                    <div><label>Vagas</label><input type="text" id="post-vagas"></div>
-                    <div><label>Área</label><input type="text" id="post-area"></div>
-                </div>
-
-                <!-- Recursos adicionais para Post -->
-                <div class="form-group">
-                    <label>Recursos adicionais (selecione para incluir)</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" id="post-recurso1" value="Sala e cozinha integrados"> Sala e cozinha integrados</label>
-                        <label><input type="checkbox" id="post-recurso2" value="Suíte reversível"> Suíte reversível</label>
-                        <label><input type="checkbox" id="post-recurso3" value="Área de serviço"> Área de serviço</label>
-                        <label><input type="checkbox" id="post-recurso4" value="Garagem rotativa"> Garagem rotativa</label>
-                    </div>
-                </div>
-
-                <div id="post-imagens"></div>
-                <div class="form-group"><label>Instagram</label><input type="text" id="post-instagram"></div>
-                <div class="form-group"><label>WhatsApp</label><input type="text" id="post-whats"></div>
-                <button type="button" class="btn btn-primary" id="post-atualizar">Atualizar</button>
-            </form>
+<!-- ======= POST ======= -->
+<div id="post-tool" class="tool-wrapper" hidden>
+  <div class="panel">
+    <div class="panel-header"><i class="fas fa-th-large"></i><h2>Post Quadrado (Feed)</h2></div>
+    <div class="panel-body">
+      <div class="import-section">
+        <div class="import-label"><i class="fas fa-database"></i> Importar dados do backup</div>
+        <div class="form-group"><label>Backup JSON</label><input type="file" id="post-backup" accept=".json"></div>
+        <div class="form-group"><label>Selecionar imóvel</label><select id="post-select" disabled><option value="">— Carregue um backup primeiro —</option></select></div>
+        <div id="post-import-status"></div>
+        <button class="btn-skip" id="post-skip">ou preencher manualmente →</button>
+      </div>
+      <div id="post-form" style="display:none">
+        <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
+        <div class="form-group"><label>Endereço</label><input type="text" id="post-endereco" placeholder="Bairro – Cidade"></div>
+        <div class="form-group"><label>Slogan</label><input type="text" id="post-slogan" value="Seu novo lar está esperando por você"></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>Quartos</label><input type="text" id="post-quartos" placeholder="3"></div>
+          <div class="form-group"><label>Banheiros</label><input type="text" id="post-banheiros" placeholder="2"></div>
+          <div class="form-group"><label>Vagas</label><input type="text" id="post-vagas" placeholder="1"></div>
+          <div class="form-group"><label>Área (m²)</label><input type="text" id="post-area" placeholder="85"></div>
         </div>
-        <div class="output-area">
-            <button class="btn btn-secondary" id="post-salvar" disabled>Salvar PNG</button>
-            <div class="preview-container" id="post-preview"></div>
+        <div class="section-title"><i class="fas fa-tags"></i> Recursos adicionais</div>
+        <div class="chips-group" id="post-chips">
+          <label class="chip" data-val="Sala integrada"><input type="checkbox"><i class="fas fa-plus"></i> Sala integrada</label>
+          <label class="chip" data-val="Suíte reversível"><input type="checkbox"><i class="fas fa-plus"></i> Suíte reversível</label>
+          <label class="chip" data-val="Área de serviço"><input type="checkbox"><i class="fas fa-plus"></i> Área de serviço</label>
+          <label class="chip" data-val="Varanda gourmet"><input type="checkbox"><i class="fas fa-plus"></i> Varanda gourmet</label>
         </div>
+        <div class="section-title"><i class="fas fa-images"></i> Fotos do imóvel</div>
+        <div id="post-imagens-manual">
+          <div class="img-upload-widget" onclick="document.getElementById('post-mf-0').click()">
+            <div class="thumb" id="post-mt-0"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto principal</strong><span>Imagem de destaque</span></div>
+            <div class="status-dot" id="post-ms-0"></div>
+            <input type="file" id="post-mf-0" accept="image/*">
+          </div>
+          <div class="img-upload-widget" onclick="document.getElementById('post-mf-1').click()" style="margin-top:7px">
+            <div class="thumb" id="post-mt-1"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto secundária 1</strong><span>Painel direito</span></div>
+            <div class="status-dot" id="post-ms-1"></div>
+            <input type="file" id="post-mf-1" accept="image/*">
+          </div>
+          <div class="img-upload-widget" onclick="document.getElementById('post-mf-2').click()" style="margin-top:7px">
+            <div class="thumb" id="post-mt-2"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto secundária 2</strong><span>Painel direito</span></div>
+            <div class="status-dot" id="post-ms-2"></div>
+            <input type="file" id="post-mf-2" accept="image/*">
+          </div>
+          <div class="img-upload-widget" onclick="document.getElementById('post-mf-3').click()" style="margin-top:7px">
+            <div class="thumb" id="post-mt-3"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto secundária 3</strong><span>Painel direito</span></div>
+            <div class="status-dot" id="post-ms-3"></div>
+            <input type="file" id="post-mf-3" accept="image/*">
+          </div>
+        </div>
+        <div id="post-imagens"></div>
+        <div class="section-title"><i class="fas fa-phone"></i> Contato</div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>WhatsApp</label><input type="text" id="post-whats" placeholder="(82) 9 9999-9999"></div>
+          <div class="form-group"><label>Instagram</label><input type="text" id="post-instagram" placeholder="@seuperfil"></div>
+        </div>
+        <button type="button" class="btn btn-primary" id="post-atualizar"><i class="fas fa-sync-alt"></i> Gerar Post</button>
+      </div>
     </div>
+  </div>
+  <div class="output-panel">
+    <div class="save-progress" id="post-progress"><div class="save-progress-bar"></div></div>
+    <button class="btn btn-save" id="post-salvar" disabled><i class="fas fa-download"></i> Salvar PNG</button>
+    <div class="preview-label">Pré-visualização do Post</div>
+    <div class="preview-wrapper" id="post-preview"></div>
+  </div>
+</div>
 
-    <!-- STORY -->
-    <div id="story-tool" class="tool-wrapper" hidden>
-        <div class="controls">
-            <h2>Story</h2>
-            <div class="form-group">
-                <label>Carregar backup (.json)</label>
-                <input type="file" id="story-backup" accept=".json">
-            </div>
-            <div class="form-group">
-                <label>Selecionar imóvel</label>
-                <select id="story-select" disabled><option>Carregue um backup</option></select>
-                <button class="btn-skip" id="story-skip">Preencher manual</button>
-            </div>
-            <form id="story-form" style="display:none">
-                <div class="form-group"><label>Título</label><input type="text" id="story-titulo" value="LANÇAMENTO"></div>
-                <div class="form-group"><label>Endereço (bairro/cidade)</label><input type="text" id="story-endereco"></div>
-                
-                <!-- Seis campos de recurso (originais) -->
-                <div class="form-grid-3">
-                    <div><label>Recurso 1</label><input type="text" id="story-f1"></div>
-                    <div><label>Recurso 2</label><input type="text" id="story-f2"></div>
-                    <div><label>Recurso 3</label><input type="text" id="story-f3"></div>
-                    <div><label>Recurso 4</label><input type="text" id="story-f4"></div>
-                    <div><label>Recurso 5</label><input type="text" id="story-f5"></div>
-                    <div><label>Recurso 6</label><input type="text" id="story-f6"></div>
-                </div>
-
-                <!-- Checkboxes para preencher automaticamente os recursos -->
-                <div class="form-group">
-                    <label>Recursos rápidos (clique para preencher os campos acima)</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" id="story-recurso1" value="Sala e cozinha integrados"> Sala e cozinha integrados</label>
-                        <label><input type="checkbox" id="story-recurso2" value="Suíte reversível"> Suíte reversível</label>
-                        <label><input type="checkbox" id="story-recurso3" value="Área de serviço"> Área de serviço</label>
-                        <label><input type="checkbox" id="story-recurso4" value="Garagem rotativa"> Garagem rotativa</label>
-                    </div>
-                    <small>Marque para preencher os primeiros campos disponíveis (sobrescreve).</small>
-                </div>
-
-                <div id="story-imagens"></div>
-                <button type="button" class="btn btn-primary" id="story-atualizar">Atualizar</button>
-            </form>
+<!-- ======= STORY ======= -->
+<div id="story-tool" class="tool-wrapper" hidden>
+  <div class="panel">
+    <div class="panel-header"><i class="fas fa-mobile-alt"></i><h2>Story (9:16)</h2></div>
+    <div class="panel-body">
+      <div class="import-section">
+        <div class="import-label"><i class="fas fa-database"></i> Importar dados do backup</div>
+        <div class="form-group"><label>Backup JSON</label><input type="file" id="story-backup" accept=".json"></div>
+        <div class="form-group"><label>Selecionar imóvel</label><select id="story-select" disabled><option value="">— Carregue um backup primeiro —</option></select></div>
+        <div id="story-import-status"></div>
+        <button class="btn-skip" id="story-skip">ou preencher manualmente →</button>
+      </div>
+      <div id="story-form" style="display:none">
+        <div class="section-title"><i class="fas fa-font"></i> Textos</div>
+        <div class="form-group"><label>Título (badge)</label><input type="text" id="story-titulo" value="LANÇAMENTO"></div>
+        <div class="form-group"><label>Localização</label><input type="text" id="story-endereco" placeholder="Antares – Maceió"></div>
+        <div class="section-title"><i class="fas fa-list"></i> Características</div>
+        <div class="form-grid-3">
+          <div class="form-group"><label>Item 1</label><input type="text" id="story-f1"></div>
+          <div class="form-group"><label>Item 2</label><input type="text" id="story-f2"></div>
+          <div class="form-group"><label>Item 3</label><input type="text" id="story-f3"></div>
+          <div class="form-group"><label>Item 4</label><input type="text" id="story-f4"></div>
+          <div class="form-group"><label>Item 5</label><input type="text" id="story-f5"></div>
+          <div class="form-group"><label>Item 6</label><input type="text" id="story-f6"></div>
         </div>
-        <div class="output-area">
-            <button class="btn btn-secondary" id="story-salvar" disabled>Salvar PNG</button>
-            <div class="preview-container" id="story-preview"></div>
+        <div class="section-title"><i class="fas fa-magic"></i> Preenchimento rápido</div>
+        <div class="chips-group" id="story-chips">
+          <label class="chip" data-val="Sala integrada"><input type="checkbox"><i class="fas fa-plus"></i> Sala integrada</label>
+          <label class="chip" data-val="Suíte reversível"><input type="checkbox"><i class="fas fa-plus"></i> Suíte reversível</label>
+          <label class="chip" data-val="Área de serviço"><input type="checkbox"><i class="fas fa-plus"></i> Área de serviço</label>
+          <label class="chip" data-val="Garagem rotativa"><input type="checkbox"><i class="fas fa-plus"></i> Garagem rotativa</label>
+          <label class="chip" data-val="Varanda gourmet"><input type="checkbox"><i class="fas fa-plus"></i> Varanda gourmet</label>
+          <label class="chip" data-val="Pé-direito duplo"><input type="checkbox"><i class="fas fa-plus"></i> Pé-direito duplo</label>
         </div>
+        <div class="section-title"><i class="fas fa-images"></i> Fotos (principal + 6 círculos)</div>
+        <div id="story-imagens-manual">
+          <div class="img-upload-widget" onclick="document.getElementById('story-mf-0').click()">
+            <div class="thumb" id="story-mt-0"><i class="fas fa-star"></i></div>
+            <div class="meta"><strong>Foto principal</strong><span>Fundo desfocado + banner</span></div>
+            <div class="status-dot" id="story-ms-0"></div>
+            <input type="file" id="story-mf-0" accept="image/*">
+          </div>
+          <div id="story-circle-uploads" style="display:flex;flex-direction:column;gap:7px;margin-top:7px"></div>
+        </div>
+        <div id="story-imagens"></div>
+        <button type="button" class="btn btn-primary" id="story-atualizar"><i class="fas fa-sync-alt"></i> Gerar Story</button>
+      </div>
     </div>
+  </div>
+  <div class="output-panel">
+    <div class="save-progress" id="story-progress"><div class="save-progress-bar"></div></div>
+    <button class="btn btn-save" id="story-salvar" disabled><i class="fas fa-download"></i> Salvar PNG</button>
+    <div class="preview-label">Pré-visualização do Story</div>
+    <div class="preview-wrapper" id="story-preview"></div>
+  </div>
+</div>
 
-    <!-- VERTICAL -->
-    <div id="vertical-post-tool" class="tool-wrapper" hidden>
-        <div class="controls">
-            <h2>Post Vertical</h2>
-            <div class="form-group">
-                <label>Carregar backup (.json)</label>
-                <input type="file" id="vertical-backup" accept=".json">
-            </div>
-            <div class="form-group">
-                <label>Selecionar imóvel</label>
-                <select id="vertical-select" disabled><option>Carregue um backup</option></select>
-                <button class="btn-skip" id="vertical-skip">Preencher manual</button>
-            </div>
-            <form id="vertical-form" style="display:none">
-                <div class="form-group"><label>Título</label><input type="text" id="vertical-titulo" value="Casa à venda!"></div>
-                <div class="form-group"><label>Endereço</label><input type="text" id="vertical-endereco"></div>
-                <div class="form-grid-2">
-                    <div><label>Recurso 1 (linha1)</label><input type="text" id="vertical-f1l1"></div>
-                    <div><label>Recurso 1 (linha2)</label><input type="text" id="vertical-f1l2"></div>
-                    <div><label>Recurso 2</label><input type="text" id="vertical-f2l1"></div>
-                    <div><label>Recurso 3</label><input type="text" id="vertical-f3l1"></div>
-                </div>
-
-                <!-- Checkboxes para recursos adicionais no vertical -->
-                <div class="form-group">
-                    <label>Recursos adicionais (preenchem os campos acima, prioridade ordem)</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" id="vertical-recurso1" value="Sala e cozinha integrados"> Sala e cozinha integrados</label>
-                        <label><input type="checkbox" id="vertical-recurso2" value="Suíte reversível"> Suíte reversível</label>
-                        <label><input type="checkbox" id="vertical-recurso3" value="Área de serviço"> Área de serviço</label>
-                        <label><input type="checkbox" id="vertical-recurso4" value="Garagem rotativa"> Garagem rotativa</label>
-                    </div>
-                </div>
-
-                <div id="vertical-imagens"></div>
-                <button type="button" class="btn btn-primary" id="vertical-atualizar">Atualizar</button>
-            </form>
+<!-- ======= VERTICAL ======= -->
+<div id="vertical-tool" class="tool-wrapper" hidden>
+  <div class="panel">
+    <div class="panel-header"><i class="fas fa-portrait"></i><h2>Post Vertical</h2></div>
+    <div class="panel-body">
+      <div class="import-section">
+        <div class="import-label"><i class="fas fa-database"></i> Importar dados do backup</div>
+        <div class="form-group"><label>Backup JSON</label><input type="file" id="vertical-backup" accept=".json"></div>
+        <div class="form-group"><label>Selecionar imóvel</label><select id="vertical-select" disabled><option value="">— Carregue um backup primeiro —</option></select></div>
+        <div id="vertical-import-status"></div>
+        <button class="btn-skip" id="vertical-skip">ou preencher manualmente →</button>
+      </div>
+      <div id="vertical-form" style="display:none">
+        <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
+        <div class="form-group"><label>Título</label><input type="text" id="vertical-titulo" value="Apartamento à venda!"></div>
+        <div class="form-group"><label>Endereço</label><input type="text" id="vertical-endereco" placeholder="Bairro – Cidade"></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>Recurso 1</label><input type="text" id="vertical-f1l1" placeholder="3 quartos"></div>
+          <div class="form-group"><label>Detalhe 1</label><input type="text" id="vertical-f1l2" placeholder="sendo 1 suíte"></div>
+          <div class="form-group"><label>Recurso 2</label><input type="text" id="vertical-f2l1" placeholder="2 banheiros"></div>
+          <div class="form-group"><label>Recurso 3</label><input type="text" id="vertical-f3l1" placeholder="1 vaga"></div>
         </div>
-        <div class="output-area">
-            <button class="btn btn-secondary" id="vertical-salvar" disabled>Salvar PNG</button>
-            <div class="preview-container" id="vertical-preview"></div>
+        <div class="section-title"><i class="fas fa-tags"></i> Recursos adicionais</div>
+        <div class="chips-group" id="vertical-chips">
+          <label class="chip" data-val="Sala integrada"><input type="checkbox"><i class="fas fa-plus"></i> Sala integrada</label>
+          <label class="chip" data-val="Suíte reversível"><input type="checkbox"><i class="fas fa-plus"></i> Suíte reversível</label>
+          <label class="chip" data-val="Área de serviço"><input type="checkbox"><i class="fas fa-plus"></i> Área de serviço</label>
+          <label class="chip" data-val="Garagem rotativa"><input type="checkbox"><i class="fas fa-plus"></i> Garagem rotativa</label>
         </div>
+        <div class="section-title"><i class="fas fa-image"></i> Foto principal</div>
+        <div id="vertical-imagens-manual">
+          <div class="img-upload-widget" onclick="document.getElementById('vertical-mf-0').click()">
+            <div class="thumb" id="vertical-mt-0"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto do imóvel</strong><span>Clique para selecionar</span></div>
+            <div class="status-dot" id="vertical-ms-0"></div>
+            <input type="file" id="vertical-mf-0" accept="image/*">
+          </div>
+        </div>
+        <div id="vertical-imagens"></div>
+        <button type="button" class="btn btn-primary" id="vertical-atualizar"><i class="fas fa-sync-alt"></i> Gerar Post Vertical</button>
+      </div>
     </div>
+  </div>
+  <div class="output-panel">
+    <div class="save-progress" id="vertical-progress"><div class="save-progress-bar"></div></div>
+    <button class="btn btn-save" id="vertical-salvar" disabled><i class="fas fa-download"></i> Salvar PNG</button>
+    <div class="preview-label">Pré-visualização do Post Vertical</div>
+    <div class="preview-wrapper" id="vertical-preview"></div>
+  </div>
+</div>
 
-    <script>
-        (function(){
-            // Utilitários
-            function readFileAsBase64(file) {
-                return new Promise((resolve) => {
-                    if (!file) resolve(null);
-                    const reader = new FileReader();
-                    reader.onload = e => resolve(e.target.result);
-                    reader.onerror = () => resolve(null);
-                    reader.readAsDataURL(file);
-                });
-            }
+</div><!-- /.app-body -->
+<div id="toast-container"></div>
 
-            function downloadPNG(element, filename, btn) {
-                const original = btn.innerHTML;
-                btn.disabled = true;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gerando...';
-                html2canvas(element, { scale: 1.5, useCORS: true }).then(canvas => {
-                    const link = document.createElement('a');
-                    link.download = filename;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                }).finally(() => {
-                    btn.disabled = false;
-                    btn.innerHTML = original;
-                });
-            }
+<script>
+(function(){'use strict';
+const $=id=>document.getElementById(id);
+const $$=s=>document.querySelectorAll(s);
 
-            function setImage(el, base64, placeholderClass = 'img-placeholder') {
-                if (base64) {
-                    el.style.backgroundImage = `url(${base64})`;
-                    el.classList.remove(placeholderClass);
-                    el.textContent = '';
-                } else {
-                    el.style.backgroundImage = 'none';
-                    el.classList.add(placeholderClass);
-                    el.textContent = 'Sem imagem';
-                }
-            }
+/* TOAST */
+function toast(msg,type='info'){
+  const icons={success:'fa-check-circle',error:'fa-times-circle',info:'fa-info-circle'};
+  const el=document.createElement('div');el.className=`toast ${type}`;
+  el.innerHTML=`<i class="fas ${icons[type]}"></i> ${msg}`;
+  $('toast-container').appendChild(el);setTimeout(()=>el.remove(),3000);
+}
 
-            // Estado global
-            let backupData = null;
+/* BASE64 */
+function readBase64(file){return new Promise(res=>{if(!file)return res(null);const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=()=>res(null);r.readAsDataURL(file);});}
 
-            // Processa backup
-            function processBackup(file, toolPrefix, callback) {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    try {
-                        const parsed = JSON.parse(e.target.result);
-                        if (!parsed.imoveis || !parsed.settings) throw new Error('Backup inválido');
-                        backupData = parsed;
-                        const select = document.getElementById(toolPrefix + '-select');
-                        select.innerHTML = '<option value="">Selecione um imóvel</option>';
-                        backupData.imoveis.forEach(im => {
-                            const opt = document.createElement('option');
-                            opt.value = im.id;
-                            opt.textContent = im.titulo || 'Sem título';
-                            select.appendChild(opt);
-                        });
-                        select.disabled = false;
-                        alert('Backup carregado!');
-                        callback();
-                    } catch (err) {
-                        alert('Erro ao ler backup: ' + err.message);
-                    }
-                };
-                reader.readAsText(file);
-            }
+/* SET IMAGE */
+function setImg(el,src){
+  if(!el)return;
+  if(src){el.style.backgroundImage=`url(${src})`;el.classList.remove('img-placeholder');el.innerHTML='';}
+  else{el.style.backgroundImage='';el.classList.add('img-placeholder');}
+}
 
-            // ========== FLYER ==========
-            function autoFillFlyer(imovel, settings) {
-                document.getElementById('flyer-endereco').value = imovel.endereco || '';
-                document.getElementById('flyer-nome').value = imovel.titulo || '';
-                document.getElementById('flyer-slogan').value = '';
-                document.getElementById('flyer-quartos').value = imovel.quartos || '';
-                document.getElementById('flyer-metragem').value = imovel.area || '';
-                document.getElementById('flyer-banheiros').value = imovel.banheiros || '';
-                document.getElementById('flyer-vagas').value = imovel.vagas || '';
-                document.getElementById('flyer-infra').value = imovel.descricao || '';
-                document.getElementById('flyer-corretor').value = settings.nome || '';
-                document.getElementById('flyer-whats').value = settings.telefone || '';
-                document.getElementById('flyer-instagram').value = '';
+/* GET VALUE */
+function gv(id){const e=$(id);return e?e.value.trim():'';}
 
-                // Limpar checkboxes
-                document.querySelectorAll('#flyer-form input[type=checkbox]').forEach(cb => cb.checked = false);
+/* GET CHIPS */
+function getChips(cid){const c=[];$$(`#${cid} .chip.selected`).forEach(ch=>c.push(ch.dataset.val));return c;}
 
-                // Imagens
-                const container = document.getElementById('flyer-imagens');
-                if (imovel.imagens && imovel.imagens.length) {
-                    let html = '<h3>Selecionar imagens</h3>';
-                    for (let i = 0; i < 3; i++) {
-                        html += `<div class="form-group"><label>Imagem ${i+1}</label><select id="flyer-img-${i}">`;
-                        imovel.imagens.forEach((_, idx) => html += `<option value="${idx}">Imagem ${idx+1}</option>`);
-                        html += '</select></div>';
-                    }
-                    container.innerHTML = html;
-                } else {
-                    container.innerHTML = '<p>Sem imagens no imóvel. Use upload manual (não implementado).</p>';
-                }
-            }
+/* DOWNLOAD PNG */
+async function downloadPNG(el,filename,btnId,progId){
+  const btn=$(btnId),prog=$(progId),orig=btn.innerHTML;
+  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Gerando...';prog.classList.add('active');
+  try{
+    const canvas=await html2canvas(el,{scale:2,useCORS:true,allowTaint:true,logging:false});
+    const link=document.createElement('a');link.download=filename;link.href=canvas.toDataURL('image/png');link.click();
+    toast('Imagem salva!','success');
+  }catch(e){toast('Erro ao gerar imagem.','error');}
+  finally{btn.disabled=false;btn.innerHTML=orig;prog.classList.remove('active');}
+}
 
-            function updateFlyerPreview() {
-                const endereco = document.getElementById('flyer-endereco').value;
-                const nome = document.getElementById('flyer-nome').value;
-                const slogan = document.getElementById('flyer-slogan').value;
-                const quartos = document.getElementById('flyer-quartos').value;
-                const metragem = document.getElementById('flyer-metragem').value;
-                const banheiros = document.getElementById('flyer-banheiros').value;
-                const vagas = document.getElementById('flyer-vagas').value;
-                const infra = document.getElementById('flyer-infra').value;
-                const corretor = document.getElementById('flyer-corretor').value;
-                const whats = document.getElementById('flyer-whats').value;
-                const insta = document.getElementById('flyer-instagram').value;
+/* CHIPS TOGGLE */
+$$('.chip').forEach(chip=>{
+  chip.addEventListener('click',()=>{
+    chip.classList.toggle('selected');
+    const cb=chip.querySelector('input[type=checkbox]');if(cb)cb.checked=chip.classList.contains('selected');
+  });
+});
 
-                // Coletar recursos adicionais marcados
-                const recursos = [];
-                if (document.getElementById('flyer-recurso1').checked) recursos.push(document.getElementById('flyer-recurso1').value);
-                if (document.getElementById('flyer-recurso2').checked) recursos.push(document.getElementById('flyer-recurso2').value);
-                if (document.getElementById('flyer-recurso3').checked) recursos.push(document.getElementById('flyer-recurso3').value);
-                if (document.getElementById('flyer-recurso4').checked) recursos.push(document.getElementById('flyer-recurso4').value);
+/* MANUAL IMAGES STATE */
+const manualImages={flyer:[null,null,null],post:[null,null,null,null],story:[null,null,null,null,null,null,null],vertical:[null]};
 
-                let html = `
-                    <div class="flyer-header">
-                        <span class="op-text" style="position:absolute; top:10px; left:10px;">OPORTUNIDADE</span>
-                        <span class="op-text" style="position:absolute; top:10px; right:10px;">OPORTUNIDADE</span>
-                        <div style="display:flex; gap:5px; align-items:center;">
-                            <div id="flyer-img1" class="flyer-img-left img-placeholder"></div>
-                            <div class="flyer-img-center">
-                                <div class="frame"></div>
-                                <div id="flyer-img2" class="bg img-placeholder"></div>
-                            </div>
-                            <div id="flyer-img3" class="flyer-img-right img-placeholder"></div>
-                        </div>
-                        <span class="op-text" style="position:absolute; bottom:10px; left:10px;">OPORTUNIDADE</span>
-                        <span class="op-text" style="position:absolute; bottom:10px; right:10px;">OPORTUNIDADE</span>
-                    </div>
-                    <div class="flyer-title-section">
-                        <h1>${nome || '[Nome]'}</h1>
-                        <p>${slogan || '[Slogan]'}</p>
-                    </div>
-                    <div class="flyer-features">
-                `;
-                if (quartos) html += `<div class="flyer-feature"><i class="fas fa-bed"></i><span>${quartos} Quartos</span></div>`;
-                if (metragem) html += `<div class="flyer-feature"><i class="fas fa-vector-square"></i><span>${metragem} m²</span></div>`;
-                if (banheiros) html += `<div class="flyer-feature"><i class="fas fa-shower"></i><span>${banheiros} Banheiros</span></div>`;
-                if (vagas) html += `<div class="flyer-feature"><i class="fas fa-car"></i><span>${vagas} Vagas</span></div>`;
-                html += `</div>`;
+function setupUpload(inputId,thumbId,statusId,widgetId,onLoad){
+  const inp=$(inputId);if(!inp)return;
+  inp.addEventListener('change',async()=>{
+    const b64=await readBase64(inp.files[0]);if(!b64)return;
+    const th=$(thumbId);if(th){th.style.backgroundImage=`url(${b64})`;th.innerHTML='';}
+    const wd=$(widgetId);if(wd)wd.classList.add('has-image');
+    const sd=$(statusId);if(sd)sd.style.background='#22c55e';
+    if(onLoad)onLoad(b64);
+  });
+}
 
-                // Construir lista de infra + recursos adicionais
-                let infraItems = [];
-                if (infra.trim()) {
-                    infraItems = infra.split('\n').filter(l => l.trim()).map(l => l.trim());
-                }
-                // Adicionar recursos marcados
-                infraItems = infraItems.concat(recursos);
+// Flyer manual
+for(let i=0;i<3;i++){const idx=i;setupUpload(`flyer-mf-${i}`,`flyer-mt-${i}`,`flyer-ms-${i}`,`flyer-mw-${i}`,b64=>{manualImages.flyer[idx]=b64;});}
+// Post manual
+for(let i=0;i<4;i++){const idx=i;setupUpload(`post-mf-${i}`,`post-mt-${i}`,`post-ms-${i}`,null,b64=>{manualImages.post[idx]=b64;});}
+// Story main
+setupUpload('story-mf-0','story-mt-0','story-ms-0',null,b64=>{manualImages.story[0]=b64;});
+// Story circles - build dynamically
+const scc=$('story-circle-uploads');
+for(let i=1;i<=6;i++){
+  const idx=i;
+  const div=document.createElement('div');div.className='img-upload-widget';div.id=`story-cw-${i}`;
+  div.innerHTML=`<div class="thumb" id="story-ct-${i}"><i class="fas fa-circle-notch"></i></div><div class="meta"><strong>Círculo ${i}</strong><span>Clique para selecionar</span></div><div class="status-dot" id="story-cs-${i}"></div><input type="file" id="story-cf-${i}" accept="image/*">`;
+  div.onclick=()=>$(`story-cf-${i}`).click();scc.appendChild(div);
+  setupUpload(`story-cf-${idx}`,`story-ct-${idx}`,`story-cs-${idx}`,`story-cw-${idx}`,b64=>{manualImages.story[idx]=b64;});
+}
+// Vertical manual
+setupUpload('vertical-mf-0','vertical-mt-0','vertical-ms-0',null,b64=>{manualImages.vertical[0]=b64;});
 
-                if (infraItems.length > 0) {
-                    let itemsHtml = infraItems.map(item => `<li>${item}</li>`).join('');
-                    html += `<div class="flyer-infra"><ul>${itemsHtml}</ul></div>`;
-                }
+/* GLOBAL STATE */
+let backupData=null;
+const activeImgs={flyer:[],post:[],story:[],vertical:[]};
 
-                html += `<div class="flyer-footer">
-                    <div class="flyer-broker"><h2>${corretor || '[Nome]'}</h2><p>CORRETOR(A) DE IMÓVEIS</p></div>
-                    <div class="flyer-contact">
-                        <p><i class="fab fa-whatsapp"></i> ${whats || '[Whats]'}</p>
-                        <p><i class="fab fa-instagram"></i> ${insta || '[Insta]'}</p>
-                        <p><i class="fas fa-map-marker-alt"></i> ${endereco || '[Endereço]'}</p>
-                    </div>
-                </div>`;
+function getImg(toolId,idx){
+  return (activeImgs[toolId]&&activeImgs[toolId][idx])||manualImages[toolId][idx]||null;
+}
 
-                document.getElementById('flyer-preview').innerHTML = html;
+/* BACKUP */
+function processBackup(file,toolId,cb){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const p=JSON.parse(e.target.result);
+      if(!p.imoveis||!Array.isArray(p.imoveis))throw new Error('Formato de backup inválido');
+      backupData=p;
+      const sel=$(`${toolId}-select`);
+      sel.innerHTML='<option value="">— Selecione um imóvel —</option>';
+      backupData.imoveis.forEach(im=>{const o=document.createElement('option');o.value=im.id;o.textContent=im.titulo||'Sem título';sel.appendChild(o);});
+      sel.disabled=false;
+      const st=$(`${toolId}-import-status`);
+      if(st)st.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${backupData.imoveis.length} imóvel(is) carregado(s)</div>`;
+      toast(`Backup carregado — ${backupData.imoveis.length} imóvel(is)!`,'success');
+      cb();
+    }catch(err){toast('Erro: '+err.message,'error');}
+  };reader.readAsText(file);
+}
 
-                if (backupData && document.getElementById('flyer-img-0')) {
-                    const imovel = backupData.imoveis.find(i => i.id == document.getElementById('flyer-select').value);
-                    if (imovel && imovel.imagens) {
-                        for (let i = 0; i < 3; i++) {
-                            const sel = document.getElementById(`flyer-img-${i}`);
-                            if (sel) setImage(document.getElementById(`flyer-img${i+1}`), imovel.imagens[sel.value]);
-                        }
-                    }
-                }
-                document.getElementById('flyer-salvar').disabled = false;
-            }
+/* ============ FLYER ============ */
+function autoFillFlyer(im,s){
+  $('flyer-nome').value=im.titulo||'';$('flyer-slogan').value='';$('flyer-endereco').value=im.endereco||'';
+  $('flyer-quartos').value=im.quartos||'';$('flyer-metragem').value=im.area||'';
+  $('flyer-banheiros').value=im.banheiros||'';$('flyer-vagas').value=im.vagas||'';
+  $('flyer-infra').value=im.descricao||'';
+  $('flyer-corretor').value=s&&s.nome?s.nome:'';$('flyer-whats').value=s&&s.telefone?s.telefone:'';$('flyer-instagram').value='';
+  $$('#flyer-chips .chip').forEach(c=>c.classList.remove('selected'));
+  activeImgs.flyer=im.imagens||[];
+  const c=$('flyer-imagens');
+  if(im.imagens&&im.imagens.length){
+    let h='<div class="section-title"><i class="fas fa-images"></i> Selecionar fotos</div>';
+    ['Lateral esquerda','Central (destaque)','Lateral direita'].forEach((lbl,i)=>{
+      h+=`<div class="form-group"><label>${lbl}</label><select id="flyer-img-${i}">`;
+      im.imagens.forEach((_,idx)=>h+=`<option value="${idx}">Foto ${idx+1}</option>`);h+='</select></div>';
+    });c.innerHTML=h;$('flyer-imagens-manual').style.display='none';
+  }
+}
+function updateFlyerPreview(){
+  const nome=gv('flyer-nome'),slogan=gv('flyer-slogan'),endereco=gv('flyer-endereco');
+  const quartos=gv('flyer-quartos'),metragem=gv('flyer-metragem'),banheiros=gv('flyer-banheiros'),vagas=gv('flyer-vagas');
+  const infra=gv('flyer-infra'),corretor=gv('flyer-corretor'),whats=gv('flyer-whats'),insta=gv('flyer-instagram');
+  const extras=getChips('flyer-chips');
+  let feats='';
+  const fd=[{v:quartos,i:'fa-bed',l:quartos+' Quarto'+(quartos>1?'s':'')},{v:metragem,i:'fa-vector-square',l:metragem+' m²'},{v:banheiros,i:'fa-shower',l:banheiros+' Banh.'},{v:vagas,i:'fa-car',l:vagas+' Vaga'+(vagas>1?'s':'')}];
+  fd.filter(f=>f.v).forEach(f=>{feats+=`<div class="flyer-feat-item"><div class="fi-icon"><i class="fas ${f.i}"></i></div><span>${f.l}</span></div>`;});
+  let items=(infra?infra.split('\n').filter(l=>l.trim()):[]).concat(extras);
+  let infraHTML=items.length?`<div class="flyer-infra-section"><h3>Diferenciais</h3><ul>${items.map(it=>`<li>${it}</li>`).join('')}</ul></div>`:'';
+  $('flyer-preview').innerHTML=`
+    <div class="flyer-hero">
+      <span class="flyer-watermark">Exclusivo</span><span class="flyer-watermark r">Exclusivo</span>
+      <div id="fimg-0" class="flyer-img-side img-placeholder" style="min-height:148px"></div>
+      <div class="flyer-img-center"><div class="frame-border"></div><div id="fimg-1" class="bg img-placeholder" style="min-height:178px"></div><div class="flyer-badge">${nome||'Imóvel'}</div></div>
+      <div id="fimg-2" class="flyer-img-side img-placeholder" style="min-height:148px"></div>
+    </div>
+    <div class="flyer-title-band"><h1>${nome||'[Nome do Imóvel]'}</h1><div class="subtitle">${slogan||'Realize o sonho da casa própria'}</div></div>
+    <div class="flyer-features">${feats}</div>
+    ${infraHTML}
+    <div class="flyer-footer">
+      <div><div class="flyer-broker-name">${corretor||'[Corretor]'}</div><div class="flyer-broker-role">Corretor(a) de imóveis</div></div>
+      <div class="flyer-contact-info">
+        <p><i class="fab fa-whatsapp"></i> ${whats||'[WhatsApp]'}</p>
+        <p><i class="fab fa-instagram"></i> ${insta||'[Instagram]'}</p>
+        <p><i class="fas fa-map-marker-alt"></i> ${endereco||'[Endereço]'}</p>
+      </div>
+    </div>`;
+  for(let i=0;i<3;i++){const sel=$(`flyer-img-${i}`);const src=sel&&activeImgs.flyer.length?activeImgs.flyer[sel.value]:manualImages.flyer[i];setImg($(`fimg-${i}`),src);}
+  $('flyer-salvar').disabled=false;
+}
 
-            // ========== POST ==========
-            function autoFillPost(imovel, settings) {
-                document.getElementById('post-endereco').value = imovel.endereco || '';
-                document.getElementById('post-slogan').value = 'Get Your Own Perfect Home';
-                document.getElementById('post-quartos').value = imovel.quartos || '';
-                document.getElementById('post-banheiros').value = imovel.banheiros || '';
-                document.getElementById('post-vagas').value = imovel.vagas || '';
-                document.getElementById('post-area').value = imovel.area || '';
-                document.getElementById('post-whats').value = settings.telefone || '';
-                document.getElementById('post-instagram').value = '';
-                document.querySelectorAll('#post-form input[type=checkbox]').forEach(cb => cb.checked = false);
-                // Imagens
-                const container = document.getElementById('post-imagens');
-                if (imovel.imagens && imovel.imagens.length) {
-                    let html = '<h3>Selecionar imagens (4)</h3>';
-                    for (let i = 0; i < 4; i++) {
-                        html += `<div class="form-group"><label>Imagem ${i+1}</label><select id="post-img-${i}">`;
-                        imovel.imagens.forEach((_, idx) => html += `<option value="${idx}">Imagem ${idx+1}</option>`);
-                        html += '</select></div>';
-                    }
-                    container.innerHTML = html;
-                } else {
-                    container.innerHTML = '<p>Sem imagens no imóvel.</p>';
-                }
-            }
+/* ============ POST ============ */
+function autoFillPost(im,s){
+  $('post-endereco').value=im.endereco||'';$('post-slogan').value='Seu novo lar está esperando por você';
+  $('post-quartos').value=im.quartos||'';$('post-banheiros').value=im.banheiros||'';$('post-vagas').value=im.vagas||'';$('post-area').value=im.area||'';
+  $('post-whats').value=s&&s.telefone?s.telefone:'';$('post-instagram').value='';
+  $$('#post-chips .chip').forEach(c=>c.classList.remove('selected'));
+  activeImgs.post=im.imagens||[];
+  const c=$('post-imagens');
+  if(im.imagens&&im.imagens.length){
+    let h='<div class="section-title"><i class="fas fa-images"></i> Selecionar fotos</div>';
+    ['Principal (grande)','Secundária 1','Secundária 2','Secundária 3'].forEach((lbl,i)=>{
+      h+=`<div class="form-group"><label>${lbl}</label><select id="post-img-${i}">`;
+      im.imagens.forEach((_,idx)=>h+=`<option value="${idx}">Foto ${idx+1}</option>`);h+='</select></div>';
+    });c.innerHTML=h;$('post-imagens-manual').style.display='none';
+  }
+}
+function updatePostPreview(){
+  const endereco=gv('post-endereco'),slogan=gv('post-slogan'),quartos=gv('post-quartos'),banheiros=gv('post-banheiros'),vagas=gv('post-vagas'),area=gv('post-area'),whats=gv('post-whats'),insta=gv('post-instagram');
+  const extras=getChips('post-chips');
+  let feats='';
+  if(quartos)feats+=`<div class="post-feat-chip"><i class="fas fa-bed"></i>${quartos}</div>`;
+  if(banheiros)feats+=`<div class="post-feat-chip"><i class="fas fa-bath"></i>${banheiros}</div>`;
+  if(vagas)feats+=`<div class="post-feat-chip"><i class="fas fa-car"></i>${vagas}</div>`;
+  if(area)feats+=`<div class="post-feat-chip"><i class="fas fa-vector-square"></i>${area}m²</div>`;
+  const tags=extras.map(e=>`<div class="post-extra-tag">${e}</div>`).join('');
+  $('post-preview').innerHTML=`
+    <div class="post-left">
+      <div id="pimg-0" class="img-placeholder" style="width:100%;height:100%;background-size:cover;background-position:center"></div>
+      <div class="post-ov-top"></div><div class="post-ov-bot"></div>
+      <div id="post-slogan-el">${slogan||'Seu lar ideal'}</div>
+      <div id="post-feats-el">${feats}</div>
+    </div>
+    <div class="post-right">
+      <div>
+        <div class="post-right-logo">ImobiPro <span>Imóveis de qualidade</span></div>
+        <div class="post-imgs-stack">
+          <div id="pimg-1" class="post-secondary-img img-placeholder"></div>
+          <div id="pimg-2" class="post-secondary-img img-placeholder"></div>
+          <div id="pimg-3" class="post-secondary-img img-placeholder"></div>
+        </div>
+      </div>
+      <div class="post-contact-block">
+        <p><i class="fab fa-whatsapp"></i> ${whats||'[WhatsApp]'}</p>
+        <p><i class="fab fa-instagram"></i> ${insta||'[Instagram]'}</p>
+        <p class="post-addr"><i class="fas fa-map-marker-alt"></i> ${endereco||'[Endereço]'}</p>
+        ${tags?`<div class="post-extra-tags">${tags}</div>`:''}
+      </div>
+    </div>`;
+  for(let i=0;i<4;i++){const sel=$(`post-img-${i}`);const src=sel&&activeImgs.post.length?activeImgs.post[sel.value]:manualImages.post[i];setImg($(`pimg-${i}`),src);}
+  $('post-salvar').disabled=false;
+}
 
-            function updatePostPreview() {
-                const endereco = document.getElementById('post-endereco').value;
-                const slogan = document.getElementById('post-slogan').value;
-                const quartos = document.getElementById('post-quartos').value;
-                const banheiros = document.getElementById('post-banheiros').value;
-                const vagas = document.getElementById('post-vagas').value;
-                const area = document.getElementById('post-area').value;
-                const whats = document.getElementById('post-whats').value;
-                const insta = document.getElementById('post-instagram').value;
+/* ============ STORY ============ */
+const FEAT_ICONS=['fa-bed','fa-bath','fa-couch','fa-utensils','fa-sink','fa-car'];
+function autoFillStory(im,s){
+  let bairro='';if(im.endereco){const p=im.endereco.split(',');bairro=p[1]?p[1].trim():p[0];}
+  $('story-titulo').value='LANÇAMENTO';$('story-endereco').value=bairro;
+  $('story-f1').value=im.quartos?im.quartos+' quartos':'2 quartos';$('story-f2').value=im.banheiros?im.banheiros+' banheiros':'2 banheiros';
+  $('story-f3').value='Sala e cozinha integrados';$('story-f4').value='Sala de jantar';$('story-f5').value='Cozinha planejada';$('story-f6').value=im.vagas?im.vagas+' vagas':'1 vaga';
+  $$('#story-chips .chip').forEach(c=>c.classList.remove('selected'));
+  activeImgs.story=im.imagens||[];
+  const c=$('story-imagens');
+  if(im.imagens&&im.imagens.length){
+    let h='<div class="section-title"><i class="fas fa-images"></i> Selecionar fotos</div>';
+    ['Principal (fundo+banner)','Círculo 1','Círculo 2','Círculo 3','Círculo 4','Círculo 5','Círculo 6'].forEach((lbl,i)=>{
+      h+=`<div class="form-group"><label>${lbl}</label><select id="story-img-${i}">`;
+      im.imagens.forEach((_,idx)=>h+=`<option value="${idx}">Foto ${idx+1}</option>`);h+='</select></div>';
+    });c.innerHTML=h;$('story-imagens-manual').style.display='none';
+  }
+}
+function applyStoryChips(){
+  const vals=getChips('story-chips');const fields=['story-f1','story-f2','story-f3','story-f4','story-f5','story-f6'];
+  fields.forEach(f=>{if($(f))$(f).value='';});vals.forEach((v,i)=>{if(i<fields.length&&$(fields[i]))$(fields[i]).value=v;});
+  updateStoryPreview();
+}
+$$('#story-chips .chip').forEach(c=>c.addEventListener('click',()=>setTimeout(applyStoryChips,50)));
 
-                // Recursos adicionais
-                const recursos = [];
-                if (document.getElementById('post-recurso1').checked) recursos.push(document.getElementById('post-recurso1').value);
-                if (document.getElementById('post-recurso2').checked) recursos.push(document.getElementById('post-recurso2').value);
-                if (document.getElementById('post-recurso3').checked) recursos.push(document.getElementById('post-recurso3').value);
-                if (document.getElementById('post-recurso4').checked) recursos.push(document.getElementById('post-recurso4').value);
+function updateStoryPreview(){
+  const titulo=gv('story-titulo'),endereco=gv('story-endereco');
+  const feats=[1,2,3,4,5,6].map(i=>gv(`story-f${i}`));
+  let circles='';for(let i=1;i<=6;i++)circles+=`<div id="sc-${i}" class="story-circle img-placeholder" style="min-width:96px;min-height:96px"></div>`;
+  let fh='';feats.forEach((f,i)=>{if(f)fh+=`<div class="story-feat-card"><i class="fas ${FEAT_ICONS[i]||'fa-check'}"></i><span>${f}</span></div>`;});
+  $('story-preview').innerHTML=`
+    <div id="story-bg" class="img-placeholder"></div>
+    <div class="story-content">
+      <div id="story-img-main" class="img-placeholder" style="min-height:200px"></div>
+      <div class="story-badge-row"><div class="story-title-pill">${titulo||'LANÇAMENTO'}</div></div>
+      <div class="story-addr-pill"><i class="fas fa-map-marker-alt"></i> ${endereco||'[Localização]'}</div>
+      <div class="story-circles">${circles}</div>
+      <div class="story-feats-grid">${fh}</div>
+    </div>`;
+  const mainSel=$('story-img-0');const mainSrc=mainSel&&activeImgs.story.length?activeImgs.story[mainSel.value]:manualImages.story[0];
+  setImg($('story-bg'),mainSrc);setImg($('story-img-main'),mainSrc);
+  for(let i=1;i<=6;i++){const sel=$(`story-img-${i}`);const src=sel&&activeImgs.story.length?activeImgs.story[sel.value]:manualImages.story[i];setImg($(`sc-${i}`),src);}
+  $('story-salvar').disabled=false;
+}
 
-                let featuresHTML = '';
-                if (quartos) featuresHTML += `<div class="post-feature-item"><i class="fas fa-bed"></i><span>${quartos}</span></div>`;
-                if (banheiros) featuresHTML += `<div class="post-feature-item"><i class="fas fa-bath"></i><span>${banheiros}</span></div>`;
-                if (vagas) featuresHTML += `<div class="post-feature-item"><i class="fas fa-car"></i><span>${vagas}</span></div>`;
-                if (area) featuresHTML += `<div class="post-feature-item"><i class="fas fa-vector-square"></i><span>${area} m²</span></div>`;
+/* ============ VERTICAL ============ */
+function autoFillVertical(im,s){
+  $('vertical-titulo').value=im.titulo||'Apartamento à venda!';$('vertical-endereco').value=im.endereco||'';
+  $('vertical-f1l1').value=im.quartos?im.quartos+' quartos':'3 quartos';$('vertical-f1l2').value='sendo 1 suíte';
+  $('vertical-f2l1').value=im.banheiros?im.banheiros+' banheiros':'2 banheiros';$('vertical-f3l1').value=im.vagas?im.vagas+' vagas':'1 vaga';
+  $$('#vertical-chips .chip').forEach(c=>c.classList.remove('selected'));
+  activeImgs.vertical=im.imagens||[];
+  const c=$('vertical-imagens');
+  if(im.imagens&&im.imagens.length){
+    let h='<div class="section-title"><i class="fas fa-image"></i> Selecionar foto</div>';
+    h+='<div class="form-group"><label>Foto principal</label><select id="vertical-img-sel">';
+    im.imagens.forEach((_,idx)=>h+=`<option value="${idx}">Foto ${idx+1}</option>`);h+='</select></div>';
+    c.innerHTML=h;$('vertical-imagens-manual').style.display='none';
+  }
+}
+function updateVerticalPreview(){
+  const titulo=gv('vertical-titulo'),endereco=gv('vertical-endereco');
+  let f1l1=gv('vertical-f1l1'),f1l2=gv('vertical-f1l2'),f2l1=gv('vertical-f2l1'),f3l1=gv('vertical-f3l1');
+  const ext=getChips('vertical-chips');if(ext[0])f1l1=ext[0];if(ext[1])f2l1=ext[1];if(ext[2])f3l1=ext[2];
+  let fh='';
+  if(f1l1)fh+=`<div class="vpost-feat-item"><i class="fas fa-house"></i><p>${f1l1}</p>${f1l2?`<div class="sub">${f1l2}</div>`:''}</div>`;
+  if(f2l1)fh+=`<div class="vpost-feat-item"><i class="fas fa-bath"></i><p>${f2l1}</p></div>`;
+  if(f3l1)fh+=`<div class="vpost-feat-item"><i class="fas fa-car-garage"></i><p>${f3l1}</p></div>`;
+  $('vertical-preview').innerHTML=`
+    <div class="vpost-bubble"><h1>${titulo||'[Título]'}</h1><p>${endereco||'[Endereço]'}</p></div>
+    <div class="vpost-frame">
+      <div id="vimg-0" class="img-placeholder" style="width:100%;height:230px;border-radius:14px;background-size:cover;background-position:center"></div>
+      <div class="vpost-features">${fh}</div>
+      <div class="vpost-address"><i class="fas fa-map-marker-alt"></i> ${endereco||'[Endereço]'}</div>
+    </div>`;
+  const sel=$('vertical-img-sel');const src=sel&&activeImgs.vertical.length?activeImgs.vertical[sel.value]:manualImages.vertical[0];setImg($('vimg-0'),src);
+  $('vertical-salvar').disabled=false;
+}
+$$('#vertical-chips .chip').forEach(c=>c.addEventListener('click',()=>setTimeout(updateVerticalPreview,50)));
 
-                let extraHTML = '';
-                if (recursos.length > 0) {
-                    extraHTML = '<div class="post-extra-features">' + recursos.map(r => `<span>${r}</span>`).join(' ') + '</div>';
-                }
+/* ============ SETUP TOOL ============ */
+function setupTool(toolId,cfg){
+  const backupInput=$(`${toolId}-backup`);
+  backupInput.addEventListener('change',e=>processBackup(e.target.files[0],toolId,()=>$(`${toolId}-form`).style.display='block'));
+  $(`${toolId}-select`).addEventListener('change',e=>{
+    if(!e.target.value)return;
+    const im=backupData.imoveis.find(i=>i.id==e.target.value);
+    if(im){cfg.autoFill(im,backupData.settings);cfg.update();}
+  });
+  $(`${toolId}-skip`).addEventListener('click',()=>{$(`${toolId}-skip`).closest('.import-section').style.display='none';$(`${toolId}-form`).style.display='block';});
+  $(`${toolId}-atualizar`).addEventListener('click',cfg.update);
+  $(`${toolId}-salvar`).addEventListener('click',()=>downloadPNG($(`${toolId}-preview`),`imobipro-${toolId}-${Date.now()}.png`,`${toolId}-salvar`,`${toolId}-progress`));
+}
+setupTool('flyer',{autoFill:autoFillFlyer,update:updateFlyerPreview});
+setupTool('post',{autoFill:autoFillPost,update:updatePostPreview});
+setupTool('story',{autoFill:autoFillStory,update:updateStoryPreview});
+setupTool('vertical',{autoFill:autoFillVertical,update:updateVerticalPreview});
 
-                let html = `
-                    <div class="post-left">
-                        <div id="post-img-main" class="img-placeholder"></div>
-                        <div id="post-slogan">${slogan || '[Slogan]'}</div>
-                        <div id="post-features">${featuresHTML}</div>
-                    </div>
-                    <div class="post-right">
-                        <div class="post-secondary">
-                            <div id="post-img1" class="post-secondary-img img-placeholder"></div>
-                            <div id="post-img2" class="post-secondary-img img-placeholder"></div>
-                            <div id="post-img3" class="post-secondary-img img-placeholder"></div>
-                        </div>
-                        <div class="post-contact">
-                            <p><i class="fab fa-whatsapp"></i> ${whats || '[Whats]'}</p>
-                            <p><i class="fab fa-instagram"></i> ${insta || '[Insta]'}</p>
-                            <p><i class="fas fa-map-marker-alt"></i> ${endereco || '[Endereço]'}</p>
-                            ${extraHTML}
-                        </div>
-                    </div>
-                `;
-                document.getElementById('post-preview').innerHTML = html;
+/* NAVEGAÇÃO */
+$$('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    $$('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    $$('.tool-wrapper').forEach(w=>w.hidden=true);$(`${btn.dataset.tool}-tool`).hidden=false;
+  });
+});
 
-                if (backupData && document.getElementById('post-img-0')) {
-                    const imovel = backupData.imoveis.find(i => i.id == document.getElementById('post-select').value);
-                    if (imovel && imovel.imagens) {
-                        for (let i = 0; i < 4; i++) {
-                            const sel = document.getElementById(`post-img-${i}`);
-                            if (sel) setImage(document.getElementById(i === 0 ? 'post-img-main' : `post-img${i}`), imovel.imagens[sel.value]);
-                        }
-                    }
-                }
-                document.getElementById('post-salvar').disabled = false;
-            }
+/* REALTIME UPDATE */
+[['flyer',updateFlyerPreview,['flyer-nome','flyer-slogan','flyer-endereco','flyer-quartos','flyer-metragem','flyer-banheiros','flyer-vagas','flyer-corretor','flyer-whats','flyer-instagram','flyer-infra']],
+ ['post',updatePostPreview,['post-endereco','post-slogan','post-quartos','post-banheiros','post-vagas','post-area','post-whats','post-instagram']],
+ ['story',updateStoryPreview,['story-titulo','story-endereco','story-f1','story-f2','story-f3','story-f4','story-f5','story-f6']],
+ ['vertical',updateVerticalPreview,['vertical-titulo','vertical-endereco','vertical-f1l1','vertical-f1l2','vertical-f2l1','vertical-f3l1']]
+].forEach(([,fn,ids])=>ids.forEach(id=>{const e=$(id);if(e)e.addEventListener('input',fn);}));
 
-            // ========== STORY ==========
-            function autoFillStory(imovel, settings) {
-                let bairro = '';
-                if (imovel.endereco) {
-                    const parts = imovel.endereco.split(',');
-                    bairro = parts[1] ? parts[1].trim() : parts[0];
-                }
-                document.getElementById('story-titulo').value = 'LANÇAMENTO';
-                document.getElementById('story-endereco').value = bairro;
-                document.getElementById('story-f1').value = imovel.quartos ? imovel.quartos + ' quartos' : '2 quartos';
-                document.getElementById('story-f2').value = imovel.banheiros ? imovel.banheiros + ' banheiros' : '2 banheiros';
-                document.getElementById('story-f3').value = 'Sala de estar';
-                document.getElementById('story-f4').value = 'Sala de jantar';
-                document.getElementById('story-f5').value = 'Cozinha planejada';
-                document.getElementById('story-f6').value = imovel.vagas ? imovel.vagas + ' vagas' : '1 vaga';
-                document.querySelectorAll('#story-form input[type=checkbox]').forEach(cb => cb.checked = false);
-                // Imagens
-                const container = document.getElementById('story-imagens');
-                if (imovel.imagens && imovel.imagens.length) {
-                    let html = '<h3>Selecionar imagens (4)</h3>';
-                    for (let i = 0; i < 4; i++) {
-                        html += `<div class="form-group"><label>Imagem ${i+1}</label><select id="story-img-${i}">`;
-                        imovel.imagens.forEach((_, idx) => html += `<option value="${idx}">Imagem ${idx+1}</option>`);
-                        html += '</select></div>';
-                    }
-                    container.innerHTML = html;
-                } else {
-                    container.innerHTML = '<p>Sem imagens no imóvel.</p>';
-                }
-            }
-
-            function updateStoryPreview() {
-                const titulo = document.getElementById('story-titulo').value;
-                const endereco = document.getElementById('story-endereco').value;
-                const f1 = document.getElementById('story-f1').value;
-                const f2 = document.getElementById('story-f2').value;
-                const f3 = document.getElementById('story-f3').value;
-                const f4 = document.getElementById('story-f4').value;
-                const f5 = document.getElementById('story-f5').value;
-                const f6 = document.getElementById('story-f6').value;
-
-                let html = `
-                    <div id="story-bg" class="img-placeholder"></div>
-                    <div class="story-content">
-                        <div id="story-img-main" class="img-placeholder"></div>
-                        <div class="story-title">${titulo || 'LANÇAMENTO'}</div>
-                        <div class="story-address">📍 ${endereco || '[Endereço]'}</div>
-                        <div class="story-circles">
-                            <div id="story-c1" class="story-circle img-placeholder"></div>
-                            <div id="story-c2" class="story-circle img-placeholder"></div>
-                            <div id="story-c3" class="story-circle img-placeholder"></div>
-                        </div>
-                        <div class="story-features-grid">
-                `;
-                if (f1) html += `<div class="story-feature"><i class="fas fa-bed"></i><span>${f1}</span></div>`;
-                if (f2) html += `<div class="story-feature"><i class="fas fa-bath"></i><span>${f2}</span></div>`;
-                if (f3) html += `<div class="story-feature"><i class="fas fa-couch"></i><span>${f3}</span></div>`;
-                if (f4) html += `<div class="story-feature"><i class="fas fa-utensils"></i><span>${f4}</span></div>`;
-                if (f5) html += `<div class="story-feature"><i class="fas fa-sink"></i><span>${f5}</span></div>`;
-                if (f6) html += `<div class="story-feature"><i class="fas fa-car"></i><span>${f6}</span></div>`;
-                html += `</div></div>`;
-
-                document.getElementById('story-preview').innerHTML = html;
-
-                if (backupData && document.getElementById('story-img-0')) {
-                    const imovel = backupData.imoveis.find(i => i.id == document.getElementById('story-select').value);
-                    if (imovel && imovel.imagens) {
-                        const idxMain = document.getElementById('story-img-0').value;
-                        const idxC1 = document.getElementById('story-img-1').value;
-                        const idxC2 = document.getElementById('story-img-2').value;
-                        const idxC3 = document.getElementById('story-img-3').value;
-                        setImage(document.getElementById('story-bg'), imovel.imagens[idxMain]);
-                        setImage(document.getElementById('story-img-main'), imovel.imagens[idxMain]);
-                        setImage(document.getElementById('story-c1'), imovel.imagens[idxC1]);
-                        setImage(document.getElementById('story-c2'), imovel.imagens[idxC2]);
-                        setImage(document.getElementById('story-c3'), imovel.imagens[idxC3]);
-                    }
-                }
-                document.getElementById('story-salvar').disabled = false;
-            }
-
-            // Função para preencher campos do story com checkboxes
-            function applyStoryCheckboxes() {
-                const fields = ['story-f1', 'story-f2', 'story-f3', 'story-f4', 'story-f5', 'story-f6'];
-                let idx = 0;
-                if (document.getElementById('story-recurso1').checked) {
-                    if (idx < fields.length) document.getElementById(fields[idx++]).value = document.getElementById('story-recurso1').value;
-                }
-                if (document.getElementById('story-recurso2').checked) {
-                    if (idx < fields.length) document.getElementById(fields[idx++]).value = document.getElementById('story-recurso2').value;
-                }
-                if (document.getElementById('story-recurso3').checked) {
-                    if (idx < fields.length) document.getElementById(fields[idx++]).value = document.getElementById('story-recurso3').value;
-                }
-                if (document.getElementById('story-recurso4').checked) {
-                    if (idx < fields.length) document.getElementById(fields[idx++]).value = document.getElementById('story-recurso4').value;
-                }
-                updateStoryPreview();
-            }
-
-            // ========== VERTICAL ==========
-            function autoFillVertical(imovel, settings) {
-                document.getElementById('vertical-titulo').value = imovel.titulo || 'Casa à venda!';
-                document.getElementById('vertical-endereco').value = imovel.endereco || '';
-                document.getElementById('vertical-f1l1').value = imovel.quartos ? imovel.quartos + ' quartos' : '4 quartos';
-                document.getElementById('vertical-f1l2').value = 'sendo 1 suíte';
-                document.getElementById('vertical-f2l1').value = imovel.banheiros ? imovel.banheiros + ' banheiros' : '3 banheiros';
-                document.getElementById('vertical-f3l1').value = imovel.vagas ? imovel.vagas + ' vagas' : '3 vagas';
-                document.querySelectorAll('#vertical-form input[type=checkbox]').forEach(cb => cb.checked = false);
-                // Imagem
-                const container = document.getElementById('vertical-imagens');
-                if (imovel.imagens && imovel.imagens.length) {
-                    let html = '<h3>Selecionar imagem principal</h3>';
-                    html += '<div class="form-group"><select id="vertical-img-sel">';
-                    imovel.imagens.forEach((_, idx) => html += `<option value="${idx}">Imagem ${idx+1}</option>`);
-                    html += '</select></div>';
-                    container.innerHTML = html;
-                } else {
-                    container.innerHTML = '<p>Sem imagens no imóvel.</p>';
-                }
-            }
-
-            function updateVerticalPreview() {
-                const titulo = document.getElementById('vertical-titulo').value;
-                const endereco = document.getElementById('vertical-endereco').value;
-                let f1l1 = document.getElementById('vertical-f1l1').value;
-                let f1l2 = document.getElementById('vertical-f1l2').value;
-                let f2l1 = document.getElementById('vertical-f2l1').value;
-                let f3l1 = document.getElementById('vertical-f3l1').value;
-
-                // Aplicar checkboxes (sobrescrevem se marcados, mas mantém se não)
-                const recursos = [];
-                if (document.getElementById('vertical-recurso1').checked) recursos.push(document.getElementById('vertical-recurso1').value);
-                if (document.getElementById('vertical-recurso2').checked) recursos.push(document.getElementById('vertical-recurso2').value);
-                if (document.getElementById('vertical-recurso3').checked) recursos.push(document.getElementById('vertical-recurso3').value);
-                if (document.getElementById('vertical-recurso4').checked) recursos.push(document.getElementById('vertical-recurso4').value);
-
-                // Se há recursos marcados, preenche os campos disponíveis (até 3, prioridade)
-                if (recursos.length > 0) {
-                    if (recursos[0]) f1l1 = recursos[0];
-                    if (recursos[1]) f2l1 = recursos[1];
-                    if (recursos[2]) f3l1 = recursos[2];
-                }
-
-                let html = `
-                    <div class="vpost-bubble">
-                        <h1>${titulo || '[Título]'}</h1>
-                        <p>${endereco || '[Endereço]'}</p>
-                    </div>
-                    <div class="vpost-frame">
-                        <div id="vpost-img-main" class="img-placeholder"></div>
-                        <div class="vpost-features">
-                `;
-                if (f1l1) {
-                    html += `<div class="vpost-feature"><i class="fa-solid fa-house"></i><p>${f1l1}</p>`;
-                    if (f1l2) html += `<p class="feature-subline">${f1l2}</p>`;
-                    html += `</div>`;
-                }
-                if (f2l1) html += `<div class="vpost-feature"><i class="fa-solid fa-toilet"></i><p>${f2l1}</p></div>`;
-                if (f3l1) html += `<div class="vpost-feature"><i class="fa-solid fa-car-garage"></i><p>${f3l1}</p></div>`;
-                html += `</div></div>`;
-
-                document.getElementById('vertical-preview').innerHTML = html;
-
-                if (backupData && document.getElementById('vertical-img-sel')) {
-                    const imovel = backupData.imoveis.find(i => i.id == document.getElementById('vertical-select').value);
-                    if (imovel && imovel.imagens) {
-                        const idx = document.getElementById('vertical-img-sel').value;
-                        setImage(document.getElementById('vpost-img-main'), imovel.imagens[idx]);
-                    }
-                }
-                document.getElementById('vertical-salvar').disabled = false;
-            }
-
-            // Configura cada ferramenta
-            function setupTool(toolId, config) {
-                const backupInput = document.getElementById(toolId + '-backup');
-                const select = document.getElementById(toolId + '-select');
-                const skipBtn = document.getElementById(toolId + '-skip');
-                const form = document.getElementById(toolId + '-form');
-                const atualizar = document.getElementById(toolId + '-atualizar');
-                const salvar = document.getElementById(toolId + '-salvar');
-
-                backupInput.addEventListener('change', (e) => {
-                    processBackup(e.target.files[0], toolId, () => {
-                        form.style.display = 'block';
-                    });
-                });
-
-                select.addEventListener('change', (e) => {
-                    const id = e.target.value;
-                    if (!id) return;
-                    const imovel = backupData.imoveis.find(i => i.id == id);
-                    if (imovel) {
-                        config.autoFill(imovel, backupData.settings);
-                        config.updatePreview();
-                    }
-                });
-
-                skipBtn.addEventListener('click', () => {
-                    backupInput.closest('.form-group').style.display = 'none';
-                    select.closest('.form-group').style.display = 'none';
-                    skipBtn.style.display = 'none';
-                    form.style.display = 'block';
-                    // Cria campos de upload manual (simplificado)
-                    const container = document.getElementById(toolId + '-imagens');
-                    container.innerHTML = '<p>Modo manual: adicione inputs de arquivo se desejar.</p>';
-                });
-
-                atualizar.addEventListener('click', config.updatePreview);
-                salvar.addEventListener('click', () => {
-                    downloadPNG(document.getElementById(toolId + '-preview'), toolId + '.png', salvar);
-                });
-
-                // Eventos específicos para checkboxes do story e vertical
-                if (toolId === 'story') {
-                    document.getElementById('story-recurso1').addEventListener('change', applyStoryCheckboxes);
-                    document.getElementById('story-recurso2').addEventListener('change', applyStoryCheckboxes);
-                    document.getElementById('story-recurso3').addEventListener('change', applyStoryCheckboxes);
-                    document.getElementById('story-recurso4').addEventListener('change', applyStoryCheckboxes);
-                }
-                if (toolId === 'vertical') {
-                    document.getElementById('vertical-recurso1').addEventListener('change', config.updatePreview);
-                    document.getElementById('vertical-recurso2').addEventListener('change', config.updatePreview);
-                    document.getElementById('vertical-recurso3').addEventListener('change', config.updatePreview);
-                    document.getElementById('vertical-recurso4').addEventListener('change', config.updatePreview);
-                }
-            }
-
-            // Inicializa
-            setupTool('flyer', { autoFill: autoFillFlyer, updatePreview: updateFlyerPreview });
-            setupTool('post', { autoFill: autoFillPost, updatePreview: updatePostPreview });
-            setupTool('story', { autoFill: autoFillStory, updatePreview: updateStoryPreview });
-            setupTool('vertical', { autoFill: autoFillVertical, updatePreview: updateVerticalPreview });
-
-            // Navegação
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    document.querySelectorAll('.tool-wrapper').forEach(w => w.hidden = true);
-                    document.getElementById(btn.dataset.tool + '-tool').hidden = false;
-                });
-            });
-        })();
-    </script>
+})();
+</script>
 </body>
 </html>
