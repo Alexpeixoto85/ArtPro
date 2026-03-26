@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<title>ImobiPro — Criativos Profissionais</title>
+<title>ImobiPro — ArtPro v3 | Criativos que Vendem</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -279,6 +279,40 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .vpost-address{background:linear-gradient(135deg,var(--accent-green),#2e3d28);color:white;border-radius:var(--radius-md);padding:10px 13px;text-align:center;font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
 .vpost-address i{color:rgba(255,255,255,.55)}
 
+/* ====================================================
+   URGENCY BADGE — selo de destaque no criativo
+==================================================== */
+.urgency-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:50px;font-size:.7rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px;animation:badgePulse 2s ease-in-out infinite}
+.urgency-badge.novo{background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;box-shadow:0 2px 10px rgba(22,163,74,.4)}
+.urgency-badge.exclusivo{background:linear-gradient(135deg,var(--brand-gold),#b8922e);color:#1a0e10;box-shadow:0 2px 10px rgba(200,169,110,.4)}
+.urgency-badge.lancamento{background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;box-shadow:0 2px 10px rgba(220,38,38,.4)}
+.urgency-badge.oportunidade{background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;box-shadow:0 2px 10px rgba(124,58,237,.4)}
+.urgency-badge.reducao{background:linear-gradient(135deg,#0369a1,#0284c7);color:#fff;box-shadow:0 2px 10px rgba(3,105,161,.4)}
+@keyframes badgePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+
+/* Price tag nos templates */
+.flyer-price-tag{background:var(--brand-gold);color:#1a0e10;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:900;padding:4px 14px;border-radius:20px;display:inline-block;margin-top:4px;letter-spacing:-.3px}
+.post-price-tag{background:var(--brand-gold);color:#1a0e10;font-size:.82rem;font-weight:800;padding:3px 10px;border-radius:12px;display:inline-block;margin:3px 0}
+.vpost-price-tag{background:var(--brand-gold);color:#1a0e10;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;padding:5px 14px;border-radius:20px;display:inline-block;margin-top:5px}
+.story-price-tag{background:var(--brand-gold);color:#1a0e10;font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;padding:6px 18px;border-radius:50px;display:inline-block;margin:4px 0;box-shadow:0 4px 15px rgba(200,169,110,.5)}
+
+/* CTA strip nos templates */
+.flyer-cta-strip{background:linear-gradient(135deg,var(--brand-gold),#b8922e);color:#1a0e10;text-align:center;padding:8px 12px;font-weight:800;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:7px}
+.flyer-cta-strip i{font-size:.85rem}
+.story-cta-btn{background:linear-gradient(135deg,var(--brand-gold),#b8922e);color:#1a0e10;text-align:center;border-radius:50px;padding:12px 24px;font-weight:800;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:7px;margin:0 8px;box-shadow:0 4px 20px rgba(200,169,110,.45)}
+.story-cta-btn i{font-size:.9rem}
+.vpost-cta-btn{background:linear-gradient(135deg,var(--brand-gold),#b8922e);color:#1a0e10;text-align:center;border-radius:var(--radius-md);padding:11px 14px;font-weight:800;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:6px}
+
+/* Badge selector UI */
+.badge-selector{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.badge-opt{padding:5px 11px;border-radius:50px;border:1.5px solid var(--border);background:#f9f9f9;font-size:.72rem;font-weight:700;cursor:pointer;transition:var(--t);user-select:none;letter-spacing:.03em}
+.badge-opt:hover{border-color:var(--brand-primary)}
+.badge-opt.sel-novo{background:#16a34a;border-color:#16a34a;color:#fff}
+.badge-opt.sel-exclusivo{background:var(--brand-gold);border-color:var(--brand-gold);color:#1a0e10}
+.badge-opt.sel-lancamento{background:#dc2626;border-color:#dc2626;color:#fff}
+.badge-opt.sel-oportunidade{background:#7c3aed;border-color:#7c3aed;color:#fff}
+.badge-opt.sel-reducao{background:#0369a1;border-color:#0369a1;color:#fff}
+
 @media(max-width:420px){.story-circle{width:80px;height:80px}.flyer-img-side{width:78px;height:120px}.flyer-img-center{width:110px;height:155px}.pp-grid{grid-template-columns:repeat(3,1fr)}}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--brand-light);border-radius:10px}
 </style>
@@ -343,8 +377,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
         <div id="flyer-tipo-badge"></div>
         <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
         <div class="form-group"><label>Nome / Empreendimento</label><input type="text" id="flyer-nome" placeholder="Ex: Residencial Bella Vista"></div>
-        <div class="form-group"><label>Slogan</label><input type="text" id="flyer-slogan" placeholder="Ex: Seu lar dos sonhos está aqui"></div>
+        <div class="form-group"><label>Slogan / Headline de captação</label><input type="text" id="flyer-slogan" placeholder="Ex: Realize o sonho da casa própria"></div>
         <div class="form-group"><label>Endereço</label><input type="text" id="flyer-endereco" placeholder="Rua, Bairro – Cidade"></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>💰 Preço (opcional)</label><input type="text" id="flyer-preco" placeholder="R$ 350.000"></div>
+          <div class="form-group"><label>📞 CTA personalizado</label><input type="text" id="flyer-cta" placeholder="Agende sua visita!"></div>
+        </div>
+        <div class="section-title"><i class="fas fa-fire"></i> Selo de destaque</div>
+        <div class="badge-selector" id="flyer-badge-selector">
+          <span class="badge-opt" data-val="" data-tool="flyer">Nenhum</span>
+          <span class="badge-opt" data-val="novo" data-tool="flyer">🟢 Novo</span>
+          <span class="badge-opt" data-val="exclusivo" data-tool="flyer">⭐ Exclusivo</span>
+          <span class="badge-opt" data-val="lancamento" data-tool="flyer">🔴 Lançamento</span>
+          <span class="badge-opt" data-val="oportunidade" data-tool="flyer">🟣 Oportunidade</span>
+          <span class="badge-opt" data-val="reducao" data-tool="flyer">🔵 Preço reduzido</span>
+        </div>
         <div class="form-grid-2">
           <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Quartos</label><input type="text" id="flyer-quartos" placeholder="3"></div>
           <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno"><label id="flyer-label-metragem">Metragem (m²)</label><input type="text" id="flyer-metragem" placeholder="85"></div>
@@ -450,7 +497,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
         <div id="post-tipo-badge"></div>
         <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
         <div class="form-group"><label>Endereço</label><input type="text" id="post-endereco" placeholder="Bairro – Cidade"></div>
-        <div class="form-group"><label>Slogan</label><input type="text" id="post-slogan" value="Seu novo lar está esperando por você"></div>
+        <div class="form-group"><label>Slogan / Headline de captação</label><input type="text" id="post-slogan" value="Seu novo lar está esperando por você"></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>💰 Preço (opcional)</label><input type="text" id="post-preco" placeholder="R$ 350.000"></div>
+          <div class="form-group"><label>📞 CTA personalizado</label><input type="text" id="post-cta" placeholder="Fale agora!"></div>
+        </div>
+        <div class="section-title"><i class="fas fa-fire"></i> Selo de destaque</div>
+        <div class="badge-selector" id="post-badge-selector">
+          <span class="badge-opt" data-val="" data-tool="post">Nenhum</span>
+          <span class="badge-opt" data-val="novo" data-tool="post">🟢 Novo</span>
+          <span class="badge-opt" data-val="exclusivo" data-tool="post">⭐ Exclusivo</span>
+          <span class="badge-opt" data-val="lancamento" data-tool="post">🔴 Lançamento</span>
+          <span class="badge-opt" data-val="oportunidade" data-tool="post">🟣 Oportunidade</span>
+          <span class="badge-opt" data-val="reducao" data-tool="post">🔵 Preço reduzido</span>
+        </div>
         <div class="form-grid-2">
           <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Quartos</label><input type="text" id="post-quartos" placeholder="3"></div>
           <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Banheiros</label><input type="text" id="post-banheiros" placeholder="2"></div>
@@ -541,6 +601,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
         <div class="section-title"><i class="fas fa-font"></i> Textos</div>
         <div class="form-group"><label>Título (badge)</label><input type="text" id="story-titulo" value="LANÇAMENTO"></div>
         <div class="form-group"><label>Localização</label><input type="text" id="story-endereco" placeholder="Antares – Maceió"></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>💰 Preço (opcional)</label><input type="text" id="story-preco" placeholder="R$ 350.000"></div>
+          <div class="form-group"><label>📞 Botão CTA</label><input type="text" id="story-cta" placeholder="Saiba mais!"></div>
+        </div>
+        <div class="section-title"><i class="fas fa-fire"></i> Selo de destaque</div>
+        <div class="badge-selector" id="story-badge-selector">
+          <span class="badge-opt" data-val="" data-tool="story">Nenhum</span>
+          <span class="badge-opt" data-val="novo" data-tool="story">🟢 Novo</span>
+          <span class="badge-opt" data-val="exclusivo" data-tool="story">⭐ Exclusivo</span>
+          <span class="badge-opt" data-val="lancamento" data-tool="story">🔴 Lançamento</span>
+          <span class="badge-opt" data-val="oportunidade" data-tool="story">🟣 Oportunidade</span>
+          <span class="badge-opt" data-val="reducao" data-tool="story">🔵 Preço reduzido</span>
+        </div>
         <div class="section-title"><i class="fas fa-list"></i> Características</div>
         <div class="form-grid-3">
           <div class="form-group"><label>Item 1</label><input type="text" id="story-f1"></div>
@@ -617,6 +690,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
         <div class="section-title"><i class="fas fa-home"></i> Dados do imóvel</div>
         <div class="form-group"><label>Título</label><input type="text" id="vertical-titulo" value="Apartamento à venda!"></div>
         <div class="form-group"><label>Endereço</label><input type="text" id="vertical-endereco" placeholder="Bairro – Cidade"></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>💰 Preço (opcional)</label><input type="text" id="vertical-preco" placeholder="R$ 350.000"></div>
+          <div class="form-group"><label>📞 Botão CTA</label><input type="text" id="vertical-cta" placeholder="Entre em contato!"></div>
+        </div>
+        <div class="section-title"><i class="fas fa-fire"></i> Selo de destaque</div>
+        <div class="badge-selector" id="vertical-badge-selector">
+          <span class="badge-opt" data-val="" data-tool="vertical">Nenhum</span>
+          <span class="badge-opt" data-val="novo" data-tool="vertical">🟢 Novo</span>
+          <span class="badge-opt" data-val="exclusivo" data-tool="vertical">⭐ Exclusivo</span>
+          <span class="badge-opt" data-val="lancamento" data-tool="vertical">🔴 Lançamento</span>
+          <span class="badge-opt" data-val="oportunidade" data-tool="vertical">🟣 Oportunidade</span>
+          <span class="badge-opt" data-val="reducao" data-tool="vertical">🔵 Preço reduzido</span>
+        </div>
         <div class="form-grid-2">
           <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Recurso 1</label><input type="text" id="vertical-f1l1" placeholder="3 quartos"></div>
           <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Detalhe 1</label><input type="text" id="vertical-f1l2" placeholder="sendo 1 suíte"></div>
@@ -1067,6 +1153,9 @@ function updateFlyerPreview(){
   const areaLote=gv('flyer-area-lote')||'',testada=gv('flyer-testada')||'';
   const aconstruida=gv('flyer-area-construida')||'',peDireito=gv('flyer-pe-direito')||'';
   const infra=gv('flyer-infra'),corretor=gv('flyer-corretor'),whats=gv('flyer-whats'),insta=gv('flyer-instagram');
+  const preco=gv('flyer-preco')||'';
+  const ctaText=gv('flyer-cta')||'Entre em contato!';
+  const badgeVal=getSelectedBadge('flyer');
   const extras=[...getChips('flyer-chips'),...getChips('flyer-chips-lote'),...getChips('flyer-chips-galpao')];
   let feats='';
   const fd=[];
@@ -1081,16 +1170,24 @@ function updateFlyerPreview(){
   fd.forEach(f=>{feats+=`<div class="flyer-feat-item"><div class="fi-icon"><i class="fas ${f.i}"></i></div><span>${f.l}</span></div>`;});
   let items=(infra?infra.split('\n').filter(l=>l.trim()):[]).concat(extras);
   let infraHTML=items.length?`<div class="flyer-infra-section"><h3>Diferenciais</h3><ul>${items.map(it=>`<li>${it}</li>`).join('')}</ul></div>`:'';
+  const badgeHTML=badgeVal?`<div class="urgency-badge ${badgeVal}">${BADGE_LABELS[badgeVal]||badgeVal}</div>`:'';
+  const precoHTML=preco?`<div class="flyer-price-tag"><i class="fas fa-tag" style="font-size:.75rem;margin-right:4px"></i>${preco}</div>`:'';
   $('flyer-preview').innerHTML=`
     <div class="flyer-hero">
-      <span class="flyer-watermark">Exclusivo</span><span class="flyer-watermark r">Exclusivo</span>
+      <span class="flyer-watermark">ImobiPro</span><span class="flyer-watermark r">ImobiPro</span>
       <div id="fimg-0" class="flyer-img-side img-placeholder" style="min-height:148px"></div>
       <div class="flyer-img-center"><div class="frame-border"></div><div id="fimg-1" class="bg img-placeholder" style="min-height:178px"></div><div class="flyer-badge">${nome||'Imóvel'}</div></div>
       <div id="fimg-2" class="flyer-img-side img-placeholder" style="min-height:148px"></div>
     </div>
-    <div class="flyer-title-band"><h1>${nome||'[Nome do Imóvel]'}</h1><div class="subtitle">${slogan||'Realize o sonho da casa própria'}</div></div>
+    <div class="flyer-title-band">
+      ${badgeHTML}
+      <h1>${nome||'[Nome do Imóvel]'}</h1>
+      <div class="subtitle">${slogan||'Realize o sonho da casa própria'}</div>
+      ${precoHTML}
+    </div>
     <div class="flyer-features">${feats}</div>
     ${infraHTML}
+    <div class="flyer-cta-strip"><i class="fab fa-whatsapp"></i> ${ctaText} — ${whats||'[WhatsApp]'}</div>
     <div class="flyer-footer">
       <div><div class="flyer-broker-name">${corretor||'[Corretor]'}</div><div class="flyer-broker-role">Corretor(a) de imóveis</div></div>
       <div class="flyer-contact-info">
@@ -1132,6 +1229,9 @@ function autoFillPost(im,s){
 
 function updatePostPreview(){
   const endereco=gv('post-endereco'),slogan=gv('post-slogan'),quartos=gv('post-quartos'),banheiros=gv('post-banheiros'),vagas=gv('post-vagas'),area=gv('post-area'),whats=gv('post-whats'),insta=gv('post-instagram');
+  const preco=gv('post-preco')||'';
+  const ctaText=gv('post-cta')||'Fale agora!';
+  const badgeVal=getSelectedBadge('post');
   const extras=[...getChips('post-chips'),...getChips('post-chips-lote'),...getChips('post-chips-galpao')];
   let feats='';
   if(quartos)feats+=`<div class="post-feat-chip"><i class="fas fa-bed"></i>${quartos}</div>`;
@@ -1139,6 +1239,8 @@ function updatePostPreview(){
   if(vagas)feats+=`<div class="post-feat-chip"><i class="fas fa-car"></i>${vagas}</div>`;
   if(area)feats+=`<div class="post-feat-chip"><i class="fas fa-vector-square"></i>${area}m²</div>`;
   const tags=extras.map(e=>`<div class="post-extra-tag">${e}</div>`).join('');
+  const badgeHTML=badgeVal?`<div style="margin-bottom:5px"><span style="display:inline-flex;align-items:center;gap:4px;background:${BADGE_COLORS[badgeVal]};color:${BADGE_TEXT[badgeVal]};padding:3px 9px;border-radius:20px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em">${BADGE_LABELS[badgeVal]}</span></div>`:'';
+  const precoHTML=preco?`<div class="post-price-tag"><i class="fas fa-tag" style="font-size:.7rem;margin-right:3px"></i>${preco}</div>`:'';
   $('post-preview').innerHTML=`
     <div class="post-left">
       <div id="pimg-0" class="img-placeholder" style="width:100%;height:100%;background-size:cover;background-position:center"></div>
@@ -1149,6 +1251,8 @@ function updatePostPreview(){
     <div class="post-right">
       <div>
         <div class="post-right-logo">ImobiPro <span>Imóveis de qualidade</span></div>
+        ${badgeHTML}
+        ${precoHTML}
         <div class="post-imgs-stack">
           <div id="pimg-1" class="post-secondary-img img-placeholder"></div>
           <div id="pimg-2" class="post-secondary-img img-placeholder"></div>
@@ -1156,6 +1260,7 @@ function updatePostPreview(){
         </div>
       </div>
       <div class="post-contact-block">
+        <div style="background:var(--brand-gold);color:#1a0e10;border-radius:8px;padding:5px 8px;text-align:center;font-size:.68rem;font-weight:800;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em"><i class="fab fa-whatsapp" style="margin-right:3px"></i>${ctaText}</div>
         <p><i class="fab fa-whatsapp"></i> ${whats||'[WhatsApp]'}</p>
         <p><i class="fab fa-instagram"></i> ${insta||'[Instagram]'}</p>
         <p class="post-addr"><i class="fas fa-map-marker-alt"></i> ${endereco||'[Endereço]'}</p>
@@ -1207,17 +1312,26 @@ $$('#story-chips .chip,#story-chips-lote .chip,#story-chips-galpao .chip').forEa
 
 function updateStoryPreview(){
   const titulo=gv('story-titulo'),endereco=gv('story-endereco');
+  const preco=gv('story-preco')||'';
+  const ctaText=gv('story-cta')||'Saiba mais!';
+  const badgeVal=getSelectedBadge('story');
   const feats=[1,2,3,4,5,6].map(i=>gv(`story-f${i}`));
   let circles='';for(let i=1;i<=6;i++)circles+=`<div id="sc-${i}" class="story-circle img-placeholder" style="min-width:96px;min-height:96px"></div>`;
   let fh='';feats.forEach((f,i)=>{if(f)fh+=`<div class="story-feat-card"><i class="fas ${FEAT_ICONS[i]||'fa-check'}"></i><span>${f}</span></div>`;});
+  const badgeHTML=badgeVal?`<div style="text-align:center;margin-bottom:2px"><span style="display:inline-flex;align-items:center;gap:4px;background:${BADGE_COLORS[badgeVal]};color:${BADGE_TEXT[badgeVal]};padding:4px 12px;border-radius:50px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em">${BADGE_LABELS[badgeVal]}</span></div>`:'';
+  const precoHTML=preco?`<div style="text-align:center"><div class="story-price-tag">${preco}</div></div>`:'';
+  const ctaHTML=`<div class="story-cta-btn"><i class="fab fa-whatsapp"></i> ${ctaText}</div>`;
   $('story-preview').innerHTML=`
     <div id="story-bg" class="img-placeholder"></div>
     <div class="story-content">
       <div id="story-img-main" class="img-placeholder" style="min-height:200px"></div>
+      ${badgeHTML}
       <div class="story-badge-row"><div class="story-title-pill">${titulo||'LANÇAMENTO'}</div></div>
+      ${precoHTML}
       <div class="story-addr-pill"><i class="fas fa-map-marker-alt"></i> ${endereco||'[Localização]'}</div>
       <div class="story-circles">${circles}</div>
       <div class="story-feats-grid">${fh}</div>
+      ${ctaHTML}
     </div>`;
   setImg($('story-bg'),getSlotImg('story',0));
   setImg($('story-img-main'),getSlotImg('story',0));
@@ -1251,6 +1365,9 @@ function autoFillVertical(im,s){
 
 function updateVerticalPreview(){
   const titulo=gv('vertical-titulo'),endereco=gv('vertical-endereco');
+  const preco=gv('vertical-preco')||'';
+  const ctaText=gv('vertical-cta')||'Entre em contato!';
+  const badgeVal=getSelectedBadge('vertical');
   let f1l1=gv('vertical-f1l1'),f1l2=gv('vertical-f1l2'),f2l1=gv('vertical-f2l1'),f3l1=gv('vertical-f3l1');
   // Lote/terreno override
   const aLote=gv('vertical-area-lote'),testada=gv('vertical-testada');
@@ -1266,17 +1383,54 @@ function updateVerticalPreview(){
   if(f1l1)fh+=`<div class="vpost-feat-item"><i class="fas fa-house"></i><p>${f1l1}</p>${f1l2?`<div class="sub">${f1l2}</div>`:''}</div>`;
   if(f2l1)fh+=`<div class="vpost-feat-item"><i class="fas fa-bath"></i><p>${f2l1}</p></div>`;
   if(f3l1)fh+=`<div class="vpost-feat-item"><i class="fas fa-car-garage"></i><p>${f3l1}</p></div>`;
+  const badgeHTML=badgeVal?`<div style="text-align:center;margin-bottom:6px"><span style="display:inline-flex;align-items:center;gap:4px;background:${BADGE_COLORS[badgeVal]};color:${BADGE_TEXT[badgeVal]};padding:4px 12px;border-radius:50px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em">${BADGE_LABELS[badgeVal]}</span></div>`:'';
+  const precoHTML=preco?`<div class="vpost-price-tag" style="margin-top:8px"><i class="fas fa-tag" style="font-size:.8rem;margin-right:4px"></i>${preco}</div>`:'';
   $('vertical-preview').innerHTML=`
-    <div class="vpost-bubble"><h1>${titulo||'[Título]'}</h1><p>${endereco||'[Endereço]'}</p></div>
+    <div class="vpost-bubble">
+      ${badgeHTML}
+      <h1>${titulo||'[Título]'}</h1>
+      <p>${endereco||'[Endereço]'}</p>
+      ${precoHTML}
+    </div>
     <div class="vpost-frame">
       <div id="vimg-0" class="img-placeholder" style="width:100%;height:230px;border-radius:14px;background-size:cover;background-position:center"></div>
       <div class="vpost-features">${fh}</div>
       <div class="vpost-address"><i class="fas fa-map-marker-alt"></i> ${endereco||'[Endereço]'}</div>
+      <div class="vpost-cta-btn"><i class="fab fa-whatsapp"></i> ${ctaText}</div>
     </div>`;
   setImg($('vimg-0'),getSlotImg('vertical',0));
   $('vertical-salvar').disabled=false;
 }
 $$('#vertical-chips .chip,#vertical-chips-lote .chip,#vertical-chips-galpao .chip').forEach(c=>c.addEventListener('click',()=>setTimeout(updateVerticalPreview,50)));
+
+/* ======================================================
+   BADGE SELECTOR — selos de urgência/destaque
+   ====================================================== */
+const BADGE_LABELS={novo:'✦ NOVO',exclusivo:'★ EXCLUSIVO',lancamento:'● LANÇAMENTO',oportunidade:'◆ OPORTUNIDADE',reducao:'▼ PREÇO REDUZIDO'};
+const BADGE_COLORS={novo:'#16a34a',exclusivo:'#c8a96e',lancamento:'#dc2626',oportunidade:'#7c3aed',reducao:'#0369a1'};
+const BADGE_TEXT={novo:'#fff',exclusivo:'#1a0e10',lancamento:'#fff',oportunidade:'#fff',reducao:'#fff'};
+
+// Estado dos badges por ferramenta
+const selectedBadge={flyer:'',post:'',story:'',vertical:''};
+
+function getSelectedBadge(toolId){return selectedBadge[toolId]||'';}
+
+// Setup click nos badge-opts
+document.addEventListener('click',e=>{
+  const opt=e.target.closest('.badge-opt');
+  if(!opt)return;
+  const toolId=opt.dataset.tool;
+  const val=opt.dataset.val||'';
+  if(!toolId)return;
+  // Limpa seleção anterior
+  document.querySelectorAll(`#${toolId}-badge-selector .badge-opt`).forEach(o=>o.className='badge-opt');
+  // Marca selecionado
+  if(val){opt.classList.add(`sel-${val}`);}
+  selectedBadge[toolId]=val;
+  // Dispara update do preview
+  const fns={flyer:updateFlyerPreview,post:updatePostPreview,story:updateStoryPreview,vertical:updateVerticalPreview};
+  if(fns[toolId])fns[toolId]();
+});
 
 /* ======================================================
    SETUP TOOL
@@ -1313,10 +1467,10 @@ $$('.nav-btn').forEach(btn=>{
 });
 
 /* REALTIME UPDATE */
-[['flyer',updateFlyerPreview,['flyer-nome','flyer-slogan','flyer-endereco','flyer-quartos','flyer-metragem','flyer-banheiros','flyer-vagas','flyer-corretor','flyer-whats','flyer-instagram','flyer-infra','flyer-area-lote','flyer-testada','flyer-dimensoes','flyer-zoneamento','flyer-area-construida','flyer-pe-direito','flyer-docas','flyer-vagas-caminhao']],
- ['post',updatePostPreview,['post-endereco','post-slogan','post-quartos','post-banheiros','post-vagas','post-area','post-whats','post-instagram','post-testada','post-zoneamento']],
- ['story',updateStoryPreview,['story-titulo','story-endereco','story-f1','story-f2','story-f3','story-f4','story-f5','story-f6']],
- ['vertical',updateVerticalPreview,['vertical-titulo','vertical-endereco','vertical-f1l1','vertical-f1l2','vertical-f2l1','vertical-f3l1','vertical-area-lote','vertical-testada','vertical-area-galpao','vertical-pe-direito']]
+[['flyer',updateFlyerPreview,['flyer-nome','flyer-slogan','flyer-endereco','flyer-quartos','flyer-metragem','flyer-banheiros','flyer-vagas','flyer-corretor','flyer-whats','flyer-instagram','flyer-infra','flyer-area-lote','flyer-testada','flyer-dimensoes','flyer-zoneamento','flyer-area-construida','flyer-pe-direito','flyer-docas','flyer-vagas-caminhao','flyer-preco','flyer-cta']],
+ ['post',updatePostPreview,['post-endereco','post-slogan','post-quartos','post-banheiros','post-vagas','post-area','post-whats','post-instagram','post-testada','post-zoneamento','post-preco','post-cta']],
+ ['story',updateStoryPreview,['story-titulo','story-endereco','story-f1','story-f2','story-f3','story-f4','story-f5','story-f6','story-preco','story-cta']],
+ ['vertical',updateVerticalPreview,['vertical-titulo','vertical-endereco','vertical-f1l1','vertical-f1l2','vertical-f2l1','vertical-f3l1','vertical-area-lote','vertical-testada','vertical-area-galpao','vertical-pe-direito','vertical-preco','vertical-cta']]
 ].forEach(([,fn,ids])=>ids.forEach(id=>{const e=$(id);if(e)e.addEventListener('input',fn);}));
 
 /* INIT */
