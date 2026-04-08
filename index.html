@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -315,6 +316,369 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 
 @media(max-width:420px){.story-circle{width:80px;height:80px}.flyer-img-side{width:78px;height:120px}.flyer-img-center{width:110px;height:155px}.pp-grid{grid-template-columns:repeat(3,1fr)}}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--brand-light);border-radius:10px}
+
+/* ====================================================
+   CONVERSÃO MAX — Creative de Alta Performance
+   Baseado em: AIDA + Prova Social + Escassez + Âncora de Preço + CTA de Urgência
+==================================================== */
+
+/* Container principal: Post Quadrado 1:1 otimizado para feed */
+#cvmax-preview{
+  width:100%;max-width:450px;
+  aspect-ratio:1/1;
+  position:relative;
+  overflow:hidden;
+  font-family:'DM Sans',sans-serif;
+  background:#0d0d0d;
+}
+
+/* Foto de fundo com overlay gradiente em camadas */
+#cvmax-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  filter:brightness(.55) saturate(1.1);
+  transform:scale(1.04);
+  transition:transform .3s ease;
+}
+
+/* Overlay com diagonal: escuro embaixo, limpo em cima */
+#cvmax-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    170deg,
+    rgba(0,0,0,.08) 0%,
+    rgba(0,0,0,.18) 30%,
+    rgba(0,0,0,.72) 65%,
+    rgba(0,0,0,.92) 100%
+  );
+  z-index:1;
+}
+
+/* Conteúdo principal */
+.cvmax-content{
+  position:relative;z-index:2;
+  height:100%;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+  padding:14px 15px 13px;
+}
+
+/* ── TOPO: badge urgência + logo marca ── */
+.cvmax-top{
+  display:flex;justify-content:space-between;align-items:flex-start;
+}
+.cvmax-urgency-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 12px;
+  border-radius:4px;
+  font-size:.68rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.09em;
+  animation:cvmaxPulse 2.2s ease-in-out infinite;
+  box-shadow:0 2px 12px rgba(0,0,0,.4);
+}
+.cvmax-urgency-tag.u-novo{background:#16a34a;color:#fff}
+.cvmax-urgency-tag.u-exclusivo{background:var(--brand-gold);color:#1a0e10}
+.cvmax-urgency-tag.u-lancamento{background:#dc2626;color:#fff}
+.cvmax-urgency-tag.u-oportunidade{background:#7c3aed;color:#fff}
+.cvmax-urgency-tag.u-reducao{background:#0369a1;color:#fff}
+.cvmax-urgency-tag.u-vazio{display:none}
+@keyframes cvmaxPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.04);opacity:.9}}
+
+/* Logo da marca — canto superior direito */
+.cvmax-brand{
+  text-align:right;
+  font-family:'Playfair Display',serif;
+  font-size:.82rem;font-weight:900;
+  color:var(--brand-gold);
+  letter-spacing:-.2px;
+  text-shadow:0 1px 6px rgba(0,0,0,.6);
+}
+.cvmax-brand small{
+  display:block;font-family:'DM Sans',sans-serif;
+  font-size:.55rem;font-weight:500;color:rgba(255,255,255,.45);
+  letter-spacing:.07em;text-transform:uppercase;
+}
+
+/* ── MEIO: preço âncora + headline ── */
+.cvmax-mid{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:7px}
+
+/* Headline — gatilho de curiosidade/desejo */
+.cvmax-headline{
+  font-family:'Playfair Display',serif;
+  font-size:1.52rem;font-weight:900;color:#fff;
+  line-height:1.18;letter-spacing:-.4px;
+  text-shadow:0 2px 14px rgba(0,0,0,.55);
+  margin-bottom:7px;
+}
+
+/* Âncora de preço: chamada de valor imediata */
+.cvmax-price-block{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:10px;
+}
+.cvmax-price-label{
+  font-size:.63rem;font-weight:700;color:rgba(255,255,255,.55);
+  text-transform:uppercase;letter-spacing:.07em;
+}
+.cvmax-price-val{
+  font-family:'Playfair Display',serif;
+  font-size:1.55rem;font-weight:900;
+  color:var(--brand-gold);
+  letter-spacing:-.5px;
+  text-shadow:0 2px 12px rgba(200,169,110,.35);
+}
+.cvmax-price-val.hidden{display:none}
+
+/* ── CARACTERÍSTICAS: chips visuais ── */
+.cvmax-feat-row{
+  display:flex;flex-wrap:wrap;gap:5px;
+  margin-bottom:9px;
+}
+.cvmax-feat-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.22);
+  color:#fff;
+  padding:4px 10px;
+  border-radius:5px;
+  font-size:.72rem;font-weight:600;
+  white-space:nowrap;
+}
+.cvmax-feat-chip i{font-size:.68rem;color:var(--brand-gold)}
+
+/* ── PROVA SOCIAL ── */
+.cvmax-social-proof{
+  display:flex;align-items:center;gap:7px;
+  margin-bottom:9px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(8px);
+  border-left:3px solid var(--brand-gold);
+  border-radius:0 6px 6px 0;
+  padding:6px 10px;
+}
+.cvmax-stars{color:var(--brand-gold);font-size:.72rem;letter-spacing:1px}
+.cvmax-proof-text{font-size:.7rem;color:rgba(255,255,255,.8);font-weight:500;line-height:1.3}
+
+/* ── ENDEREÇO ── */
+.cvmax-address{
+  display:flex;align-items:center;gap:5px;
+  font-size:.7rem;color:rgba(255,255,255,.6);
+  font-weight:500;margin-bottom:10px;
+}
+.cvmax-address i{color:var(--brand-gold);font-size:.68rem}
+
+/* ── BOTTOM: CTA de urgência + contato ── */
+.cvmax-bottom{}
+
+/* Barra de escassez */
+.cvmax-scarcity{
+  display:flex;align-items:center;gap:6px;
+  font-size:.66rem;font-weight:700;
+  color:#fff;
+  background:rgba(220,38,38,.75);
+  backdrop-filter:blur(6px);
+  border-radius:5px 5px 0 0;
+  padding:4px 10px;
+  margin-bottom:0;
+}
+.cvmax-scarcity i{font-size:.68rem}
+.cvmax-scarcity.hidden{display:none}
+
+/* CTA principal — botão de alta conversão */
+.cvmax-cta-main{
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(135deg,var(--brand-gold) 0%,#e0b860 100%);
+  color:#1a0e10;
+  border-radius:0 0 6px 6px;
+  padding:10px 14px;
+  font-weight:800;font-size:.85rem;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+  box-shadow:0 4px 20px rgba(200,169,110,.5);
+  gap:8px;
+}
+.cvmax-cta-main i{font-size:1rem}
+.cvmax-cta-contact{
+  font-size:.72rem;font-weight:700;
+  color:rgba(26,14,16,.75);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:120px;
+}
+
+/* Faixa de contato abaixo do CTA */
+.cvmax-contact-strip{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:6px;
+  padding:5px 3px 0;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.cvmax-contact-item{
+  display:flex;align-items:center;gap:4px;
+  font-size:.67rem;color:rgba(255,255,255,.65);font-weight:500;
+}
+.cvmax-contact-item i{color:var(--brand-gold);font-size:.65rem}
+
+/* Variante de layout: escassez off */
+.cvmax-cta-main.no-round-top{border-radius:6px}
+
+/* ====================================================
+   STORY CONVERSÃO MAX — 9:16 Alta Performance
+==================================================== */
+#cvmaxstory-preview{
+  width:100%;max-width:390px;
+  aspect-ratio:9/16;
+  position:relative;overflow:hidden;
+  font-family:'DM Sans',sans-serif;
+  background:#0d0d0d;
+}
+#cvmaxstory-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  filter:brightness(.5) saturate(1.15);
+  transform:scale(1.06);
+}
+#cvmaxstory-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(0,0,0,.05) 0%,
+    rgba(0,0,0,.10) 25%,
+    rgba(0,0,0,.55) 55%,
+    rgba(0,0,0,.90) 80%,
+    rgba(0,0,0,.97) 100%
+  );
+  z-index:1;
+}
+.cvmaxstory-content{
+  position:relative;z-index:2;
+  height:100%;display:flex;flex-direction:column;
+  justify-content:space-between;
+  padding:18px 16px 16px;
+}
+/* Topo */
+.cvmaxstory-top{display:flex;justify-content:space-between;align-items:flex-start}
+.cvmaxstory-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 13px;border-radius:4px;
+  font-size:.72rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.09em;
+  animation:cvmaxPulse 2.2s ease-in-out infinite;
+  box-shadow:0 2px 14px rgba(0,0,0,.45);
+}
+.cvmaxstory-badge.u-novo{background:#16a34a;color:#fff}
+.cvmaxstory-badge.u-exclusivo{background:var(--brand-gold);color:#1a0e10}
+.cvmaxstory-badge.u-lancamento{background:#dc2626;color:#fff}
+.cvmaxstory-badge.u-oportunidade{background:#7c3aed;color:#fff}
+.cvmaxstory-badge.u-reducao{background:#0369a1;color:#fff}
+.cvmaxstory-badge.u-vazio{display:none}
+
+/* Swipe up hint */
+.cvmaxstory-swipe{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-size:.6rem;font-weight:700;color:rgba(255,255,255,.5);
+  text-transform:uppercase;letter-spacing:.08em;
+}
+.cvmaxstory-swipe i{font-size:.85rem;color:rgba(255,255,255,.4);animation:swipeAnim 1.6s ease-in-out infinite}
+@keyframes swipeAnim{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+/* Meio: preço centralizado — elemento de maior peso visual no story */
+.cvmaxstory-mid{
+  flex:1;display:flex;flex-direction:column;
+  justify-content:flex-end;padding-bottom:10px;
+}
+.cvmaxstory-feat-row{
+  display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;
+}
+.cvmaxstory-feat-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,.11);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.2);color:#fff;
+  padding:5px 11px;border-radius:5px;
+  font-size:.76rem;font-weight:600;white-space:nowrap;
+}
+.cvmaxstory-feat-chip i{font-size:.7rem;color:var(--brand-gold)}
+
+/* Prova social — faixa lateral */
+.cvmaxstory-proof{
+  display:flex;align-items:center;gap:9px;
+  background:rgba(255,255,255,.08);backdrop-filter:blur(8px);
+  border-left:3px solid var(--brand-gold);
+  border-radius:0 8px 8px 0;
+  padding:8px 12px;margin-bottom:12px;
+}
+.cvmaxstory-proof-text{font-size:.76rem;color:rgba(255,255,255,.82);font-weight:500;line-height:1.35}
+.cvmaxstory-stars{color:var(--brand-gold);font-size:.74rem;letter-spacing:1px;display:block;margin-bottom:2px}
+
+/* Endereço */
+.cvmaxstory-addr{
+  display:flex;align-items:center;gap:5px;
+  font-size:.73rem;color:rgba(255,255,255,.55);font-weight:500;
+  margin-bottom:10px;
+}
+.cvmaxstory-addr i{color:var(--brand-gold);font-size:.7rem}
+
+/* Headline — grande, impactante */
+.cvmaxstory-headline{
+  font-family:'Playfair Display',serif;
+  font-size:1.9rem;font-weight:900;color:#fff;
+  line-height:1.15;letter-spacing:-.5px;
+  text-shadow:0 2px 18px rgba(0,0,0,.6);
+  margin-bottom:10px;
+}
+
+/* Preço âncora — destaque máximo no story */
+.cvmaxstory-price-block{
+  margin-bottom:12px;
+}
+.cvmaxstory-price-label{
+  font-size:.65rem;font-weight:700;color:rgba(255,255,255,.5);
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;
+}
+.cvmaxstory-price-val{
+  font-family:'Playfair Display',serif;
+  font-size:2.1rem;font-weight:900;
+  color:var(--brand-gold);letter-spacing:-.6px;
+  text-shadow:0 2px 14px rgba(200,169,110,.4);
+  line-height:1;
+}
+.cvmaxstory-parcela{
+  font-size:.75rem;color:rgba(255,255,255,.5);font-weight:600;margin-top:3px;
+}
+
+/* Rodapé: escassez + CTA + contato */
+.cvmaxstory-bottom{}
+.cvmaxstory-scarcity{
+  display:flex;align-items:center;gap:6px;
+  font-size:.7rem;font-weight:700;color:#fff;
+  background:rgba(220,38,38,.78);backdrop-filter:blur(6px);
+  border-radius:8px 8px 0 0;padding:5px 12px;
+}
+.cvmaxstory-scarcity i{font-size:.7rem}
+.cvmaxstory-cta{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  background:linear-gradient(135deg,var(--brand-gold),#e0b860);
+  color:#1a0e10;
+  padding:13px 16px;
+  font-weight:800;font-size:.92rem;
+  letter-spacing:.03em;text-transform:uppercase;
+  box-shadow:0 4px 24px rgba(200,169,110,.5);
+  border-radius:0 0 8px 8px;
+}
+.cvmaxstory-cta i{font-size:1.1rem}
+.cvmaxstory-cta.no-round-top{border-radius:8px}
+.cvmaxstory-contact{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:8px;padding-top:7px;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.cvmaxstory-contact-item{
+  display:flex;align-items:center;gap:4px;
+  font-size:.69rem;color:rgba(255,255,255,.62);font-weight:500;
+}
+.cvmaxstory-contact-item i{color:var(--brand-gold);font-size:.67rem}
+
+
 </style>
 </head>
 <body>
@@ -329,6 +693,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
   <button class="nav-btn" data-tool="post"><i class="fas fa-th-large"></i> Post</button>
   <button class="nav-btn" data-tool="story"><i class="fas fa-mobile-alt"></i> Story</button>
   <button class="nav-btn" data-tool="vertical"><i class="fas fa-portrait"></i> Vertical</button>
+  <button class="nav-btn" data-tool="cvmax" style="background:linear-gradient(135deg,rgba(200,169,110,.25),rgba(200,169,110,.1));border:1px solid rgba(200,169,110,.4);color:var(--brand-gold)"><i class="fas fa-bolt"></i> Conversão Max ✦</button>
+  <button class="nav-btn" data-tool="cvmaxstory" style="background:linear-gradient(135deg,rgba(200,169,110,.25),rgba(200,169,110,.1));border:1px solid rgba(200,169,110,.4);color:var(--brand-gold)"><i class="fas fa-mobile-alt"></i> Story Max ✦</button>
 </nav>
 
 <!-- PHOTO PICKER MODAL -->
@@ -761,6 +1127,289 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 </div><!-- /.app-body -->
 <div id="toast-container"></div>
 
+<!-- ======= STORY CONVERSÃO MAX ======= -->
+<div id="cvmaxstory-tool" class="tool-wrapper" hidden>
+  <div class="panel">
+    <div class="panel-header" style="background:linear-gradient(135deg,#1a0e10,#3a2a10)">
+      <i class="fas fa-mobile-alt" style="color:var(--brand-gold)"></i>
+      <h2 style="color:var(--brand-gold)">Story Max ✦</h2>
+      <span style="margin-left:auto;font-size:.65rem;font-weight:600;color:rgba(200,169,110,.55);letter-spacing:.06em;text-transform:uppercase">9:16 · Alta Performance</span>
+    </div>
+    <div class="panel-body">
+      <div style="background:linear-gradient(135deg,#fefce8,#fef9e7);border:1.5px solid #fde68a;border-radius:var(--radius-md);padding:11px 13px;margin-bottom:14px;font-size:.77rem;color:#78350f;line-height:1.5">
+        <strong style="display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:.8rem"><i class="fas fa-mobile-alt" style="color:#d97706"></i> Mesmo DNA do Conversão Max — formato Story 9:16</strong>
+        Otimizado para <b>Stories do Instagram</b>: headline grande, preço âncora proeminente, prova social, escassez e CTA de tela cheia. Máximo impacto no scroll vertical.
+      </div>
+
+      <div class="import-section-light" id="cvmaxstory-import-section">
+        <div class="import-label"><i class="fas fa-home"></i> Imóvel do ImobiPro</div>
+        <div class="form-group"><label>Selecionar imóvel</label><select id="cvmaxstory-select" disabled><option value="">— Aguardando sincronização... —</option></select></div>
+        <div id="cvmaxstory-import-status"></div>
+        <button class="btn-skip" id="cvmaxstory-skip">ou preencher manualmente →</button>
+        <div class="fallback-section" id="cvmaxstory-fallback" style="display:none">
+          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON</div>
+          <div class="form-group"><input type="file" id="cvmaxstory-backup" accept=".json"></div>
+        </div>
+      </div>
+
+      <div id="cvmaxstory-form" style="display:none">
+        <div id="cvmaxstory-tipo-badge"></div>
+
+        <div class="section-title"><i class="fas fa-heading"></i> Headline de Desejo</div>
+        <div class="form-group">
+          <label>Headline principal <span style="color:var(--brand-gold);font-weight:800">★</span></label>
+          <input type="text" id="cvmaxstory-headline" value="Realize o sonho da casa própria">
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:-4px;margin-bottom:12px">
+          <span class="chip" onclick="document.getElementById('cvmaxstory-headline').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Realize o sonho da casa própria" style="cursor:pointer">🏠 Sonho da casa própria</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-headline').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Oportunidade única — não perca!" style="cursor:pointer">⚡ Oportunidade única</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-headline').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Invista agora, valorize sempre" style="cursor:pointer">📈 Valorização garantida</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-headline').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="O lar que a sua família merece" style="cursor:pointer">👨‍👩‍👧 Para sua família</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-headline').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Exclusividade e conforto em cada detalhe" style="cursor:pointer">✨ Exclusividade</span>
+        </div>
+
+        <div class="section-title"><i class="fas fa-map-marker-alt"></i> Localização</div>
+        <div class="form-group"><label>Endereço / Bairro – Cidade</label><input type="text" id="cvmaxstory-endereco" placeholder="Ex: Ponta Verde – Maceió"></div>
+
+        <div class="section-title"><i class="fas fa-tag"></i> Âncora de Preço</div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>💰 Preço de venda</label><input type="text" id="cvmaxstory-preco" placeholder="R$ 350.000"></div>
+          <div class="form-group"><label>Parcela / Destaque</label><input type="text" id="cvmaxstory-parcela" placeholder="ou 12x R$ 2.900"></div>
+        </div>
+
+        <div class="section-title"><i class="fas fa-fire"></i> Gatilho de Urgência</div>
+        <div class="badge-selector" id="cvmaxstory-badge-selector">
+          <span class="badge-opt" data-val="" data-tool="cvmaxstory">Nenhum</span>
+          <span class="badge-opt" data-val="novo" data-tool="cvmaxstory">🟢 Novo</span>
+          <span class="badge-opt" data-val="exclusivo" data-tool="cvmaxstory">⭐ Exclusivo</span>
+          <span class="badge-opt" data-val="lancamento" data-tool="cvmaxstory">🔴 Lançamento</span>
+          <span class="badge-opt" data-val="oportunidade" data-tool="cvmaxstory">🟣 Oportunidade</span>
+          <span class="badge-opt" data-val="reducao" data-tool="cvmaxstory">🔵 Preço reduzido</span>
+        </div>
+
+        <div class="section-title"><i class="fas fa-hourglass-half"></i> Gatilho de Escassez</div>
+        <div class="form-group">
+          <label>Mensagem de escassez (deixe em branco para ocultar)</label>
+          <input type="text" id="cvmaxstory-scarcity" placeholder="Ex: Última unidade disponível!">
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:-4px;margin-bottom:12px">
+          <span class="chip" onclick="document.getElementById('cvmaxstory-scarcity').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Última unidade disponível!" style="cursor:pointer">🔴 Última unidade</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-scarcity').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Oferta válida por tempo limitado" style="cursor:pointer">⏳ Tempo limitado</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-scarcity').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Só 2 unidades restantes!" style="cursor:pointer">⚡ 2 unidades restantes</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-scarcity').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Visita exclusiva este fim de semana" style="cursor:pointer">📅 Visita exclusiva</span>
+        </div>
+
+        <div class="section-title"><i class="fas fa-list-check"></i> Características</div>
+        <div class="form-grid-2">
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Quartos</label><input type="text" id="cvmaxstory-quartos" placeholder="3"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Banheiros</label><input type="text" id="cvmaxstory-banheiros" placeholder="2"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno"><label>Vagas</label><input type="text" id="cvmaxstory-vagas" placeholder="1"></div>
+          <div class="form-group"><label>Área (m²)</label><input type="text" id="cvmaxstory-area" placeholder="85"></div>
+        </div>
+        <div class="form-grid-2 campo-adaptativo oculto" data-visivel-para="lote,terreno">
+          <div class="form-group"><label>Testada (m)</label><input type="text" id="cvmaxstory-testada" placeholder="12"></div>
+          <div class="form-group"><label>Zoneamento</label><input type="text" id="cvmaxstory-zoneamento" placeholder="Residencial"></div>
+        </div>
+
+        <div class="section-title"><i class="fas fa-star"></i> Prova Social</div>
+        <div class="form-group">
+          <label>Texto de prova social</label>
+          <input type="text" id="cvmaxstory-proof" placeholder="Ex: 47 famílias já realizaram o sonho aqui">
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:-4px;margin-bottom:12px">
+          <span class="chip" onclick="document.getElementById('cvmaxstory-proof').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="47 famílias já realizaram o sonho aqui" style="cursor:pointer">👨‍👩‍👧 47 famílias</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-proof').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Mais de 200 clientes satisfeitos" style="cursor:pointer">⭐ 200 clientes</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-proof').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Imóvel mais visitado da semana" style="cursor:pointer">🔥 Mais visitado</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-proof').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Corretor com 15 anos de experiência" style="cursor:pointer">🏅 15 anos exp.</span>
+        </div>
+
+        <div class="section-title"><i class="fas fa-phone"></i> CTA e Contato</div>
+        <div class="form-group"><label>📞 Texto do botão CTA</label><input type="text" id="cvmaxstory-cta" placeholder="Quero agendar minha visita!"></div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:-4px;margin-bottom:12px">
+          <span class="chip" onclick="document.getElementById('cvmaxstory-cta').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Quero agendar minha visita!" style="cursor:pointer">📅 Agendar visita</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-cta').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Fale comigo agora!" style="cursor:pointer">💬 Fale agora</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-cta').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Tenho interesse — me chame!" style="cursor:pointer">🙋 Tenho interesse</span>
+          <span class="chip" onclick="document.getElementById('cvmaxstory-cta').value=this.dataset.v;updateCvmaxStoryPreview()" data-v="Ver mais fotos e detalhes" style="cursor:pointer">📸 Ver fotos</span>
+        </div>
+        <div class="form-group"><label>👤 Nome do(a) corretor(a)</label><input type="text" id="cvmaxstory-corretor" placeholder="Ex: João Silva"></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>WhatsApp</label><input type="text" id="cvmaxstory-whats" placeholder="(82) 9 9999-9999"></div>
+          <div class="form-group"><label>Instagram</label><input type="text" id="cvmaxstory-instagram" placeholder="@seuperfil"></div>
+        </div>
+
+        <div class="section-title"><i class="fas fa-images"></i> Foto do Imóvel</div>
+        <div id="cvmaxstory-photo-slots"></div>
+        <div id="cvmaxstory-imagens-manual">
+          <div class="img-upload-widget" id="cvmaxstory-mw-0" onclick="document.getElementById('cvmaxstory-mf-0').click()">
+            <div class="thumb" id="cvmaxstory-mt-0"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto principal</strong><span>A imagem mais impactante do imóvel</span></div>
+            <div class="status-dot" id="cvmaxstory-ms-0"></div>
+            <input type="file" id="cvmaxstory-mf-0" accept="image/*">
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="cvmaxstory-atualizar" style="background:linear-gradient(135deg,#b8922e,var(--brand-gold));color:#1a0e10;margin-top:10px"><i class="fas fa-bolt"></i> Gerar Story Max</button>
+      </div>
+    </div>
+  </div>
+  <div class="output-panel">
+    <div class="save-progress" id="cvmaxstory-progress"><div class="save-progress-bar"></div></div>
+    <button class="btn btn-save" id="cvmaxstory-salvar" disabled><i class="fas fa-download"></i> Salvar PNG</button>
+    <div class="preview-label">Pré-visualização — Story Max (9:16)</div>
+    <div class="preview-wrapper" id="cvmaxstory-preview-wrap">
+      <div id="cvmaxstory-preview"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= CONVERSÃO MAX ======= -->
+<div id="cvmax-tool" class="tool-wrapper" hidden>
+  <div class="panel">
+    <div class="panel-header" style="background:linear-gradient(135deg,#1a0e10,#3a2a10)">
+      <i class="fas fa-bolt" style="color:var(--brand-gold)"></i>
+      <h2 style="color:var(--brand-gold)">Conversão Max ✦</h2>
+      <span style="margin-left:auto;font-size:.65rem;font-weight:600;color:rgba(200,169,110,.55);letter-spacing:.06em;text-transform:uppercase">Alta Performance</span>
+    </div>
+    <div class="panel-body">
+      <!-- Info badge sobre o modelo -->
+      <div style="background:linear-gradient(135deg,#fefce8,#fef9e7);border:1.5px solid #fde68a;border-radius:var(--radius-md);padding:11px 13px;margin-bottom:14px;font-size:.77rem;color:#78350f;line-height:1.5">
+        <strong style="display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:.8rem"><i class="fas fa-brain" style="color:#d97706"></i> Criativo baseado em ciência da conversão</strong>
+        Combina <b>AIDA</b> (Atenção → Interesse → Desejo → Ação), <b>âncora de preço</b>, <b>prova social</b>, <b>escassez</b> e <b>CTA de urgência</b> — técnicas dos anúncios imobiliários com maior taxa de engajamento.
+      </div>
+
+      <div class="import-section-light" id="cvmax-import-section">
+        <div class="import-label"><i class="fas fa-home"></i> Imóvel do ImobiPro</div>
+        <div class="form-group"><label>Selecionar imóvel</label><select id="cvmax-select" disabled><option value="">— Aguardando sincronização... —</option></select></div>
+        <div id="cvmax-import-status"></div>
+        <button class="btn-skip" id="cvmax-skip">ou preencher manualmente →</button>
+        <div class="fallback-section" id="cvmax-fallback" style="display:none">
+          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON</div>
+          <div class="form-group"><input type="file" id="cvmax-backup" accept=".json"></div>
+        </div>
+      </div>
+
+      <div id="cvmax-form" style="display:none">
+        <div id="cvmax-tipo-badge"></div>
+
+        <!-- HEADLINE — gatilho de atenção/desejo -->
+        <div class="section-title"><i class="fas fa-heading"></i> Headline de Desejo</div>
+        <div class="form-group">
+          <label>Headline principal <span style="color:var(--brand-gold);font-weight:800">★</span></label>
+          <input type="text" id="cvmax-headline" value="Realize o sonho da casa própria" placeholder="Ex: Seu novo lar te espera — venha conhecer">
+        </div>
+        <div class="form-group" style="margin-top:-4px">
+          <label style="font-size:.68rem">Sugestões rápidas (toque para usar)</label>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px" id="cvmax-headline-sugestoes">
+            <span class="chip" onclick="document.getElementById('cvmax-headline').value=this.dataset.v;updateCvmaxPreview()" data-v="Realize o sonho da casa própria" style="cursor:pointer">🏠 Sonho da casa própria</span>
+            <span class="chip" onclick="document.getElementById('cvmax-headline').value=this.dataset.v;updateCvmaxPreview()" data-v="Oportunidade única — não perca!" style="cursor:pointer">⚡ Oportunidade única</span>
+            <span class="chip" onclick="document.getElementById('cvmax-headline').value=this.dataset.v;updateCvmaxPreview()" data-v="Invista agora, valorize sempre" style="cursor:pointer">📈 Valorização garantida</span>
+            <span class="chip" onclick="document.getElementById('cvmax-headline').value=this.dataset.v;updateCvmaxPreview()" data-v="O lar que a sua família merece" style="cursor:pointer">👨‍👩‍👧 Para sua família</span>
+            <span class="chip" onclick="document.getElementById('cvmax-headline').value=this.dataset.v;updateCvmaxPreview()" data-v="Exclusividade e conforto em cada detalhe" style="cursor:pointer">✨ Exclusividade</span>
+          </div>
+        </div>
+
+        <!-- LOCALIZAÇÃO -->
+        <div class="section-title"><i class="fas fa-map-marker-alt"></i> Localização</div>
+        <div class="form-group"><label>Endereço / Bairro – Cidade</label><input type="text" id="cvmax-endereco" placeholder="Ex: Ponta Verde – Maceió"></div>
+
+        <!-- ÂNCORA DE PREÇO -->
+        <div class="section-title"><i class="fas fa-tag"></i> Âncora de Preço <span style="font-size:.65rem;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0">(exibição proeminente aumenta cliques)</span></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>💰 Preço de venda</label><input type="text" id="cvmax-preco" placeholder="R$ 350.000"></div>
+          <div class="form-group"><label>Parcela / Destaque</label><input type="text" id="cvmax-parcela" placeholder="ou 12x R$ 2.900"></div>
+        </div>
+
+        <!-- BADGE URGÊNCIA -->
+        <div class="section-title"><i class="fas fa-fire"></i> Gatilho de Urgência</div>
+        <div class="badge-selector" id="cvmax-badge-selector">
+          <span class="badge-opt" data-val="" data-tool="cvmax">Nenhum</span>
+          <span class="badge-opt" data-val="novo" data-tool="cvmax">🟢 Novo</span>
+          <span class="badge-opt" data-val="exclusivo" data-tool="cvmax">⭐ Exclusivo</span>
+          <span class="badge-opt" data-val="lancamento" data-tool="cvmax">🔴 Lançamento</span>
+          <span class="badge-opt" data-val="oportunidade" data-tool="cvmax">🟣 Oportunidade</span>
+          <span class="badge-opt" data-val="reducao" data-tool="cvmax">🔵 Preço reduzido</span>
+        </div>
+
+        <!-- ESCASSEZ -->
+        <div class="section-title"><i class="fas fa-hourglass-half"></i> Gatilho de Escassez <span style="font-size:.65rem;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0">(aumenta urgência de contato)</span></div>
+        <div class="form-group">
+          <label>Mensagem de escassez (deixe em branco para ocultar)</label>
+          <input type="text" id="cvmax-scarcity" placeholder="Ex: Última unidade disponível!">
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:-4px;margin-bottom:12px">
+          <span class="chip" onclick="document.getElementById('cvmax-scarcity').value=this.dataset.v;updateCvmaxPreview()" data-v="Última unidade disponível!" style="cursor:pointer">🔴 Última unidade</span>
+          <span class="chip" onclick="document.getElementById('cvmax-scarcity').value=this.dataset.v;updateCvmaxPreview()" data-v="Oferta válida por tempo limitado" style="cursor:pointer">⏳ Tempo limitado</span>
+          <span class="chip" onclick="document.getElementById('cvmax-scarcity').value=this.dataset.v;updateCvmaxPreview()" data-v="Só 2 unidades restantes!" style="cursor:pointer">⚡ 2 unidades restantes</span>
+          <span class="chip" onclick="document.getElementById('cvmax-scarcity').value=this.dataset.v;updateCvmaxPreview()" data-v="Visita exclusiva este fim de semana" style="cursor:pointer">📅 Visita exclusiva</span>
+        </div>
+
+        <!-- CARACTERÍSTICAS -->
+        <div class="section-title"><i class="fas fa-list-check"></i> Características do Imóvel</div>
+        <div class="form-grid-2">
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Quartos</label><input type="text" id="cvmax-quartos" placeholder="3"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno,galpao"><label>Banheiros</label><input type="text" id="cvmax-banheiros" placeholder="2"></div>
+          <div class="form-group campo-adaptativo" data-oculto-para="lote,terreno"><label>Vagas</label><input type="text" id="cvmax-vagas" placeholder="1"></div>
+          <div class="form-group"><label id="cvmax-label-area">Área (m²)</label><input type="text" id="cvmax-area" placeholder="85"></div>
+        </div>
+        <div class="form-grid-2 campo-adaptativo oculto" data-visivel-para="lote,terreno">
+          <div class="form-group"><label>Testada (m)</label><input type="text" id="cvmax-testada" placeholder="12"></div>
+          <div class="form-group"><label>Zoneamento</label><input type="text" id="cvmax-zoneamento" placeholder="Residencial"></div>
+        </div>
+
+        <!-- PROVA SOCIAL -->
+        <div class="section-title"><i class="fas fa-star"></i> Prova Social <span style="font-size:.65rem;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0">(gera confiança e reduz objeções)</span></div>
+        <div class="form-group">
+          <label>Texto de prova social (deixe em branco para padrão)</label>
+          <input type="text" id="cvmax-proof" placeholder="Ex: 47 famílias já realizaram o sonho aqui">
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:-4px;margin-bottom:12px">
+          <span class="chip" onclick="document.getElementById('cvmax-proof').value=this.dataset.v;updateCvmaxPreview()" data-v="47 famílias já realizaram o sonho aqui" style="cursor:pointer">👨‍👩‍👧 47 famílias</span>
+          <span class="chip" onclick="document.getElementById('cvmax-proof').value=this.dataset.v;updateCvmaxPreview()" data-v="Mais de 200 clientes satisfeitos" style="cursor:pointer">⭐ 200 clientes</span>
+          <span class="chip" onclick="document.getElementById('cvmax-proof').value=this.dataset.v;updateCvmaxPreview()" data-v="Imóvel mais visitado da semana" style="cursor:pointer">🔥 Mais visitado</span>
+          <span class="chip" onclick="document.getElementById('cvmax-proof').value=this.dataset.v;updateCvmaxPreview()" data-v="Corretor com 15 anos de experiência" style="cursor:pointer">🏅 15 anos exp.</span>
+        </div>
+
+        <!-- CTA -->
+        <div class="section-title"><i class="fas fa-phone"></i> CTA e Contato</div>
+        <div class="form-group"><label>📞 Texto do botão CTA</label><input type="text" id="cvmax-cta" placeholder="Quero agendar minha visita!"></div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:-4px;margin-bottom:12px">
+          <span class="chip" onclick="document.getElementById('cvmax-cta').value=this.dataset.v;updateCvmaxPreview()" data-v="Quero agendar minha visita!" style="cursor:pointer">📅 Agendar visita</span>
+          <span class="chip" onclick="document.getElementById('cvmax-cta').value=this.dataset.v;updateCvmaxPreview()" data-v="Fale comigo agora!" style="cursor:pointer">💬 Fale agora</span>
+          <span class="chip" onclick="document.getElementById('cvmax-cta').value=this.dataset.v;updateCvmaxPreview()" data-v="Tenho interesse — me chame!" style="cursor:pointer">🙋 Tenho interesse</span>
+          <span class="chip" onclick="document.getElementById('cvmax-cta').value=this.dataset.v;updateCvmaxPreview()" data-v="Ver mais fotos e detalhes" style="cursor:pointer">📸 Ver fotos</span>
+        </div>
+        <div class="form-group"><label>👤 Nome do(a) corretor(a)</label><input type="text" id="cvmax-corretor" placeholder="Ex: João Silva"></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label>WhatsApp</label><input type="text" id="cvmax-whats" placeholder="(82) 9 9999-9999"></div>
+          <div class="form-group"><label>Instagram</label><input type="text" id="cvmax-instagram" placeholder="@seuperfil"></div>
+        </div>
+
+        <!-- FOTO -->
+        <div class="section-title"><i class="fas fa-images"></i> Foto do Imóvel</div>
+        <div id="cvmax-photo-slots"></div>
+        <div id="cvmax-imagens-manual">
+          <div class="img-upload-widget" id="cvmax-mw-0" onclick="document.getElementById('cvmax-mf-0').click()">
+            <div class="thumb" id="cvmax-mt-0"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto principal</strong><span>A imagem mais impactante do imóvel</span></div>
+            <div class="status-dot" id="cvmax-ms-0"></div>
+            <input type="file" id="cvmax-mf-0" accept="image/*">
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="cvmax-atualizar" style="background:linear-gradient(135deg,#b8922e,var(--brand-gold));color:#1a0e10;margin-top:10px"><i class="fas fa-bolt"></i> Gerar Criativo Conversão Max</button>
+      </div>
+    </div>
+  </div>
+  <div class="output-panel">
+    <div class="save-progress" id="cvmax-progress"><div class="save-progress-bar"></div></div>
+    <button class="btn btn-save" id="cvmax-salvar" disabled><i class="fas fa-download"></i> Salvar PNG</button>
+    <div class="preview-label">Pré-visualização — Conversão Max (1:1)</div>
+    <div class="preview-wrapper" id="cvmax-preview-wrap">
+      <div id="cvmax-preview"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){'use strict';
 const $=id=>document.getElementById(id);
@@ -834,6 +1483,7 @@ setupUpload('vertical-mf-0','vertical-mt-0','vertical-ms-0',null,b64=>{manualIma
 
 /* ---- GLOBAL STATE ---- */
 let backupData=null;
+window._backupDataRef=null;
 const activeImgs={flyer:[],post:[],story:[],vertical:[]};
 // photoAssignments[toolId][slotIndex] = imageIndex into activeImgs[toolId]
 const photoAssignments={flyer:[0,1,2],post:[0,1,2,3],story:[0,1,2,3,4,5,6],vertical:[0]};
@@ -1054,6 +1704,7 @@ async function autoSync_(){
   try{
     const data=await loadFromImobiProDB();
     backupData=data;
+    window._backupDataRef=data;
     if(!data.imoveis.length){
       setSyncState('manual','ImobiPro conectado — nenhum imóvel','Cadastre imóveis no ImobiPro e clique em atualizar');
     }else{
@@ -1061,11 +1712,11 @@ async function autoSync_(){
       populateAllSelects(data.imoveis);
       toast(`${data.imoveis.length} imóvel(is) carregado(s) do ImobiPro!`,'success');
     }
-    ['flyer','post','story','vertical'].forEach(t=>{const fb=$(t+'-fallback');if(fb)fb.style.display='none';});
+    ['flyer','post','story','vertical','cvmax','cvmaxstory'].forEach(t=>{const fb=$(t+'-fallback');if(fb)fb.style.display='none';});
   }catch(err){
     console.warn('[ArtPro] ImobiProDB não acessível:',err.message);
     setSyncState('disconnected','ImobiPro não encontrado neste dispositivo','Abra o ImobiPro no mesmo navegador — ou importe um backup abaixo');
-    ['flyer','post','story','vertical'].forEach(t=>{
+    ['flyer','post','story','vertical','cvmax','cvmaxstory'].forEach(t=>{
       const fb=$(t+'-fallback');if(fb)fb.style.display='block';
       const sel=$(t+'-select');
       if(sel){sel.innerHTML='<option value="">— Importe um backup abaixo —</option>';sel.disabled=true;}
@@ -1083,7 +1734,7 @@ function processBackup(file,cb){
     try{
       const p=JSON.parse(e.target.result);
       let imoveis=[];
-      if(p.imoveis&&Array.isArray(p.imoveis)){backupData=p;imoveis=p.imoveis;}
+      if(p.imoveis&&Array.isArray(p.imoveis)){backupData=p;window._backupDataRef=p;imoveis=p.imoveis;}
       else if(Array.isArray(p)){backupData={imoveis:p,settings:null};imoveis=p;}
       else throw new Error('Formato inválido. Use o backup completo ou o backup de imóveis do ImobiPro.');
       populateAllSelects(imoveis);
@@ -1189,7 +1840,7 @@ function updateFlyerPreview(){
     ${infraHTML}
     <div class="flyer-cta-strip"><i class="fab fa-whatsapp"></i> ${ctaText} — ${whats||'[WhatsApp]'}</div>
     <div class="flyer-footer">
-      <div><div class="flyer-broker-name">${corretor||'[Corretor]'}</div><div class="flyer-broker-role">Corretor(a) de imóveis</div></div>
+      <div><div class="flyer-broker-name">${corretor||'[Corretor]'}</div><div class="flyer-broker-role">${detectarGenero((corretor||'').split(' ')[0])==='f'?'Corretora de imóveis':'Corretor de imóveis'}</div></div>
       <div class="flyer-contact-info">
         <p><i class="fab fa-whatsapp"></i> ${whats||'[WhatsApp]'}</p>
         <p><i class="fab fa-instagram"></i> ${insta||'[Instagram]'}</p>
@@ -1475,6 +2126,392 @@ $$('.nav-btn').forEach(btn=>{
 
 /* INIT */
 autoSync_();
+
+/* ======================================================
+   CONVERSÃO MAX — JS
+   ====================================================== */
+
+// Registra no estado global
+manualImages.cvmax = [null];
+activeImgs.cvmax = [];
+photoAssignments.cvmax = [0];
+SLOT_LABELS.cvmax = ['Foto principal'];
+selectedBadge.cvmax = '';
+
+// Detecção de gênero pelo primeiro nome — lista abrangente de nomes brasileiros
+function detectarGenero(nome){
+  if(!nome)return 'm';
+  const n=nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const femininos=['ana','maria','julia','juliana','paula','patricia','camila','fernanda','amanda','jessica',
+    'beatriz','bruna','carolina','luciana','renata','adriana','claudia','daniela','roberta','simone',
+    'tatiana','vanessa','viviane','leticia','larissa','natalia','mariana','priscila','gabriela','rafaela',
+    'alice','elaine','cristina','debora','flavia','giovanna','isabela','isabella','joana','josefa',
+    'karla','luana','luciane','luiza','luisa','maisa','milena','monique','nadia','noemia','olivia',
+    'raquel','sabrina','samara','sandra','sarah','silvia','sonia','stefania','sueli','susana','tamires',
+    'thais','thalia','valeria','wanda','yara','yasmin','zelia','livia','layla','lara','luna','aurora',
+    'bianca','cecilia','clara','diana','eduarda','estefania','fatima','helena','ingrid','iris','jade',
+    'jamile','kelly','lais','leila','lorena','luana','marina','mirela','nathalia','nicoly','pamela',
+    'rebeca','regina','rita','rosa','ruth','sheila','soraya','suellen','tania','vera','wania'];
+  const masculinos=['joao','jose','francisco','antonio','carlos','paulo','pedro','lucas','luiz','marcos',
+    'luis','gabriel','rafael','daniel','marcelo','bruno','eduardo','felipe','rodrigo','manoel',
+    'victor','vitor','gustavo','fernando','jorge','sergio','roberto','fabio','alex','andre',
+    'mateus','matheus','thiago','diego','leonardo','leandro','henrique','caio','igor','ivan',
+    'alan','alberto','aldo','alfredo','allan','almir','alonso','altair','alvaro','anderson',
+    'angelo','artur','arthur','augusto','cesar','claudio','cleber','clovis','cristiano','davi',
+    'dario','denilson','denis','douglas','edgar','edmundo','edson','elias','emerson','eudes',
+    'everton','ezequiel','flavio','gilberto','gilmar','giuliano','guilherme','heitor','hiago',
+    'hugo','iran','isac','isaias','ismael','italo','jairo','jean','jefferson','jonas','jonathan',
+    'julio','kaique','kauã','luan','marcio','mario','mauricio','mauro','maxwell','michael',
+    'michel','miguel','murilo','natan','nelson','nicolas','nilton','noel','norman','olavo',
+    'orlando','oscar','otavio','pablo','renan','renato','reno','richard','robson','rogerio',
+    'romulo','ronaldo','ruan','rubens','rui','samuel','saulo','silvio','tiago','tito','ubiratan',
+    'ulisses','valdenir','valerio','walter','wellington','william','wilson','yago','yuri'];
+  if(femininos.includes(n))return 'f';
+  if(masculinos.includes(n))return 'm';
+  // Heurística por terminação — nomes femininos terminam em a, inha, ana, ela, isa, ita, ene
+  if(/a$/.test(n)&&!['joshua','elisha','nikita','kauã'].includes(n))return 'f';
+  return 'm';
+}
+
+// AutoFill
+function autoFillCvmax(im,s){
+  const tc=classificarTipo(im.tipo||im.categoria||'');
+  renderTipoBadge('cvmax-tipo-badge',tc,im.tipo||'');
+  adaptarFormulario2('cvmax',tc);
+  $('cvmax-endereco').value=im.endereco||'';
+  if(im.preco)$('cvmax-preco').value=im.preco;
+  if(tc==='residencial'){
+    $('cvmax-quartos').value=im.quartos||'';
+    $('cvmax-banheiros').value=im.banheiros||'';
+    $('cvmax-vagas').value=im.vagas||'';
+    $('cvmax-area').value=im.area||'';
+  }else if(tc==='lote'||tc==='terreno'){
+    $('cvmax-area').value=im.area||im.areaLote||'';
+    const t=$('cvmax-testada');if(t)t.value=im.testada||'';
+    const z=$('cvmax-zoneamento');if(z)z.value=im.zoneamento||'';
+  }else if(tc==='galpao'){
+    $('cvmax-area').value=im.area||im.areaConstruida||'';
+    $('cvmax-vagas').value=im.vagas||'';
+  }
+  $('cvmax-whats').value=s&&s.telefone?s.telefone:'';
+  $('cvmax-instagram').value=s&&s.instagram?s.instagram:'';
+  $('cvmax-corretor').value=s&&s.nome?s.nome:'';
+  carregarImagem('cvmax',im);
+  buildPhotoSlots('cvmax',SLOT_LABELS.cvmax,im.imagens,updateCvmaxPreview);
+}
+
+function updateCvmaxPreview(){
+  const headline  = gv('cvmax-headline') || 'Realize o sonho da casa própria';
+  const endereco  = gv('cvmax-endereco');
+  const preco     = gv('cvmax-preco');
+  const parcela   = gv('cvmax-parcela');
+  const scarcity  = gv('cvmax-scarcity');
+  const proof     = gv('cvmax-proof') || '★★★★★ Atendimento de excelência';
+  const cta       = gv('cvmax-cta')  || 'Quero agendar minha visita!';
+  const whats     = gv('cvmax-whats');
+  const insta     = gv('cvmax-instagram');
+  const corretor  = gv('cvmax-corretor');
+  // Detecção automática de gênero pelo primeiro nome
+  const _cvNomes = corretor.trim().split(/\s+/)[0]||'';
+  const _cvGenero = detectarGenero(_cvNomes);
+  const tituloCorretor = _cvGenero==='f' ? 'Corretora de Imóveis' : 'Corretor de Imóveis';
+  const quartos   = gv('cvmax-quartos');
+  const banheiros = gv('cvmax-banheiros');
+  const vagas     = gv('cvmax-vagas');
+  const area      = gv('cvmax-area');
+  const testada   = gv('cvmax-testada');
+  const badgeVal  = getSelectedBadge('cvmax');
+
+  // Feats
+  let feats='';
+  if(quartos)  feats+=`<div class="cvmax-feat-chip"><i class="fas fa-bed"></i>${quartos} Quarto${+quartos>1?'s':''}</div>`;
+  if(banheiros)feats+=`<div class="cvmax-feat-chip"><i class="fas fa-bath"></i>${banheiros} Banh.</div>`;
+  if(vagas)    feats+=`<div class="cvmax-feat-chip"><i class="fas fa-car"></i>${vagas} Vaga${+vagas>1?'s':''}</div>`;
+  if(area)     feats+=`<div class="cvmax-feat-chip"><i class="fas fa-vector-square"></i>${area} m²</div>`;
+  if(testada)  feats+=`<div class="cvmax-feat-chip"><i class="fas fa-arrows-alt-h"></i>Testada ${testada}m</div>`;
+
+  // Urgency badge
+  const badgeHTML = badgeVal
+    ? `<div class="cvmax-urgency-tag u-${badgeVal}"><i class="fas fa-bolt"></i>${BADGE_LABELS[badgeVal]}</div>`
+    : `<div class="cvmax-urgency-tag u-vazio"></div>`;
+
+  // Preço
+  const precoHTML = preco
+    ? `<div class="cvmax-price-block">
+        <div>
+          <div class="cvmax-price-label">Valor</div>
+          <div class="cvmax-price-val">${preco}</div>
+        </div>
+        ${parcela?`<div style="font-size:.7rem;color:rgba(255,255,255,.55);font-weight:600;padding-top:12px">${parcela}</div>`:''}
+       </div>`
+    : '';
+
+  // Scarcity bar
+  const scarcityHTML = scarcity
+    ? `<div class="cvmax-scarcity"><i class="fas fa-fire"></i>${scarcity}</div>`
+    : '';
+  const ctaRoundClass = scarcity ? '' : ' no-round-top';
+
+  // Prova social
+  const proofHTML=`<div class="cvmax-social-proof">
+    <div>
+      <div class="cvmax-stars">★★★★★</div>
+      <div class="cvmax-proof-text">${proof}</div>
+    </div>
+  </div>`;
+
+  // Endereço
+  const addrHTML = endereco
+    ? `<div class="cvmax-address"><i class="fas fa-map-marker-alt"></i>${endereco}</div>`
+    : '';
+
+  $('cvmax-preview').innerHTML=`
+    <div id="cvmax-bg" class="img-placeholder" style="min-height:100%;position:absolute;inset:0;background-size:cover;background-position:center"></div>
+    <div id="cvmax-overlay"></div>
+    <div class="cvmax-content">
+      <div class="cvmax-top">
+        ${badgeHTML}
+
+      </div>
+      <div class="cvmax-mid">
+        ${feats ? `<div class="cvmax-feat-row">${feats}</div>` : ''}
+        ${proofHTML}
+        ${addrHTML}
+        <div class="cvmax-headline">${headline}</div>
+        ${precoHTML}
+      </div>
+      <div class="cvmax-bottom">
+        ${scarcityHTML}
+        <div class="cvmax-cta-main${ctaRoundClass}">
+          <div style="display:flex;align-items:center;gap:7px">
+            <i class="fab fa-whatsapp"></i>
+            <span>${cta}</span>
+          </div>
+          <div class="cvmax-cta-contact">${whats||'[WhatsApp]'}</div>
+        </div>
+        <div class="cvmax-contact-strip">
+          ${corretor?`<div class="cvmax-contact-item"><i class="fas fa-user-tie"></i>${corretor}</div>`:''}
+          <div class="cvmax-contact-item"><i class="fab fa-whatsapp"></i>${whats||'[WhatsApp]'}</div>
+          <div class="cvmax-contact-item"><i class="fab fa-instagram"></i>${insta||'[Instagram]'}</div>
+        </div>
+      </div>
+    </div>`;
+
+  setImg($('cvmax-bg'), getSlotImg('cvmax',0));
+  $('cvmax-salvar').disabled=false;
+}
+
+// Setup upload
+setupUpload('cvmax-mf-0','cvmax-mt-0','cvmax-ms-0','cvmax-mw-0',b64=>{manualImages.cvmax[0]=b64;updateCvmaxPreview();});
+
+// Setup tool (importação)
+$('cvmax-select').addEventListener('change',e=>{
+  if(!e.target.value)return;
+  if(!backupData||!backupData.imoveis)return;
+  const im=backupData.imoveis.find(i=>String(i.id)===String(e.target.value));
+  if(im){autoFillCvmax(im,backupData.settings);updateCvmaxPreview();$('cvmax-form').style.display='block';}
+});
+$('cvmax-skip').addEventListener('click',()=>{
+  const sec=$('cvmax-import-section');if(sec)sec.style.display='none';
+  $('cvmax-form').style.display='block';
+});
+const cvmaxFb=$('cvmax-backup');
+if(cvmaxFb)cvmaxFb.addEventListener('change',e=>{processBackup(e.target.files[0],()=>$('cvmax-form').style.display='block');e.target.value='';});
+$('cvmax-atualizar').addEventListener('click',updateCvmaxPreview);
+$('cvmax-salvar').addEventListener('click',()=>downloadPNG($('cvmax-preview'),`imobipro-cvmax-${Date.now()}.png`,'cvmax-salvar','cvmax-progress'));
+
+// Realtime update
+['cvmax-headline','cvmax-endereco','cvmax-preco','cvmax-parcela','cvmax-scarcity','cvmax-proof','cvmax-cta','cvmax-whats','cvmax-instagram','cvmax-corretor','cvmax-quartos','cvmax-banheiros','cvmax-vagas','cvmax-area','cvmax-testada','cvmax-zoneamento'].forEach(id=>{
+  const e=$(id);if(e)e.addEventListener('input',updateCvmaxPreview);
+});
+
+// Registra no populateAllSelects
+const _origPopulate=populateAllSelects;
+populateAllSelects = function(imoveis){
+  _origPopulate(imoveis);
+  // cvmax
+  const sel=$('cvmax-select');if(sel){
+    sel.innerHTML='<option value="">— Selecione um imóvel —</option>';
+    imoveis.forEach(im=>{
+      const o=document.createElement('option');
+      o.value=im.id;
+      o.textContent=im.titulo||(im.tipo?im.tipo+' – ':'')+im.endereco||'Imóvel sem título';
+      sel.appendChild(o);
+    });
+    sel.disabled=false;
+    const st=$('cvmax-import-status');
+    if(st)st.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} imóvel(is) do ImobiPro</div>`;
+  }
+  // cvmaxstory
+  const ssel=$('cvmaxstory-select');if(ssel){
+    ssel.innerHTML='<option value="">— Selecione um imóvel —</option>';
+    imoveis.forEach(im=>{
+      const o=document.createElement('option');
+      o.value=im.id;
+      o.textContent=im.titulo||(im.tipo?im.tipo+' – ':'')+im.endereco||'Imóvel sem título';
+      ssel.appendChild(o);
+    });
+    ssel.disabled=false;
+    const sst=$('cvmaxstory-import-status');
+    if(sst)sst.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} imóvel(is) do ImobiPro</div>`;
+  }
+  // Dispara evento para outros scripts
+  document.dispatchEvent(new CustomEvent('imobipro:synced',{detail:imoveis}));
+};
+
+// Registra no selectedBadge e fns de badge
+const _origBadgeFns=document.addEventListener;
+// Adiciona cvmax ao mapa de update de badge
+(function(){
+  const origFns=window._badgeFns||{};
+  origFns.cvmax=updateCvmaxPreview;
+  document.querySelectorAll('#cvmax-badge-selector .badge-opt').forEach(opt=>{
+    opt.addEventListener('click',()=>{
+      document.querySelectorAll('#cvmax-badge-selector .badge-opt').forEach(o=>o.className='badge-opt');
+      const val=opt.dataset.val||'';
+      if(val)opt.classList.add(`sel-${val}`);
+      selectedBadge.cvmax=val;
+      updateCvmaxPreview();
+    });
+  });
+})();
+/* ======================================================
+   STORY CONVERSÃO MAX — JS
+   ====================================================== */
+manualImages.cvmaxstory=[null];
+activeImgs.cvmaxstory=[];
+photoAssignments.cvmaxstory=[0];
+SLOT_LABELS.cvmaxstory=['Foto principal'];
+selectedBadge.cvmaxstory='';
+
+function updateCvmaxStoryPreview(){
+  const headline  = gv('cvmaxstory-headline') || 'Realize o sonho da casa própria';
+  const endereco  = gv('cvmaxstory-endereco');
+  const preco     = gv('cvmaxstory-preco');
+  const parcela   = gv('cvmaxstory-parcela');
+  const scarcity  = gv('cvmaxstory-scarcity');
+  const proof     = gv('cvmaxstory-proof') || '★★★★★ Atendimento de excelência';
+  const cta       = gv('cvmaxstory-cta')  || 'Quero agendar minha visita!';
+  const whats     = gv('cvmaxstory-whats');
+  const insta     = gv('cvmaxstory-instagram');
+  const corretor  = gv('cvmaxstory-corretor');
+  const quartos   = gv('cvmaxstory-quartos');
+  const banheiros = gv('cvmaxstory-banheiros');
+  const vagas     = gv('cvmaxstory-vagas');
+  const area      = gv('cvmaxstory-area');
+  const testada   = gv('cvmaxstory-testada');
+  const badgeVal  = getSelectedBadge('cvmaxstory');
+
+  const primeiroNome=corretor.trim().split(/\s+/)[0]||'';
+  const tituloCorretor=detectarGenero(primeiroNome)==='f'?'Corretora de Imóveis':'Corretor de Imóveis';
+
+  let feats='';
+  if(quartos)  feats+=`<div class="cvmaxstory-feat-chip"><i class="fas fa-bed"></i>${quartos} Quarto${+quartos>1?'s':''}</div>`;
+  if(banheiros)feats+=`<div class="cvmaxstory-feat-chip"><i class="fas fa-bath"></i>${banheiros} Banh.</div>`;
+  if(vagas)    feats+=`<div class="cvmaxstory-feat-chip"><i class="fas fa-car"></i>${vagas} Vaga${+vagas>1?'s':''}</div>`;
+  if(area)     feats+=`<div class="cvmaxstory-feat-chip"><i class="fas fa-vector-square"></i>${area} m²</div>`;
+  if(testada)  feats+=`<div class="cvmaxstory-feat-chip"><i class="fas fa-arrows-alt-h"></i>Testada ${testada}m</div>`;
+
+  const badgeHTML=badgeVal
+    ?`<div class="cvmaxstory-badge u-${badgeVal}"><i class="fas fa-bolt"></i>${BADGE_LABELS[badgeVal]}</div>`
+    :`<div class="cvmaxstory-badge u-vazio"></div>`;
+
+  const precoHTML=preco?`<div class="cvmaxstory-price-block">
+    <div class="cvmaxstory-price-label">Valor</div>
+    <div class="cvmaxstory-price-val">${preco}</div>
+    ${parcela?`<div class="cvmaxstory-parcela">${parcela}</div>`:''}
+  </div>`:'';
+
+  const scarcityHTML=scarcity?`<div class="cvmaxstory-scarcity"><i class="fas fa-fire"></i>${scarcity}</div>`:'';
+  const ctaRound=scarcity?'':' no-round-top';
+
+  const proofHTML=`<div class="cvmaxstory-proof"><div>
+    <span class="cvmaxstory-stars">★★★★★</span>
+    <div class="cvmaxstory-proof-text">${proof}</div>
+  </div></div>`;
+
+  const addrHTML=endereco?`<div class="cvmaxstory-addr"><i class="fas fa-map-marker-alt"></i>${endereco}</div>`:'';
+
+  $('cvmaxstory-preview').innerHTML=`
+    <div id="cvmaxstory-bg" class="img-placeholder" style="position:absolute;inset:0;background-size:cover;background-position:center"></div>
+    <div id="cvmaxstory-overlay"></div>
+    <div class="cvmaxstory-content">
+      <div class="cvmaxstory-top">
+        ${badgeHTML}
+        <div class="cvmaxstory-swipe"><i class="fas fa-chevron-up"></i>Deslize para cima</div>
+      </div>
+      <div class="cvmaxstory-mid">
+        ${feats?`<div class="cvmaxstory-feat-row">${feats}</div>`:''}
+        ${proofHTML}
+        ${addrHTML}
+        <div class="cvmaxstory-headline">${headline}</div>
+        ${precoHTML}
+      </div>
+      <div class="cvmaxstory-bottom">
+        ${scarcityHTML}
+        <div class="cvmaxstory-cta${ctaRound}"><i class="fab fa-whatsapp"></i><span>${cta}</span></div>
+        <div class="cvmaxstory-contact">
+          ${corretor?`<div class="cvmaxstory-contact-item"><i class="fas fa-user-tie"></i>${corretor}</div>`:''}
+          <div class="cvmaxstory-contact-item"><i class="fab fa-whatsapp"></i>${whats||'[WhatsApp]'}</div>
+          <div class="cvmaxstory-contact-item"><i class="fab fa-instagram"></i>${insta||'[Instagram]'}</div>
+        </div>
+      </div>
+    </div>`;
+
+  setImg($('cvmaxstory-bg'), getSlotImg('cvmaxstory',0));
+  $('cvmaxstory-salvar').disabled=false;
+}
+
+setupUpload('cvmaxstory-mf-0','cvmaxstory-mt-0','cvmaxstory-ms-0','cvmaxstory-mw-0',b64=>{manualImages.cvmaxstory[0]=b64;updateCvmaxStoryPreview();});
+
+function autoFillCvmaxStory(im,s){
+  const tc=classificarTipo(im.tipo||im.categoria||'');
+  renderTipoBadge('cvmaxstory-tipo-badge',tc,im.tipo||'');
+  adaptarFormulario2('cvmaxstory',tc);
+  $('cvmaxstory-endereco').value=im.endereco||'';
+  if(im.preco)$('cvmaxstory-preco').value=im.preco;
+  $('cvmaxstory-quartos').value=im.quartos||'';
+  $('cvmaxstory-banheiros').value=im.banheiros||'';
+  $('cvmaxstory-vagas').value=im.vagas||'';
+  $('cvmaxstory-area').value=im.area||im.areaLote||im.areaConstruida||'';
+  $('cvmaxstory-whats').value=s&&s.telefone?s.telefone:'';
+  $('cvmaxstory-instagram').value=s&&s.instagram?s.instagram:'';
+  $('cvmaxstory-corretor').value=s&&s.nome?s.nome:'';
+  carregarImagem('cvmaxstory',im);
+  buildPhotoSlots('cvmaxstory',SLOT_LABELS.cvmaxstory,im.imagens,updateCvmaxStoryPreview);
+}
+
+$('cvmaxstory-select').addEventListener('change',e=>{
+  if(!e.target.value)return;
+  if(!backupData||!backupData.imoveis)return;
+  const im=backupData.imoveis.find(i=>String(i.id)===String(e.target.value));
+  if(im){autoFillCvmaxStory(im,backupData.settings);updateCvmaxStoryPreview();$('cvmaxstory-form').style.display='block';}
+});
+$('cvmaxstory-skip').addEventListener('click',()=>{
+  const sec=$('cvmaxstory-import-section');if(sec)sec.style.display='none';
+  $('cvmaxstory-form').style.display='block';
+});
+const cvmaxstoryFb=$('cvmaxstory-backup');
+if(cvmaxstoryFb)cvmaxstoryFb.addEventListener('change',e=>{processBackup(e.target.files[0],()=>$('cvmaxstory-form').style.display='block');e.target.value='';});
+$('cvmaxstory-atualizar').addEventListener('click',updateCvmaxStoryPreview);
+$('cvmaxstory-salvar').addEventListener('click',()=>downloadPNG($('cvmaxstory-preview'),`imobipro-storymax-${Date.now()}.png`,'cvmaxstory-salvar','cvmaxstory-progress'));
+
+['cvmaxstory-headline','cvmaxstory-endereco','cvmaxstory-preco','cvmaxstory-parcela',
+ 'cvmaxstory-scarcity','cvmaxstory-proof','cvmaxstory-cta','cvmaxstory-whats',
+ 'cvmaxstory-instagram','cvmaxstory-corretor','cvmaxstory-quartos','cvmaxstory-banheiros',
+ 'cvmaxstory-vagas','cvmaxstory-area','cvmaxstory-testada'].forEach(id=>{
+  const e=$(id);if(e)e.addEventListener('input',updateCvmaxStoryPreview);
+});
+
+$$('#cvmaxstory-badge-selector .badge-opt').forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    $$('#cvmaxstory-badge-selector .badge-opt').forEach(o=>o.className='badge-opt');
+    const val=opt.dataset.val||'';
+    if(val)opt.classList.add(`sel-${val}`);
+    selectedBadge.cvmaxstory=val;
+    updateCvmaxStoryPreview();
+  });
+});
 
 })();
 </script>
