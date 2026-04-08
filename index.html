@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -521,6 +520,67 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 
 /* Variante de layout: escassez off */
 .cvmax-cta-main.no-round-top{border-radius:6px}
+
+/* ====================================================
+   CONVERSÃO MAX — multi-foto collage
+==================================================== */
+#cvmax-photos-collage {
+  position:absolute;inset:0;
+  display:grid;
+  grid-template-columns:1fr;
+  grid-template-rows:1fr;
+}
+#cvmax-photos-collage.has-2 {
+  grid-template-columns:1.5fr 1fr;
+}
+#cvmax-photos-collage.has-3 {
+  grid-template-columns:1.5fr 1fr;
+  grid-template-rows:1fr 1fr;
+}
+.cvmax-photo-cell {
+  background-size:cover;background-position:center;
+  filter:brightness(.52) saturate(1.1);
+}
+.cvmax-photo-cell:first-child {
+  grid-row:1 / -1;
+}
+.cvmax-photo-divider-v {
+  position:absolute;top:0;bottom:0;left:0;right:0;
+  pointer-events:none;z-index:1;
+}
+.cvmax-photo-count {
+  display:flex;align-items:center;gap:4px;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(6px);
+  border:1px solid rgba(200,169,110,.4);
+  border-radius:20px;padding:3px 9px;
+  font-size:.62rem;font-weight:700;color:rgba(255,255,255,.85);
+}
+.cvmax-photo-count i{color:var(--brand-gold);font-size:.58rem}
+
+/* ====================================================
+   STORY CONVERSÃO MAX — multi-foto strip
+==================================================== */
+/* Strip de fotos mini no topo do story */
+.cvmaxstory-photostrip {
+  display:flex;gap:5px;margin-bottom:10px;
+}
+.cvmaxstory-photostrip-thumb {
+  flex:1;height:52px;
+  border-radius:8px;
+  background-size:cover;background-position:center;
+  border:2px solid rgba(200,169,110,.5);
+  box-shadow:0 2px 10px rgba(0,0,0,.4);
+  filter:brightness(.85) saturate(1.05);
+  transition:filter .2s;
+}
+.cvmaxstory-photostrip-thumb:first-child {
+  flex:1.8;height:52px;
+}
+.cvmaxstory-photostrip-thumb.empty {
+  background:rgba(255,255,255,.07);
+  border-style:dashed;
+  display:none;
+}
 
 /* ====================================================
    STORY CONVERSÃO MAX — 9:16 Alta Performance
@@ -1237,14 +1297,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
           <div class="form-group"><label>Instagram</label><input type="text" id="cvmaxstory-instagram" placeholder="@seuperfil"></div>
         </div>
 
-        <div class="section-title"><i class="fas fa-images"></i> Foto do Imóvel</div>
+        <div class="section-title"><i class="fas fa-images"></i> Fotos do Imóvel <span style="font-size:.65rem;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0">(até 3 — strip no topo)</span></div>
         <div id="cvmaxstory-photo-slots"></div>
         <div id="cvmaxstory-imagens-manual">
           <div class="img-upload-widget" id="cvmaxstory-mw-0" onclick="document.getElementById('cvmaxstory-mf-0').click()">
             <div class="thumb" id="cvmaxstory-mt-0"><i class="fas fa-image"></i></div>
-            <div class="meta"><strong>Foto principal</strong><span>A imagem mais impactante do imóvel</span></div>
+            <div class="meta"><strong>Foto 1 — Fundo Principal</strong><span>Imagem de fundo do story</span></div>
             <div class="status-dot" id="cvmaxstory-ms-0"></div>
             <input type="file" id="cvmaxstory-mf-0" accept="image/*">
+          </div>
+          <div class="img-upload-widget" id="cvmaxstory-mw-1" onclick="document.getElementById('cvmaxstory-mf-1').click()" style="margin-top:7px">
+            <div class="thumb" id="cvmaxstory-mt-1"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto 2 — Strip lateral</strong><span>Miniatura na tira de fotos (opcional)</span></div>
+            <div class="status-dot" id="cvmaxstory-ms-1"></div>
+            <input type="file" id="cvmaxstory-mf-1" accept="image/*">
+          </div>
+          <div class="img-upload-widget" id="cvmaxstory-mw-2" onclick="document.getElementById('cvmaxstory-mf-2').click()" style="margin-top:7px">
+            <div class="thumb" id="cvmaxstory-mt-2"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto 3 — Strip lateral</strong><span>Terceira foto na tira (opcional)</span></div>
+            <div class="status-dot" id="cvmaxstory-ms-2"></div>
+            <input type="file" id="cvmaxstory-mf-2" accept="image/*">
           </div>
         </div>
 
@@ -1385,14 +1457,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
         </div>
 
         <!-- FOTO -->
-        <div class="section-title"><i class="fas fa-images"></i> Foto do Imóvel</div>
+        <div class="section-title"><i class="fas fa-images"></i> Fotos do Imóvel <span style="font-size:.65rem;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0">(até 3 — colagem automática)</span></div>
         <div id="cvmax-photo-slots"></div>
         <div id="cvmax-imagens-manual">
           <div class="img-upload-widget" id="cvmax-mw-0" onclick="document.getElementById('cvmax-mf-0').click()">
             <div class="thumb" id="cvmax-mt-0"><i class="fas fa-image"></i></div>
-            <div class="meta"><strong>Foto principal</strong><span>A imagem mais impactante do imóvel</span></div>
+            <div class="meta"><strong>Foto 1 — Principal</strong><span>Imagem de destaque (maior)</span></div>
             <div class="status-dot" id="cvmax-ms-0"></div>
             <input type="file" id="cvmax-mf-0" accept="image/*">
+          </div>
+          <div class="img-upload-widget" id="cvmax-mw-1" onclick="document.getElementById('cvmax-mf-1').click()" style="margin-top:7px">
+            <div class="thumb" id="cvmax-mt-1"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto 2 — Complementar</strong><span>Aparece na coluna lateral (opcional)</span></div>
+            <div class="status-dot" id="cvmax-ms-1"></div>
+            <input type="file" id="cvmax-mf-1" accept="image/*">
+          </div>
+          <div class="img-upload-widget" id="cvmax-mw-2" onclick="document.getElementById('cvmax-mf-2').click()" style="margin-top:7px">
+            <div class="thumb" id="cvmax-mt-2"><i class="fas fa-image"></i></div>
+            <div class="meta"><strong>Foto 3 — Detalhe</strong><span>Terceira foto na coluna lateral (opcional)</span></div>
+            <div class="status-dot" id="cvmax-ms-2"></div>
+            <input type="file" id="cvmax-mf-2" accept="image/*">
           </div>
         </div>
 
@@ -1623,7 +1707,7 @@ function assignPhoto(toolId,slotIdx,imgIdx){
   // Atualiza highlight no modal
   $$('#pp-grid .pp-thumb').forEach((el,i)=>el.classList.toggle('selecionada',i===imgIdx));
   // Dispara update do preview
-  const updateFns={flyer:updateFlyerPreview,post:updatePostPreview,story:updateStoryPreview,vertical:updateVerticalPreview};
+  const updateFns={flyer:updateFlyerPreview,post:updatePostPreview,story:updateStoryPreview,vertical:updateVerticalPreview,cvmax:updateCvmaxPreview,cvmaxstory:updateCvmaxStoryPreview};
   if(updateFns[toolId])updateFns[toolId]();
   closePhotoPicker();
 }
@@ -2132,10 +2216,10 @@ autoSync_();
    ====================================================== */
 
 // Registra no estado global
-manualImages.cvmax = [null];
+manualImages.cvmax = [null, null, null];
 activeImgs.cvmax = [];
-photoAssignments.cvmax = [0];
-SLOT_LABELS.cvmax = ['Foto principal'];
+photoAssignments.cvmax = [0, 1, 2];
+SLOT_LABELS.cvmax = ['Foto 1 — Principal', 'Foto 2 — Complementar', 'Foto 3 — Detalhe'];
 selectedBadge.cvmax = '';
 
 // Detecção de gênero pelo primeiro nome — lista abrangente de nomes brasileiros
@@ -2211,7 +2295,6 @@ function updateCvmaxPreview(){
   const whats     = gv('cvmax-whats');
   const insta     = gv('cvmax-instagram');
   const corretor  = gv('cvmax-corretor');
-  // Detecção automática de gênero pelo primeiro nome
   const _cvNomes = corretor.trim().split(/\s+/)[0]||'';
   const _cvGenero = detectarGenero(_cvNomes);
   const tituloCorretor = _cvGenero==='f' ? 'Corretora de Imóveis' : 'Corretor de Imóveis';
@@ -2222,6 +2305,13 @@ function updateCvmaxPreview(){
   const testada   = gv('cvmax-testada');
   const badgeVal  = getSelectedBadge('cvmax');
 
+  // Coletar fotos disponíveis (slots manuais ou do imóvel)
+  const foto0 = getSlotImg('cvmax',0);
+  const foto1 = getSlotImg('cvmax',1);
+  const foto2 = getSlotImg('cvmax',2);
+  const fotos = [foto0,foto1,foto2].filter(Boolean);
+  const nFotos = fotos.length;
+
   // Feats
   let feats='';
   if(quartos)  feats+=`<div class="cvmax-feat-chip"><i class="fas fa-bed"></i>${quartos} Quarto${+quartos>1?'s':''}</div>`;
@@ -2230,12 +2320,10 @@ function updateCvmaxPreview(){
   if(area)     feats+=`<div class="cvmax-feat-chip"><i class="fas fa-vector-square"></i>${area} m²</div>`;
   if(testada)  feats+=`<div class="cvmax-feat-chip"><i class="fas fa-arrows-alt-h"></i>Testada ${testada}m</div>`;
 
-  // Urgency badge
   const badgeHTML = badgeVal
     ? `<div class="cvmax-urgency-tag u-${badgeVal}"><i class="fas fa-bolt"></i>${BADGE_LABELS[badgeVal]}</div>`
     : `<div class="cvmax-urgency-tag u-vazio"></div>`;
 
-  // Preço
   const precoHTML = preco
     ? `<div class="cvmax-price-block">
         <div>
@@ -2246,13 +2334,11 @@ function updateCvmaxPreview(){
        </div>`
     : '';
 
-  // Scarcity bar
   const scarcityHTML = scarcity
     ? `<div class="cvmax-scarcity"><i class="fas fa-fire"></i>${scarcity}</div>`
     : '';
   const ctaRoundClass = scarcity ? '' : ' no-round-top';
 
-  // Prova social
   const proofHTML=`<div class="cvmax-social-proof">
     <div>
       <div class="cvmax-stars">★★★★★</div>
@@ -2260,18 +2346,46 @@ function updateCvmaxPreview(){
     </div>
   </div>`;
 
-  // Endereço
   const addrHTML = endereco
     ? `<div class="cvmax-address"><i class="fas fa-map-marker-alt"></i>${endereco}</div>`
     : '';
 
+  // Montar collage de fotos
+  let collageCls = nFotos>=3 ? 'has-3' : nFotos===2 ? 'has-2' : '';
+  let collageCells = '';
+  if(nFotos===0){
+    collageCells=`<div class="cvmax-photo-cell img-placeholder" style="grid-row:1/-1"></div>`;
+  } else if(nFotos===1){
+    collageCells=`<div class="cvmax-photo-cell" style="grid-row:1/-1;background-image:url(${fotos[0]})"></div>`;
+  } else if(nFotos===2){
+    collageCells=`
+      <div class="cvmax-photo-cell" style="background-image:url(${fotos[0]})"></div>
+      <div class="cvmax-photo-cell" style="background-image:url(${fotos[1]})"></div>`;
+  } else {
+    collageCells=`
+      <div class="cvmax-photo-cell" style="background-image:url(${fotos[0]})"></div>
+      <div class="cvmax-photo-cell" style="background-image:url(${fotos[1]})"></div>
+      <div class="cvmax-photo-cell" style="background-image:url(${fotos[2]})"></div>`;
+  }
+
+  // Divisor dourado vertical entre colunas (quando há 2+ fotos)
+  const dividerHTML = nFotos>=2
+    ? `<div style="position:absolute;top:0;bottom:0;left:60%;width:3px;background:linear-gradient(to bottom,transparent,rgba(200,169,110,.7) 20%,rgba(200,169,110,.7) 80%,transparent);z-index:2;pointer-events:none"></div>
+       ${nFotos>=3?`<div style="position:absolute;top:50%;left:60%;right:0;height:3px;background:linear-gradient(to right,rgba(200,169,110,.7),transparent);z-index:2;pointer-events:none"></div>`:''}`
+    : '';
+
+  const fotoCountHTML = nFotos>=2
+    ? `<div class="cvmax-photo-count"><i class="fas fa-images"></i> ${nFotos} fotos</div>`
+    : '';
+
   $('cvmax-preview').innerHTML=`
-    <div id="cvmax-bg" class="img-placeholder" style="min-height:100%;position:absolute;inset:0;background-size:cover;background-position:center"></div>
+    <div id="cvmax-photos-collage" class="${collageCls}" style="position:absolute;inset:0;">${collageCells}</div>
+    ${dividerHTML}
     <div id="cvmax-overlay"></div>
     <div class="cvmax-content">
       <div class="cvmax-top">
         ${badgeHTML}
-
+        ${fotoCountHTML}
       </div>
       <div class="cvmax-mid">
         ${feats ? `<div class="cvmax-feat-row">${feats}</div>` : ''}
@@ -2297,12 +2411,11 @@ function updateCvmaxPreview(){
       </div>
     </div>`;
 
-  setImg($('cvmax-bg'), getSlotImg('cvmax',0));
   $('cvmax-salvar').disabled=false;
 }
 
-// Setup upload
-setupUpload('cvmax-mf-0','cvmax-mt-0','cvmax-ms-0','cvmax-mw-0',b64=>{manualImages.cvmax[0]=b64;updateCvmaxPreview();});
+// Setup upload — 3 fotos
+for(let i=0;i<3;i++){const idx=i;setupUpload(`cvmax-mf-${i}`,`cvmax-mt-${i}`,`cvmax-ms-${i}`,`cvmax-mw-${i}`,b64=>{manualImages.cvmax[idx]=b64;updateCvmaxPreview();});}
 
 // Setup tool (importação)
 $('cvmax-select').addEventListener('change',e=>{
@@ -2378,10 +2491,10 @@ const _origBadgeFns=document.addEventListener;
 /* ======================================================
    STORY CONVERSÃO MAX — JS
    ====================================================== */
-manualImages.cvmaxstory=[null];
+manualImages.cvmaxstory=[null,null,null];
 activeImgs.cvmaxstory=[];
-photoAssignments.cvmaxstory=[0];
-SLOT_LABELS.cvmaxstory=['Foto principal'];
+photoAssignments.cvmaxstory=[0,1,2];
+SLOT_LABELS.cvmaxstory=['Foto 1 — Fundo Principal','Foto 2 — Strip','Foto 3 — Strip'];
 selectedBadge.cvmaxstory='';
 
 function updateCvmaxStoryPreview(){
@@ -2404,6 +2517,12 @@ function updateCvmaxStoryPreview(){
 
   const primeiroNome=corretor.trim().split(/\s+/)[0]||'';
   const tituloCorretor=detectarGenero(primeiroNome)==='f'?'Corretora de Imóveis':'Corretor de Imóveis';
+
+  // Coletar fotos (slot 0 = fundo, slots 1 e 2 = strip)
+  const foto0 = getSlotImg('cvmaxstory',0);
+  const foto1 = getSlotImg('cvmaxstory',1);
+  const foto2 = getSlotImg('cvmaxstory',2);
+  const fotosStrip = [foto1, foto2].filter(Boolean);
 
   let feats='';
   if(quartos)  feats+=`<div class="cvmaxstory-feat-chip"><i class="fas fa-bed"></i>${quartos} Quarto${+quartos>1?'s':''}</div>`;
@@ -2432,8 +2551,16 @@ function updateCvmaxStoryPreview(){
 
   const addrHTML=endereco?`<div class="cvmaxstory-addr"><i class="fas fa-map-marker-alt"></i>${endereco}</div>`:'';
 
+  // Strip de miniaturas (fotos 2 e 3), aparece apenas se houver fotos extras
+  const stripHTML = fotosStrip.length > 0
+    ? `<div class="cvmaxstory-photostrip">
+        ${foto0 ? `<div class="cvmaxstory-photostrip-thumb" style="background-image:url(${foto0})"></div>` : ''}
+        ${fotosStrip.map(f=>`<div class="cvmaxstory-photostrip-thumb" style="background-image:url(${f})"></div>`).join('')}
+      </div>`
+    : '';
+
   $('cvmaxstory-preview').innerHTML=`
-    <div id="cvmaxstory-bg" class="img-placeholder" style="position:absolute;inset:0;background-size:cover;background-position:center"></div>
+    <div id="cvmaxstory-bg" class="${foto0?'':'img-placeholder'}" style="position:absolute;inset:0;background-size:cover;background-position:center;${foto0?`background-image:url(${foto0})`:''}"></div>
     <div id="cvmaxstory-overlay"></div>
     <div class="cvmaxstory-content">
       <div class="cvmaxstory-top">
@@ -2441,6 +2568,7 @@ function updateCvmaxStoryPreview(){
         <div class="cvmaxstory-swipe"><i class="fas fa-chevron-up"></i>Deslize para cima</div>
       </div>
       <div class="cvmaxstory-mid">
+        ${stripHTML}
         ${feats?`<div class="cvmaxstory-feat-row">${feats}</div>`:''}
         ${proofHTML}
         ${addrHTML}
@@ -2458,11 +2586,10 @@ function updateCvmaxStoryPreview(){
       </div>
     </div>`;
 
-  setImg($('cvmaxstory-bg'), getSlotImg('cvmaxstory',0));
   $('cvmaxstory-salvar').disabled=false;
 }
 
-setupUpload('cvmaxstory-mf-0','cvmaxstory-mt-0','cvmaxstory-ms-0','cvmaxstory-mw-0',b64=>{manualImages.cvmaxstory[0]=b64;updateCvmaxStoryPreview();});
+for(let i=0;i<3;i++){const idx=i;setupUpload(`cvmaxstory-mf-${i}`,`cvmaxstory-mt-${i}`,`cvmaxstory-ms-${i}`,`cvmaxstory-mw-${i}`,b64=>{manualImages.cvmaxstory[idx]=b64;updateCvmaxStoryPreview();});}
 
 function autoFillCvmaxStory(im,s){
   const tc=classificarTipo(im.tipo||im.categoria||'');
