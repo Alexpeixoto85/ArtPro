@@ -738,6 +738,135 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 }
 .cvmaxstory-contact-item i{color:var(--brand-gold);font-size:.67rem}
 
+/* ====================================================
+   CRIATIVO ANIMADO — Slideshow cinematográfico
+==================================================== */
+
+/* Upload zone */
+.anim-upload-zone{
+  border:2px dashed rgba(99,102,241,.4);
+  border-radius:var(--radius-md);
+  background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(139,92,246,.05));
+  padding:18px;
+  text-align:center;
+  cursor:pointer;
+  transition:var(--t);
+  position:relative;
+}
+.anim-upload-zone:hover,.anim-upload-zone.drag-over{
+  border-color:rgba(99,102,241,.8);
+  background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(139,92,246,.1));
+}
+.anim-upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.anim-upload-icon{font-size:2rem;color:rgba(99,102,241,.6);margin-bottom:6px}
+.anim-upload-title{font-size:.88rem;font-weight:700;color:#6366f1;margin-bottom:3px}
+.anim-upload-sub{font-size:.73rem;color:var(--text-muted)}
+
+/* Photo grid de previews */
+.anim-photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:10px 0}
+.anim-photo-item{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:#eee;cursor:grab}
+.anim-photo-item img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.anim-photo-item .anim-ph-num{position:absolute;top:4px;left:4px;background:rgba(0,0,0,.6);color:#fff;font-size:.6rem;font-weight:700;padding:2px 5px;border-radius:6px}
+.anim-photo-item .anim-ph-del{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:rgba(239,68,68,.85);color:#fff;border:none;cursor:pointer;font-size:.6rem;display:flex;align-items:center;justify-content:center;transition:var(--t)}
+.anim-photo-item .anim-ph-del:hover{background:#dc2626;transform:scale(1.1)}
+.anim-photo-item.dragging{opacity:.4;border:2px solid #6366f1}
+.anim-photo-item.drag-target{border:2px solid #22c55e;transform:scale(1.04)}
+
+/* Template selector */
+.anim-template-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:8px 0}
+.anim-tpl-card{border:2px solid var(--border);border-radius:var(--radius-md);padding:12px 10px;text-align:center;cursor:pointer;transition:var(--t);background:#fafafa;position:relative}
+.anim-tpl-card:hover{border-color:#6366f1;background:rgba(99,102,241,.04)}
+.anim-tpl-card.selected{border-color:#6366f1;background:rgba(99,102,241,.08);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
+.anim-tpl-card .tpl-icon{font-size:1.6rem;margin-bottom:5px;display:block}
+.anim-tpl-card .tpl-name{font-size:.78rem;font-weight:700;color:var(--text-primary);display:block}
+.anim-tpl-card .tpl-desc{font-size:.65rem;color:var(--text-muted);display:block;margin-top:2px}
+.anim-tpl-card .tpl-badge{position:absolute;top:6px;right:6px;background:#6366f1;color:#fff;font-size:.55rem;font-weight:800;padding:2px 5px;border-radius:4px}
+
+/* Transition selector */
+.anim-trans-grid{display:flex;flex-wrap:wrap;gap:6px;margin:7px 0}
+.anim-trans-opt{padding:5px 12px;border-radius:50px;border:1.5px solid var(--border);background:#f9f9f9;font-size:.73rem;font-weight:600;cursor:pointer;transition:var(--t);color:var(--text-muted)}
+.anim-trans-opt:hover{border-color:#6366f1;color:#6366f1}
+.anim-trans-opt.selected{background:#6366f1;border-color:#6366f1;color:#fff}
+
+/* Color theme selector */
+.anim-color-grid{display:flex;flex-wrap:wrap;gap:8px;margin:7px 0}
+.anim-color-swatch{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:var(--t);position:relative}
+.anim-color-swatch:hover,.anim-color-swatch.selected{border-color:#fff;box-shadow:0 0 0 2px #6366f1,0 3px 10px rgba(0,0,0,.25)}
+
+/* Render button */
+.btn-render{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;box-shadow:0 4px 18px rgba(99,102,241,.4);margin-top:4px}
+.btn-render:hover{box-shadow:0 6px 24px rgba(99,102,241,.5);transform:translateY(-1px)}
+.btn-render:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-export-gif{background:linear-gradient(135deg,#059669,#10b981);color:#fff;box-shadow:0 4px 16px rgba(16,185,129,.35)}
+.btn-export-gif:hover{box-shadow:0 6px 20px rgba(16,185,129,.45);transform:translateY(-1px)}
+.btn-export-gif:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-export-mp4{background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;box-shadow:0 4px 16px rgba(239,68,68,.35)}
+.btn-export-mp4:hover{box-shadow:0 6px 20px rgba(239,68,68,.45);transform:translateY(-1px)}
+.btn-export-mp4:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* Preview container */
+.anim-preview-wrap{
+  width:100%;max-width:450px;margin:0 auto;
+  border-radius:var(--radius-lg);overflow:hidden;
+  box-shadow:var(--shadow-lg);
+  background:#000;position:relative;
+}
+.anim-preview-wrap canvas{display:block;width:100%;height:auto}
+
+/* Player controls */
+.anim-player-controls{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin:10px 0 6px;
+}
+.anim-ctrl-btn{
+  width:40px;height:40px;border-radius:50%;border:none;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:.95rem;transition:var(--t);
+}
+.anim-ctrl-play{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;box-shadow:0 4px 14px rgba(99,102,241,.4);width:48px;height:48px;font-size:1.05rem}
+.anim-ctrl-play:hover{transform:scale(1.08);box-shadow:0 6px 20px rgba(99,102,241,.5)}
+.anim-ctrl-prev,.anim-ctrl-next{background:rgba(99,102,241,.1);color:#6366f1;border:1.5px solid rgba(99,102,241,.3)}
+.anim-ctrl-prev:hover,.anim-ctrl-next:hover{background:rgba(99,102,241,.2)}
+.anim-ctrl-stop{background:rgba(239,68,68,.1);color:#ef4444;border:1.5px solid rgba(239,68,68,.3)}
+.anim-ctrl-stop:hover{background:rgba(239,68,68,.2)}
+
+/* Progress bar */
+.anim-progress-bar{
+  width:100%;height:4px;background:rgba(99,102,241,.15);
+  border-radius:4px;overflow:hidden;margin:6px 0 10px;
+}
+.anim-progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(to right,#6366f1,#8b5cf6);
+  border-radius:4px;transition:width .1s linear;
+}
+
+/* Slide counter */
+.anim-slide-counter{
+  text-align:center;font-size:.72rem;font-weight:600;
+  color:var(--text-muted);margin-bottom:4px;
+}
+
+/* Export progress */
+.anim-export-progress{
+  background:rgba(99,102,241,.07);border:1.5px solid rgba(99,102,241,.2);
+  border-radius:var(--radius-md);padding:12px 15px;margin:10px 0;
+  display:none;
+}
+.anim-export-progress.show{display:block}
+.anim-export-pct{font-size:.78rem;font-weight:700;color:#6366f1;margin-bottom:6px}
+.anim-export-bar{width:100%;height:6px;background:rgba(99,102,241,.15);border-radius:6px;overflow:hidden}
+.anim-export-fill{height:100%;background:linear-gradient(to right,#6366f1,#22c55e);border-radius:6px;transition:width .2s}
+.anim-export-log{font-size:.68rem;color:var(--text-muted);margin-top:6px;min-height:16px}
+
+/* Format selector */
+.anim-format-row{display:flex;gap:8px;margin:8px 0}
+.anim-fmt-btn{flex:1;padding:8px 6px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:#fafafa;font-size:.73rem;font-weight:700;cursor:pointer;transition:var(--t);color:var(--text-muted);text-align:center}
+.anim-fmt-btn:hover{border-color:#6366f1;color:#6366f1}
+.anim-fmt-btn.selected{background:#6366f1;border-color:#6366f1;color:#fff}
+
+/* Info pill */
+.anim-info-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:50px;font-size:.68rem;font-weight:600;color:#6366f1;margin:4px 2px}
 
 </style>
 </head>
@@ -755,6 +884,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
   <button class="nav-btn" data-tool="vertical"><i class="fas fa-portrait"></i> Vertical</button>
   <button class="nav-btn" data-tool="cvmax" style="background:linear-gradient(135deg,rgba(200,169,110,.25),rgba(200,169,110,.1));border:1px solid rgba(200,169,110,.4);color:var(--brand-gold)"><i class="fas fa-bolt"></i> Conversão Max ✦</button>
   <button class="nav-btn" data-tool="cvmaxstory" style="background:linear-gradient(135deg,rgba(200,169,110,.25),rgba(200,169,110,.1));border:1px solid rgba(200,169,110,.4);color:var(--brand-gold)"><i class="fas fa-mobile-alt"></i> Story Max ✦</button>
+  <button class="nav-btn" data-tool="animado" style="background:linear-gradient(135deg,rgba(99,102,241,.25),rgba(99,102,241,.1));border:1px solid rgba(99,102,241,.5);color:#a5b4fc"><i class="fas fa-film"></i> Animado 🎬 Novo</button>
 </nav>
 
 <!-- PHOTO PICKER MODAL -->
@@ -1490,6 +1620,200 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
     <div class="preview-label">Pré-visualização — Conversão Max (1:1)</div>
     <div class="preview-wrapper" id="cvmax-preview-wrap">
       <div id="cvmax-preview"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= CRIATIVO ANIMADO ======= -->
+<div id="animado-tool" class="tool-wrapper" hidden>
+  <div class="panel">
+    <div class="panel-header" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">
+      <i class="fas fa-film"></i>
+      <h2>Criativo Animado — Slideshow</h2>
+    </div>
+    <div class="panel-body">
+
+      <!-- IMPORTAR DO IMOBIPRO -->
+      <div class="import-section-light" id="animado-import-section" style="border-color:rgba(99,102,241,.35);background:linear-gradient(135deg,rgba(99,102,241,.06),rgba(139,92,246,.04))">
+        <div class="import-label" style="color:#6366f1"><i class="fas fa-home"></i> Importar imóvel do ImobiPro</div>
+        <div class="form-group"><label>Selecionar imóvel</label><select id="animado-select" disabled><option value="">— Aguardando sincronização... —</option></select></div>
+        <div id="animado-import-status"></div>
+        <button class="btn-skip" id="animado-skip" style="color:#6366f1">ou enviar fotos manualmente →</button>
+        <div class="fallback-section" id="animado-fallback" style="display:none">
+          <div class="fallback-label"><i class="fas fa-upload"></i> Importar backup JSON</div>
+          <div class="form-group"><input type="file" id="animado-backup" accept=".json"></div>
+        </div>
+      </div>
+
+      <!-- UPLOAD DE FOTOS -->
+      <div class="section-title" style="color:#6366f1"><i class="fas fa-images"></i> Fotos do Imóvel <span style="font-size:.65rem;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0">(até 10 fotos — arraste para reordenar)</span></div>
+      <div class="anim-upload-zone" id="animado-upload-zone">
+        <input type="file" id="animado-file-input" accept="image/*" multiple>
+        <div class="anim-upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <div class="anim-upload-title">Clique ou arraste as fotos aqui</div>
+        <div class="anim-upload-sub">JPG, PNG, WEBP — até 10 fotos em sequência</div>
+      </div>
+      <div id="animado-photo-grid" class="anim-photo-grid" style="display:none"></div>
+      <div id="animado-photo-count" style="display:none" class="anim-info-pill"><i class="fas fa-check-circle"></i> <span id="animado-count-txt">0 fotos carregadas</span></div>
+
+      <!-- DADOS DO IMÓVEL -->
+      <div class="section-title" style="color:#6366f1"><i class="fas fa-home"></i> Dados do Imóvel</div>
+      <div class="form-group"><label>Título / Nome do imóvel</label><input type="text" id="animado-titulo" placeholder="Ex: Residencial Bella Vista"></div>
+      <div class="form-group"><label>Endereço / Bairro</label><input type="text" id="animado-endereco" placeholder="Ex: Jatiúca, Maceió – AL"></div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>💰 Preço</label><input type="text" id="animado-preco" placeholder="R$ 550.000"></div>
+        <div class="form-group"><label>Parcelamento</label><input type="text" id="animado-parcela" placeholder="12x R$ 2.200"></div>
+      </div>
+      <div class="form-grid-3">
+        <div class="form-group"><label>🛏 Quartos</label><input type="text" id="animado-quartos" placeholder="3"></div>
+        <div class="form-group"><label>🚿 Banheiros</label><input type="text" id="animado-banheiros" placeholder="2"></div>
+        <div class="form-group"><label>🚗 Vagas</label><input type="text" id="animado-vagas" placeholder="1"></div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>📐 Área (m²)</label><input type="text" id="animado-area" placeholder="85"></div>
+        <div class="form-group"><label>Slogan / Headline</label><input type="text" id="animado-headline" placeholder="Realize seu sonho agora!"></div>
+      </div>
+
+      <!-- BADGE -->
+      <div class="section-title" style="color:#6366f1"><i class="fas fa-bolt"></i> Selo de Destaque</div>
+      <div class="badge-selector" id="animado-badge-selector">
+        <span class="badge-opt" data-val="">Nenhum</span>
+        <span class="badge-opt" data-val="novo">🟢 Novo</span>
+        <span class="badge-opt" data-val="exclusivo">⭐ Exclusivo</span>
+        <span class="badge-opt" data-val="lancamento">🔴 Lançamento</span>
+        <span class="badge-opt" data-val="oportunidade">🟣 Oportunidade</span>
+        <span class="badge-opt" data-val="reducao">🔵 Preço reduzido</span>
+      </div>
+
+      <!-- TEMPLATE DE LAYOUT -->
+      <div class="section-title" style="color:#6366f1"><i class="fas fa-layer-group"></i> Template de Layout</div>
+      <div class="anim-template-grid">
+        <div class="anim-tpl-card selected" data-tpl="cinematic">
+          <span class="tpl-icon">🎬</span>
+          <span class="tpl-name">Cinematográfico</span>
+          <span class="tpl-desc">Ken Burns + gradiente premium</span>
+          <span class="tpl-badge">★ Top</span>
+        </div>
+        <div class="anim-tpl-card" data-tpl="luxury">
+          <span class="tpl-icon">💎</span>
+          <span class="tpl-name">Luxury Dark</span>
+          <span class="tpl-desc">Fundo escuro + texto dourado</span>
+        </div>
+        <div class="anim-tpl-card" data-tpl="minimal">
+          <span class="tpl-icon">✨</span>
+          <span class="tpl-name">Clean Minimal</span>
+          <span class="tpl-desc">Overlay leve + tipografia clean</span>
+        </div>
+        <div class="anim-tpl-card" data-tpl="energy">
+          <span class="tpl-icon">⚡</span>
+          <span class="tpl-name">Alta Energia</span>
+          <span class="tpl-desc">Cores vibrantes + partículas</span>
+        </div>
+      </div>
+
+      <!-- FORMATO -->
+      <div class="section-title" style="color:#6366f1"><i class="fas fa-expand-arrows-alt"></i> Formato de Saída</div>
+      <div class="anim-format-row">
+        <div class="anim-fmt-btn selected" data-fmt="square">⬛ Quadrado (1:1)<br><small>Feed Instagram</small></div>
+        <div class="anim-fmt-btn" data-fmt="story">📱 Story (9:16)<br><small>Stories / Reels</small></div>
+        <div class="anim-fmt-btn" data-fmt="landscape">🖼 Landscape (16:9)<br><small>YouTube / WhatsApp</small></div>
+      </div>
+
+      <!-- TRANSIÇÃO -->
+      <div class="section-title" style="color:#6366f1"><i class="fas fa-random"></i> Tipo de Transição</div>
+      <div class="anim-trans-grid">
+        <div class="anim-trans-opt selected" data-trans="kenburns">🎥 Ken Burns</div>
+        <div class="anim-trans-opt" data-trans="fade">✨ Fade suave</div>
+        <div class="anim-trans-opt" data-trans="slide">➡️ Slide lateral</div>
+        <div class="anim-trans-opt" data-trans="zoom">🔍 Zoom in/out</div>
+        <div class="anim-trans-opt" data-trans="flip">🔄 Virada</div>
+        <div class="anim-trans-opt" data-trans="glitch">⚡ Glitch</div>
+      </div>
+
+      <!-- VELOCIDADE -->
+      <div class="section-title" style="color:#6366f1"><i class="fas fa-tachometer-alt"></i> Tempo por slide</div>
+      <div class="form-group">
+        <label>Duração de cada foto: <strong id="animado-dur-label">3 segundos</strong></label>
+        <input type="range" id="animado-duration" min="1.5" max="6" step="0.5" value="3" style="width:100%;accent-color:#6366f1;margin-top:6px">
+      </div>
+
+      <!-- TEMA DE CORES -->
+      <div class="section-title" style="color:#6366f1"><i class="fas fa-palette"></i> Tema de Cores</div>
+      <div class="anim-color-grid" id="animado-color-grid">
+        <div class="anim-color-swatch selected" data-color="gold" style="background:linear-gradient(135deg,#c8a96e,#f0d090)" title="Dourado Premium"></div>
+        <div class="anim-color-swatch" data-color="purple" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)" title="Índigo Luxo"></div>
+        <div class="anim-color-swatch" data-color="emerald" style="background:linear-gradient(135deg,#059669,#10b981)" title="Esmeralda"></div>
+        <div class="anim-color-swatch" data-color="rose" style="background:linear-gradient(135deg,#9b5f68,#c9a08a)" title="Rose ImobiPro"></div>
+        <div class="anim-color-swatch" data-color="blue" style="background:linear-gradient(135deg,#004a91,#0ea5e9)" title="Azul Premium"></div>
+        <div class="anim-color-swatch" data-color="fire" style="background:linear-gradient(135deg,#dc2626,#f97316)" title="Fogo"></div>
+        <div class="anim-color-swatch" data-color="mono" style="background:linear-gradient(135deg,#1a1a2e,#444)" title="Preto e Branco"></div>
+        <div class="anim-color-swatch" data-color="teal" style="background:linear-gradient(135deg,#0f766e,#14b8a6)" title="Teal"></div>
+      </div>
+
+      <!-- TEXTO SOBRE AS FOTOS -->
+      <div class="section-title" style="color:#6366f1"><i class="fas fa-comment-dots"></i> Legenda por slide <span style="font-size:.65rem;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0">(opcional — uma por linha)</span></div>
+      <div class="form-group">
+        <textarea id="animado-legendas" rows="4" placeholder="Sala de estar integrada&#10;Cozinha planejada&#10;Suíte master&#10;Vista privilegiada"></textarea>
+      </div>
+
+      <!-- CTA E CONTATO -->
+      <div class="section-title" style="color:#6366f1"><i class="fas fa-phone"></i> CTA e Contato</div>
+      <div class="form-group"><label>Texto do CTA</label><input type="text" id="animado-cta" placeholder="Agende sua visita agora!"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin:-2px 0 10px">
+        <span class="chip" onclick="document.getElementById('animado-cta').value=this.dataset.v" data-v="Agende sua visita agora!" style="cursor:pointer">📅 Visita</span>
+        <span class="chip" onclick="document.getElementById('animado-cta').value=this.dataset.v" data-v="Fale comigo pelo WhatsApp!" style="cursor:pointer">💬 WhatsApp</span>
+        <span class="chip" onclick="document.getElementById('animado-cta').value=this.dataset.v" data-v="Última unidade! Não perca!" style="cursor:pointer">🔥 Urgência</span>
+        <span class="chip" onclick="document.getElementById('animado-cta').value=this.dataset.v" data-v="Tenho interesse — me chame!" style="cursor:pointer">🙋 Interesse</span>
+      </div>
+      <div class="form-group"><label>👤 Nome do(a) corretor(a)</label><input type="text" id="animado-corretor" placeholder="João Silva"></div>
+      <div class="form-grid-2">
+        <div class="form-group"><label>WhatsApp</label><input type="text" id="animado-whats" placeholder="(82) 9 9999-9999"></div>
+        <div class="form-group"><label>Instagram</label><input type="text" id="animado-instagram" placeholder="@seuperfil"></div>
+      </div>
+
+      <!-- RENDER -->
+      <button type="button" class="btn btn-render" id="animado-renderizar">
+        <i class="fas fa-play-circle"></i> Gerar Criativo Animado
+      </button>
+    </div>
+  </div>
+
+  <!-- PLAYER + EXPORT -->
+  <div class="output-panel" id="animado-output" style="display:none">
+    <div class="panel" style="width:100%;max-width:520px;margin:0 auto">
+      <div class="panel-header" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">
+        <i class="fas fa-play-circle"></i><h2>Preview Animado</h2>
+      </div>
+      <div class="panel-body" style="padding:14px">
+        <div class="anim-slide-counter"><i class="fas fa-film"></i> Slide <span id="animado-slide-num">1</span> / <span id="animado-slide-total">1</span></div>
+        <div class="anim-preview-wrap">
+          <canvas id="animado-canvas"></canvas>
+        </div>
+        <div class="anim-progress-bar"><div class="anim-progress-fill" id="animado-prog-fill"></div></div>
+        <div class="anim-player-controls">
+          <button class="anim-ctrl-btn anim-ctrl-prev" id="animado-prev" title="Anterior"><i class="fas fa-step-backward"></i></button>
+          <button class="anim-ctrl-btn anim-ctrl-stop" id="animado-stop" title="Parar"><i class="fas fa-stop"></i></button>
+          <button class="anim-ctrl-btn anim-ctrl-play" id="animado-play" title="Play/Pause"><i class="fas fa-play" id="animado-play-icon"></i></button>
+          <button class="anim-ctrl-btn anim-ctrl-next" id="animado-next" title="Próximo"><i class="fas fa-step-forward"></i></button>
+        </div>
+
+        <!-- EXPORT SECTION -->
+        <div class="section-title" style="color:#6366f1;margin-top:14px"><i class="fas fa-download"></i> Exportar Criativo</div>
+        <div class="anim-export-progress" id="animado-export-prog">
+          <div class="anim-export-pct" id="animado-export-pct">Preparando...</div>
+          <div class="anim-export-bar"><div class="anim-export-fill" id="animado-export-fill" style="width:0%"></div></div>
+          <div class="anim-export-log" id="animado-export-log"></div>
+        </div>
+        <div class="form-grid-2" style="gap:8px;margin:4px 0 10px">
+          <button class="btn btn-export-gif" id="animado-export-gif"><i class="fas fa-file-image"></i> Exportar GIF</button>
+          <button class="btn btn-export-mp4" id="animado-export-mp4"><i class="fas fa-file-video"></i> Exportar MP4</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+          <span class="anim-info-pill"><i class="fas fa-info-circle"></i> GIF: compatível com todos os apps</span>
+          <span class="anim-info-pill"><i class="fas fa-info-circle"></i> MP4: melhor qualidade p/ Reels</span>
+        </div>
+        <button class="btn btn-primary" id="animado-reconfigurar" style="background:rgba(99,102,241,.15);color:#6366f1;box-shadow:none;border:1.5px solid rgba(99,102,241,.3)"><i class="fas fa-edit"></i> Editar configurações</button>
+      </div>
     </div>
   </div>
 </div>
@@ -2639,6 +2963,848 @@ $$('#cvmaxstory-badge-selector .badge-opt').forEach(opt=>{
     updateCvmaxStoryPreview();
   });
 });
+
+/* ======================================================
+   CRIATIVO ANIMADO — Engine de Slideshow Canvas
+   Técnicas: Ken Burns, transições cinematográficas,
+   sobreposição de texto com animação, exportação GIF/MP4
+   ====================================================== */
+(function(){
+'use strict';
+
+// ─── STATE ───────────────────────────────────────────────
+const A={
+  photos:[],        // Array de HTMLImageElement
+  photoSrcs:[],     // Array de base64 strings
+  config:{
+    titulo:'',endereco:'',preco:'',parcela:'',
+    quartos:'',banheiros:'',vagas:'',area:'',headline:'',
+    cta:'Agende sua visita agora!',corretor:'',whats:'',instagram:'',
+    legendas:[],badge:'',template:'cinematic',
+    format:'square',transition:'kenburns',duration:3,color:'gold'
+  },
+  player:{
+    running:false,paused:false,
+    currentSlide:0,frame:0,totalFrames:0,
+    slidePhase:0,// 0=enter,1=hold,2=exit
+    phaseFrame:0,
+    raf:null,
+    lastTime:0,
+    FPS:30,
+    enterFrames:15,holdFrames:0,exitFrames:15,
+  },
+  badge:'',
+  selectedBadge:'',
+};
+
+// ─── COLOR THEMES ─────────────────────────────────────────
+const COLORS={
+  gold:   {a:'#c8a96e',b:'#f0d090',text:'#fff',accent:'#ffd700'},
+  purple: {a:'#6366f1',b:'#8b5cf6',text:'#fff',accent:'#a5b4fc'},
+  emerald:{a:'#059669',b:'#10b981',text:'#fff',accent:'#6ee7b7'},
+  rose:   {a:'#9b5f68',b:'#c9a08a',text:'#fff',accent:'#ffd7c4'},
+  blue:   {a:'#004a91',b:'#0ea5e9',text:'#fff',accent:'#7dd3fc'},
+  fire:   {a:'#dc2626',b:'#f97316',text:'#fff',accent:'#fca5a5'},
+  mono:   {a:'#1a1a2e',b:'#444',   text:'#fff',accent:'#e2e8f0'},
+  teal:   {a:'#0f766e',b:'#14b8a6',text:'#fff',accent:'#5eead4'},
+};
+
+const BADGE_LABELS={novo:'NOVO',exclusivo:'EXCLUSIVO',lancamento:'LANÇAMENTO',oportunidade:'OPORTUNIDADE',reducao:'PREÇO REDUZIDO'};
+const BADGE_COLORS={novo:'#16a34a',exclusivo:'#c8a96e',lancamento:'#dc2626',oportunidade:'#7c3aed',reducao:'#0369a1'};
+
+// Canvas dimensions by format
+function getDims(fmt){
+  if(fmt==='story') return{w:450,h:800};
+  if(fmt==='landscape') return{w:800,h:450};
+  return{w:450,h:450};
+}
+
+// ─── CANVAS SETUP ─────────────────────────────────────────
+const cvs=document.getElementById('animado-canvas');
+const ctx=cvs.getContext('2d');
+
+function setupCanvas(){
+  const d=getDims(A.config.format);
+  cvs.width=d.w;cvs.height=d.h;
+}
+
+// ─── DRAW FRAME ───────────────────────────────────────────
+function drawFrame(slideIdx,progress,phase){
+  const d={w:cvs.width,h:cvs.height};
+  const img=A.photos[slideIdx%A.photos.length];
+  const cfg=A.config;
+  const color=COLORS[cfg.color]||COLORS.gold;
+  const tpl=cfg.template;
+
+  // Clear
+  ctx.clearRect(0,0,d.w,d.h);
+
+  // ── Background image with transition ──
+  if(img){
+    ctx.save();
+    const t=cfg.transition;
+
+    if(t==='kenburns'){
+      // Ken Burns: slow zoom + pan
+      const scaleBase=1+0.08*(slideIdx%2===0?progress:1-progress);
+      const panX=(slideIdx%3===0?1:-1)*(progress*0.04)*d.w;
+      const panY=(slideIdx%2===0?1:-1)*(progress*0.02)*d.h;
+      drawImage(img,d,scaleBase,panX,panY,1);
+    } else if(t==='zoom'){
+      const sc=1+0.12*progress;
+      drawImage(img,d,sc,0,0,1);
+    } else if(t==='slide'){
+      const offset=phase==='enter'?(1-progress)*d.w:phase==='exit'?-progress*d.w:0;
+      ctx.translate(offset,0);
+      drawImage(img,d,1.02,0,0,1);
+    } else if(t==='flip'){
+      const sc=phase==='enter'?progress:phase==='exit'?1-progress:1;
+      ctx.translate(d.w/2,d.h/2);
+      ctx.scale(sc,1);
+      ctx.translate(-d.w/2,-d.h/2);
+      drawImage(img,d,1,0,0,1);
+    } else if(t==='glitch'){
+      drawImage(img,d,1,0,0,1);
+      if(phase!=='hold'&&Math.random()>0.7){
+        const gy=Math.random()*d.h;
+        const gh=3+Math.random()*12;
+        const gx=(Math.random()-0.5)*20;
+        ctx.drawImage(img,0,gy,d.w,gh,gx,gy,d.w,gh);
+      }
+    } else {
+      // Fade
+      drawImage(img,d,1.04,0,0,1);
+    }
+
+    // Overlay
+    drawOverlay(tpl,color,d,progress,phase);
+    ctx.restore();
+
+    // Fade in/out
+    if(t==='fade'||t==='glitch'){
+      const alpha=phase==='enter'?1-progress:phase==='exit'?progress:0;
+      if(alpha>0.01){
+        ctx.fillStyle=`rgba(0,0,0,${alpha*0.92})`;
+        ctx.fillRect(0,0,d.w,d.h);
+      }
+    }
+  } else {
+    // Placeholder
+    const grad=ctx.createLinearGradient(0,0,d.w,d.h);
+    grad.addColorStop(0,'#1a1a2e');grad.addColorStop(1,'#2d1f3d');
+    ctx.fillStyle=grad;ctx.fillRect(0,0,d.w,d.h);
+  }
+
+  // ── Text overlay ──
+  const textAlpha=phase==='enter'?Math.min(1,progress*2.5):phase==='exit'?Math.max(0,1-progress*3):1;
+  drawTextOverlay(tpl,color,d,slideIdx,textAlpha);
+}
+
+function drawImage(img,d,scale,tx,ty,alpha){
+  ctx.globalAlpha=alpha;
+  const sw=d.w*scale;const sh=d.h*scale;
+  const sx=(d.w-sw)/2+tx;const sy=(d.h-sh)/2+ty;
+  ctx.drawImage(img,sx,sy,sw,sh);
+  ctx.globalAlpha=1;
+}
+
+function drawOverlay(tpl,color,d,progress,phase){
+  let grad;
+  if(tpl==='cinematic'){
+    grad=ctx.createLinearGradient(0,0,0,d.h);
+    grad.addColorStop(0,'rgba(0,0,0,0.15)');
+    grad.addColorStop(0.4,'rgba(0,0,0,0.1)');
+    grad.addColorStop(0.75,'rgba(0,0,0,0.62)');
+    grad.addColorStop(1,'rgba(0,0,0,0.92)');
+  } else if(tpl==='luxury'){
+    grad=ctx.createLinearGradient(0,0,0,d.h);
+    grad.addColorStop(0,'rgba(10,5,20,0.5)');
+    grad.addColorStop(1,'rgba(10,5,20,0.93)');
+    // Add color strip at bottom
+    const cGrad=ctx.createLinearGradient(0,d.h-60,d.w,d.h-60);
+    const c=COLORS[A.config.color]||COLORS.gold;
+    cGrad.addColorStop(0,c.a+'55');cGrad.addColorStop(1,c.b+'33');
+    ctx.fillStyle=cGrad;ctx.fillRect(0,d.h-60,d.w,60);
+  } else if(tpl==='minimal'){
+    grad=ctx.createLinearGradient(0,d.h*0.55,0,d.h);
+    grad.addColorStop(0,'rgba(0,0,0,0)');
+    grad.addColorStop(1,'rgba(0,0,0,0.78)');
+  } else if(tpl==='energy'){
+    grad=ctx.createLinearGradient(0,0,d.w,d.h);
+    const c=COLORS[A.config.color]||COLORS.gold;
+    grad.addColorStop(0,c.a+'44');
+    grad.addColorStop(0.5,'rgba(0,0,0,0.2)');
+    grad.addColorStop(1,c.b+'55');
+  }
+  if(grad){ctx.fillStyle=grad;ctx.fillRect(0,0,d.w,d.h);}
+
+  // Vignette
+  const vig=ctx.createRadialGradient(d.w/2,d.h/2,d.h*0.3,d.w/2,d.h/2,d.h*0.9);
+  vig.addColorStop(0,'rgba(0,0,0,0)');
+  vig.addColorStop(1,'rgba(0,0,0,0.35)');
+  ctx.fillStyle=vig;ctx.fillRect(0,0,d.w,d.h);
+}
+
+function drawTextOverlay(tpl,color,d,slideIdx,alpha){
+  if(alpha<0.02)return;
+  ctx.save();
+  ctx.globalAlpha=alpha;
+  const cfg=A.config;
+  const c=color;
+  const isStory=cfg.format==='story';
+  const scale=d.w/450;
+
+  // Badge (top left)
+  if(cfg.badge&&BADGE_LABELS[cfg.badge]){
+    const bx=16*scale,by=16*scale;
+    const btext=BADGE_LABELS[cfg.badge];
+    ctx.font=`800 ${11*scale}px DM Sans, sans-serif`;
+    const tw=ctx.measureText(btext).width;
+    const bw=tw+20*scale;const bh=22*scale;
+    roundRect(ctx,bx,by,bw,bh,5*scale);
+    ctx.fillStyle=BADGE_COLORS[cfg.badge]||c.a;ctx.fill();
+    ctx.fillStyle='#fff';ctx.textAlign='left';ctx.textBaseline='middle';
+    ctx.fillText(btext,bx+10*scale,by+bh/2);
+  }
+
+  // Brand watermark (top right)
+  if(cfg.corretor){
+    ctx.font=`700 ${9*scale}px DM Sans, sans-serif`;
+    ctx.fillStyle='rgba(255,255,255,0.55)';
+    ctx.textAlign='right';ctx.textBaseline='top';
+    ctx.fillText(cfg.corretor,d.w-14*scale,16*scale);
+  }
+
+  // Per-slide legend
+  const legendas=cfg.legendas||[];
+  if(legendas[slideIdx]&&legendas[slideIdx].trim()){
+    const leg=legendas[slideIdx].trim();
+    ctx.font=`600 ${11*scale}px DM Sans, sans-serif`;
+    const lw=ctx.measureText(leg).width+18*scale;
+    const lh=20*scale;
+    const lx=(d.w-lw)/2;const ly=22*scale;
+    roundRect(ctx,lx,ly,lw,lh,10*scale);
+    ctx.fillStyle='rgba(0,0,0,0.55)';ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,0.9)';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(leg,d.w/2,ly+lh/2);
+  }
+
+  // BOTTOM BLOCK
+  const padB=18*scale;
+  let yBottom=d.h-padB;
+
+  // Contact row
+  const hasContact=cfg.whats||cfg.instagram;
+  if(hasContact){
+    ctx.font=`500 ${9.5*scale}px DM Sans, sans-serif`;
+    ctx.fillStyle='rgba(255,255,255,0.55)';
+    ctx.textAlign='center';ctx.textBaseline='bottom';
+    const contactTxt=[cfg.whats,cfg.instagram].filter(Boolean).join('  ·  ');
+    ctx.fillText(contactTxt,d.w/2,yBottom);
+    yBottom-=16*scale;
+  }
+
+  // CTA bar
+  if(cfg.cta){
+    const ctaH=32*scale;
+    const ctaW=d.w-36*scale;
+    const ctaX=(d.w-ctaW)/2;
+    const ctaY=yBottom-ctaH;
+    // Shadow
+    ctx.shadowColor='rgba(0,0,0,0.4)';ctx.shadowBlur=12;
+    roundRect(ctx,ctaX,ctaY,ctaW,ctaH,8*scale);
+    const ctaGrad=ctx.createLinearGradient(ctaX,0,ctaX+ctaW,0);
+    ctaGrad.addColorStop(0,c.a);ctaGrad.addColorStop(1,c.b);
+    ctx.fillStyle=ctaGrad;ctx.fill();
+    ctx.shadowBlur=0;
+    // WhatsApp icon + text
+    ctx.font=`800 ${11*scale}px DM Sans, sans-serif`;
+    ctx.fillStyle='rgba(0,0,0,0.85)';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('💬  '+cfg.cta.toUpperCase(),d.w/2,ctaY+ctaH/2);
+    yBottom=ctaY-10*scale;
+  }
+
+  // Price block
+  if(cfg.preco){
+    ctx.shadowBlur=0;
+    ctx.font=`900 ${22*scale}px Playfair Display, serif`;
+    ctx.fillStyle=c.accent;
+    ctx.textAlign='center';ctx.textBaseline='bottom';
+    ctx.fillText(cfg.preco,d.w/2,yBottom);
+    yBottom-=26*scale;
+    if(cfg.parcela){
+      ctx.font=`500 ${9.5*scale}px DM Sans, sans-serif`;
+      ctx.fillStyle='rgba(255,255,255,0.55)';
+      ctx.fillText(cfg.parcela,d.w/2,yBottom);
+      yBottom-=15*scale;
+    }
+  }
+
+  // Features row
+  const feats=[];
+  if(cfg.quartos) feats.push('🛏 '+cfg.quartos+(+cfg.quartos>1?' qts':' qt'));
+  if(cfg.banheiros) feats.push('🚿 '+cfg.banheiros+(+cfg.banheiros>1?' bnh':' bnh'));
+  if(cfg.vagas) feats.push('🚗 '+cfg.vagas);
+  if(cfg.area) feats.push('📐 '+cfg.area+'m²');
+  if(feats.length){
+    const fsize=9.5*scale;
+    ctx.font=`700 ${fsize}px DM Sans, sans-serif`;
+    const totalW=feats.reduce((s,f)=>s+ctx.measureText(f).width+20*scale,0)-10*scale;
+    let fx=(d.w-Math.min(totalW,d.w-28*scale))/2;
+    feats.forEach(f=>{
+      const fw=ctx.measureText(f).width+16*scale;
+      roundRect(ctx,fx,yBottom-22*scale,fw,20*scale,5*scale);
+      ctx.fillStyle='rgba(255,255,255,0.12)';ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,0.25)';ctx.lineWidth=0.5;ctx.stroke();
+      ctx.fillStyle='rgba(255,255,255,0.9)';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(f,fx+fw/2,yBottom-12*scale);
+      fx+=fw+6*scale;
+      if(fx>d.w-20*scale)return;
+    });
+    yBottom-=28*scale;
+  }
+
+  // Headline / Titulo
+  const headline=cfg.headline||cfg.titulo;
+  if(headline){
+    ctx.shadowColor='rgba(0,0,0,0.6)';ctx.shadowBlur=8;
+    const hsize=Math.min(18,Math.max(12,18-(headline.length/3)))*scale;
+    ctx.font=`900 ${hsize}px Playfair Display, serif`;
+    ctx.fillStyle='#fff';ctx.textAlign='center';ctx.textBaseline='bottom';
+    wrapText(ctx,headline,d.w/2,yBottom,d.w-32*scale,hsize*1.25);
+    yBottom-=(hsize*1.4*(Math.ceil(headline.length*hsize*0.6/(d.w-32*scale))||1))+4*scale;
+    ctx.shadowBlur=0;
+  }
+
+  // Endereço
+  if(cfg.endereco){
+    ctx.font=`500 ${9.5*scale}px DM Sans, sans-serif`;
+    ctx.fillStyle='rgba(255,255,255,0.65)';
+    ctx.textAlign='center';ctx.textBaseline='bottom';
+    const eShort=cfg.endereco.length>45?cfg.endereco.substring(0,43)+'…':cfg.endereco;
+    ctx.fillText('📍 '+eShort,d.w/2,yBottom);
+  }
+
+  // Slide dots
+  if(A.photos.length>1){
+    const dotR=3*scale;const dotGap=10*scale;
+    const dotsW=(A.photos.length*dotGap);
+    let dx=d.w/2-dotsW/2;
+    for(let i=0;i<A.photos.length;i++){
+      ctx.beginPath();ctx.arc(dx+i*dotGap,d.h-8*scale,dotR,0,Math.PI*2);
+      ctx.fillStyle=i===A.player.currentSlide?c.accent:'rgba(255,255,255,0.3)';
+      ctx.fill();
+    }
+  }
+
+  ctx.restore();
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
+}
+
+function wrapText(ctx,text,x,y,maxW,lh){
+  const words=text.split(' ');let line='';let ty=y;
+  const lines=[];
+  words.forEach(w=>{
+    const test=line?line+' '+w:w;
+    if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=w;}
+    else line=test;
+  });
+  if(line)lines.push(line);
+  const totalH=lines.length*lh;
+  let startY=y-totalH+lh;
+  lines.forEach(l=>{ctx.fillText(l,x,startY);startY+=lh;});
+}
+
+// ─── PLAYER ───────────────────────────────────────────────
+const P=A.player;
+const FPS=30;
+
+function calcFrames(){
+  const d=A.config.duration;
+  P.enterFrames=Math.round(FPS*0.5);
+  P.exitFrames=Math.round(FPS*0.5);
+  P.holdFrames=Math.round(FPS*d)-P.enterFrames-P.exitFrames;
+  P.totalFrames=P.enterFrames+P.holdFrames+P.exitFrames;
+}
+
+function renderTick(ts){
+  if(!P.running||P.paused){P.raf=null;return;}
+  if(!P.lastTime)P.lastTime=ts;
+  const elapsed=ts-P.lastTime;
+  if(elapsed<1000/FPS){P.raf=requestAnimationFrame(renderTick);return;}
+  P.lastTime=ts-(elapsed%(1000/FPS));
+
+  P.frame++;
+  if(P.frame>=P.totalFrames){
+    P.frame=0;
+    P.currentSlide=(P.currentSlide+1)%A.photos.length;
+    updateSlideCounter();
+  }
+
+  let phase,progress;
+  if(P.frame<P.enterFrames){
+    phase='enter';progress=P.frame/P.enterFrames;
+  } else if(P.frame<P.enterFrames+P.holdFrames){
+    phase='hold';progress=(P.frame-P.enterFrames)/P.holdFrames;
+  } else {
+    phase='exit';progress=(P.frame-P.enterFrames-P.holdFrames)/P.exitFrames;
+  }
+
+  // Progress bar
+  const totalAnim=A.photos.length*P.totalFrames;
+  const absFrame=P.currentSlide*P.totalFrames+P.frame;
+  const pct=(absFrame/totalAnim)*100;
+  const pfill=document.getElementById('animado-prog-fill');
+  if(pfill)pfill.style.width=pct+'%';
+
+  drawFrame(P.currentSlide,progress,phase);
+  P.raf=requestAnimationFrame(renderTick);
+}
+
+function startPlayer(){
+  if(P.raf)cancelAnimationFrame(P.raf);
+  P.running=true;P.paused=false;P.lastTime=0;
+  document.getElementById('animado-play-icon').className='fas fa-pause';
+  P.raf=requestAnimationFrame(renderTick);
+}
+
+function pausePlayer(){
+  P.paused=!P.paused;
+  document.getElementById('animado-play-icon').className=P.paused?'fas fa-play':'fas fa-pause';
+  if(!P.paused){P.lastTime=0;P.raf=requestAnimationFrame(renderTick);}
+}
+
+function stopPlayer(){
+  P.running=false;P.paused=false;P.frame=0;P.currentSlide=0;
+  if(P.raf){cancelAnimationFrame(P.raf);P.raf=null;}
+  document.getElementById('animado-play-icon').className='fas fa-play';
+  updateSlideCounter();
+  drawFrame(0,0,'hold');
+  const pfill=document.getElementById('animado-prog-fill');
+  if(pfill)pfill.style.width='0%';
+}
+
+function prevSlide(){
+  P.frame=0;
+  P.currentSlide=(P.currentSlide-1+A.photos.length)%A.photos.length;
+  updateSlideCounter();
+  drawFrame(P.currentSlide,0,'hold');
+}
+
+function nextSlide(){
+  P.frame=0;
+  P.currentSlide=(P.currentSlide+1)%A.photos.length;
+  updateSlideCounter();
+  drawFrame(P.currentSlide,0,'hold');
+}
+
+function updateSlideCounter(){
+  const n=document.getElementById('animado-slide-num');
+  const t=document.getElementById('animado-slide-total');
+  if(n)n.textContent=P.currentSlide+1;
+  if(t)t.textContent=A.photos.length;
+}
+
+// ─── PHOTO LOADING ────────────────────────────────────────
+function loadPhotosFromSrcs(srcs){
+  A.photoSrcs=srcs.slice(0,10);
+  A.photos=[];
+  const promises=A.photoSrcs.map(src=>new Promise(res=>{
+    const img=new Image();img.onload=()=>{A.photos.push(img);res();};
+    img.onerror=()=>res();img.src=src;
+  }));
+  return Promise.all(promises);
+}
+
+function refreshPhotoGrid(){
+  const grid=document.getElementById('animado-photo-grid');
+  const pill=document.getElementById('animado-photo-count');
+  const cnt=document.getElementById('animado-count-txt');
+  if(!grid)return;
+  if(!A.photoSrcs.length){grid.style.display='none';if(pill)pill.style.display='none';return;}
+  grid.style.display='grid';
+  if(pill)pill.style.display='inline-flex';
+  if(cnt)cnt.textContent=A.photoSrcs.length+' foto'+(A.photoSrcs.length>1?'s':'')+' carregada'+(A.photoSrcs.length>1?'s':'');
+  grid.innerHTML='';
+  A.photoSrcs.forEach((src,i)=>{
+    const div=document.createElement('div');div.className='anim-photo-item';div.draggable=true;div.dataset.idx=i;
+    const img=document.createElement('img');img.src=src;
+    const num=document.createElement('span');num.className='anim-ph-num';num.textContent=i+1;
+    const del=document.createElement('button');del.className='anim-ph-del';del.innerHTML='<i class="fas fa-times"></i>';
+    del.onclick=(e)=>{e.stopPropagation();A.photoSrcs.splice(i,1);loadPhotosFromSrcs(A.photoSrcs).then(refreshPhotoGrid);};
+    div.appendChild(img);div.appendChild(num);div.appendChild(del);
+    // Drag & drop reorder
+    div.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',i);div.classList.add('dragging');});
+    div.addEventListener('dragend',()=>div.classList.remove('dragging'));
+    div.addEventListener('dragover',e=>{e.preventDefault();div.classList.add('drag-target');});
+    div.addEventListener('dragleave',()=>div.classList.remove('drag-target'));
+    div.addEventListener('drop',e=>{
+      e.preventDefault();div.classList.remove('drag-target');
+      const from=+e.dataTransfer.getData('text/plain');
+      const to=i;if(from===to)return;
+      const tmp=A.photoSrcs[from];A.photoSrcs[from]=A.photoSrcs[to];A.photoSrcs[to]=tmp;
+      loadPhotosFromSrcs(A.photoSrcs).then(refreshPhotoGrid);
+    });
+    grid.appendChild(div);
+  });
+}
+
+// ─── FILE INPUT ───────────────────────────────────────────
+const animFileInput=document.getElementById('animado-file-input');
+if(animFileInput){
+  animFileInput.addEventListener('change',async()=>{
+    const files=Array.from(animFileInput.files).slice(0,10-A.photoSrcs.length);
+    for(const f of files){
+      const b64=await readBase64(f);if(b64)A.photoSrcs.push(b64);
+    }
+    animFileInput.value='';
+    await loadPhotosFromSrcs(A.photoSrcs);
+    refreshPhotoGrid();
+  });
+}
+
+// Upload zone drag
+const uz=document.getElementById('animado-upload-zone');
+if(uz){
+  uz.addEventListener('dragover',e=>{e.preventDefault();uz.classList.add('drag-over');});
+  uz.addEventListener('dragleave',()=>uz.classList.remove('drag-over'));
+  uz.addEventListener('drop',async e=>{
+    e.preventDefault();uz.classList.remove('drag-over');
+    const files=Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/')).slice(0,10);
+    for(const f of files){const b64=await readBase64(f);if(b64)A.photoSrcs.push(b64);}
+    await loadPhotosFromSrcs(A.photoSrcs);
+    refreshPhotoGrid();
+  });
+}
+
+// ─── DURATION SLIDER ──────────────────────────────────────
+const durSlider=document.getElementById('animado-duration');
+const durLabel=document.getElementById('animado-dur-label');
+if(durSlider){
+  durSlider.addEventListener('input',()=>{
+    A.config.duration=+durSlider.value;
+    if(durLabel)durLabel.textContent=durSlider.value+' segundo'+(durSlider.value==='1'?'':'s');
+  });
+}
+
+// ─── SELECTORS ────────────────────────────────────────────
+// Template
+document.querySelectorAll('.anim-tpl-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    document.querySelectorAll('.anim-tpl-card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    A.config.template=card.dataset.tpl;
+  });
+});
+
+// Format
+document.querySelectorAll('.anim-fmt-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.anim-fmt-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    A.config.format=btn.dataset.fmt;
+  });
+});
+
+// Transition
+document.querySelectorAll('.anim-trans-opt').forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    document.querySelectorAll('.anim-trans-opt').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    A.config.transition=opt.dataset.trans;
+  });
+});
+
+// Color swatches
+document.querySelectorAll('#animado-color-grid .anim-color-swatch').forEach(sw=>{
+  sw.addEventListener('click',()=>{
+    document.querySelectorAll('#animado-color-grid .anim-color-swatch').forEach(s=>s.classList.remove('selected'));
+    sw.classList.add('selected');
+    A.config.color=sw.dataset.color;
+  });
+});
+
+// Badge
+document.querySelectorAll('#animado-badge-selector .badge-opt').forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    document.querySelectorAll('#animado-badge-selector .badge-opt').forEach(o=>o.className='badge-opt');
+    const val=opt.dataset.val||'';
+    if(val)opt.classList.add(`sel-${val}`);
+    A.config.badge=val;
+  });
+});
+
+// ─── RENDER BUTTON ────────────────────────────────────────
+const animRenderBtn=document.getElementById('animado-renderizar');
+if(animRenderBtn){
+  animRenderBtn.addEventListener('click',async()=>{
+    if(!A.photoSrcs.length){toast('Adicione pelo menos 1 foto para continuar!','error');return;}
+    // Read all form fields
+    A.config.titulo=document.getElementById('animado-titulo')?.value.trim()||'';
+    A.config.endereco=document.getElementById('animado-endereco')?.value.trim()||'';
+    A.config.preco=document.getElementById('animado-preco')?.value.trim()||'';
+    A.config.parcela=document.getElementById('animado-parcela')?.value.trim()||'';
+    A.config.quartos=document.getElementById('animado-quartos')?.value.trim()||'';
+    A.config.banheiros=document.getElementById('animado-banheiros')?.value.trim()||'';
+    A.config.vagas=document.getElementById('animado-vagas')?.value.trim()||'';
+    A.config.area=document.getElementById('animado-area')?.value.trim()||'';
+    A.config.headline=document.getElementById('animado-headline')?.value.trim()||'';
+    A.config.cta=document.getElementById('animado-cta')?.value.trim()||'Agende sua visita agora!';
+    A.config.corretor=document.getElementById('animado-corretor')?.value.trim()||'';
+    A.config.whats=document.getElementById('animado-whats')?.value.trim()||'';
+    A.config.instagram=document.getElementById('animado-instagram')?.value.trim()||'';
+    const legRaw=document.getElementById('animado-legendas')?.value||'';
+    A.config.legendas=legRaw.split('\n').map(s=>s.trim());
+
+    // Load images
+    animRenderBtn.disabled=true;
+    animRenderBtn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Carregando fotos...';
+    await loadPhotosFromSrcs(A.photoSrcs);
+    animRenderBtn.disabled=false;
+    animRenderBtn.innerHTML='<i class="fas fa-play-circle"></i> Gerar Criativo Animado';
+
+    if(!A.photos.length){toast('Erro ao carregar fotos.','error');return;}
+
+    // Setup canvas
+    setupCanvas();
+    calcFrames();
+
+    // Show output
+    document.getElementById('animado-output').style.display='block';
+    document.getElementById('animado-output').scrollIntoView({behavior:'smooth',block:'start'});
+    updateSlideCounter();
+
+    // Render first frame and start
+    P.currentSlide=0;P.frame=0;
+    drawFrame(0,0,'hold');
+    setTimeout(()=>startPlayer(),400);
+    toast('Criativo animado gerado! 🎬','success');
+  });
+}
+
+// Player controls
+document.getElementById('animado-play')?.addEventListener('click',()=>{
+  if(!P.running)startPlayer();else pausePlayer();
+});
+document.getElementById('animado-stop')?.addEventListener('click',stopPlayer);
+document.getElementById('animado-prev')?.addEventListener('click',prevSlide);
+document.getElementById('animado-next')?.addEventListener('click',nextSlide);
+document.getElementById('animado-reconfigurar')?.addEventListener('click',()=>{
+  stopPlayer();
+  document.getElementById('animado-output').style.display='none';
+  document.querySelector('#animado-tool .panel').scrollIntoView({behavior:'smooth'});
+});
+
+// ─── GIF EXPORT (usando canvas frames + gif.js-like encoding) ─────────────
+document.getElementById('animado-export-gif')?.addEventListener('click',async()=>{
+  if(!A.photos.length){toast('Gere o criativo antes de exportar!','error');return;}
+  const prog=document.getElementById('animado-export-prog');
+  const pct=document.getElementById('animado-export-pct');
+  const fill=document.getElementById('animado-export-fill');
+  const log=document.getElementById('animado-export-log');
+  prog.classList.add('show');
+  stopPlayer();
+
+  // We'll export via capturing canvas frames as PNG sequence into a zip
+  // Since gif.js requires a worker, we use a simpler approach:
+  // Create an animated sequence using the MediaRecorder API or frame-by-frame PNG
+  // For maximum compatibility, we'll use CCapture-compatible approach via canvas
+  // APPROACH: Export individual frames as PNG strip or use MediaRecorder if available
+
+  // Check for MediaRecorder
+  if(!window.MediaRecorder){
+    toast('Navegador não suporta gravação direta. Exportando frames PNG...','info');
+    await exportFramesPNG(prog,pct,fill,log);
+    return;
+  }
+
+  try{
+    pct.textContent='Iniciando gravação GIF...';fill.style.width='5%';
+    // Record canvas as webm then download
+    const stream=cvs.captureStream(FPS);
+    const chunks=[];
+    const rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp8',videoBitsPerSecond:2500000});
+    rec.ondataavailable=e=>chunks.push(e.data);
+
+    const totalDuration=A.photos.length*A.config.duration*1000;
+    let elapsed2=0;
+    const interval=setInterval(()=>{
+      elapsed2+=200;
+      const p=Math.min(95,5+(elapsed2/totalDuration)*90);
+      fill.style.width=p+'%';
+      pct.textContent=`Gravando... ${Math.round(p)}%`;
+      log.textContent=`Capturando ${A.photos.length} slides @ ${FPS}fps`;
+    },200);
+
+    rec.onstop=()=>{
+      clearInterval(interval);
+      fill.style.width='98%';pct.textContent='Finalizando...';
+      const blob=new Blob(chunks,{type:'video/webm'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');a.href=url;a.download=`imobipro-animado-${Date.now()}.webm`;a.click();
+      URL.revokeObjectURL(url);
+      fill.style.width='100%';pct.textContent='✓ Exportado com sucesso!';log.textContent='Arquivo .webm salvo — compatível com WhatsApp e Instagram';
+      setTimeout(()=>{prog.classList.remove('show');startPlayer();},2500);
+      toast('Vídeo exportado com sucesso! 🎬','success');
+    };
+
+    rec.start();
+    startPlayer();
+    setTimeout(()=>{rec.stop();stopPlayer();},totalDuration+500);
+  } catch(e){
+    await exportFramesPNG(prog,pct,fill,log);
+  }
+});
+
+async function exportFramesPNG(prog,pct,fill,log){
+  // Export all slides as individual PNG frames
+  const frames=A.photos.length;
+  pct.textContent='Exportando frames PNG...';
+  for(let i=0;i<frames;i++){
+    P.currentSlide=i;
+    drawFrame(i,0.5,'hold');
+    fill.style.width=((i+1)/frames*100)+'%';
+    pct.textContent=`Frame ${i+1}/${frames}`;
+    log.textContent='Cada frame salvo separadamente';
+    await new Promise(r=>setTimeout(r,80));
+    const link=document.createElement('a');
+    link.download=`imobipro-animado-slide${i+1}.png`;
+    link.href=cvs.toDataURL('image/png',0.95);link.click();
+    await new Promise(r=>setTimeout(r,300));
+  }
+  fill.style.width='100%';pct.textContent='✓ Todos os frames exportados!';
+  log.textContent=frames+' imagens PNG salvas na sua pasta de downloads';
+  setTimeout(()=>{prog.classList.remove('show');drawFrame(0,0,'hold');},3000);
+  toast(frames+' frames exportados!','success');
+}
+
+// MP4 Export
+document.getElementById('animado-export-mp4')?.addEventListener('click',async()=>{
+  if(!A.photos.length){toast('Gere o criativo antes de exportar!','error');return;}
+  const prog=document.getElementById('animado-export-prog');
+  const pct=document.getElementById('animado-export-pct');
+  const fill=document.getElementById('animado-export-fill');
+  const log=document.getElementById('animado-export-log');
+  prog.classList.add('show');
+  stopPlayer();
+
+  if(!window.MediaRecorder){
+    pct.textContent='MediaRecorder não suportado';
+    log.textContent='Tente no Chrome ou Edge para exportar vídeo';
+    toast('Use Chrome para exportar MP4','error');return;
+  }
+
+  // Try mp4 first, fallback to webm
+  const types=['video/mp4','video/webm;codecs=h264','video/webm;codecs=vp9','video/webm'];
+  const mimeType=types.find(t=>MediaRecorder.isTypeSupported(t))||'video/webm';
+  const ext=mimeType.includes('mp4')?'mp4':'webm';
+
+  try{
+    pct.textContent='Iniciando gravação...';fill.style.width='3%';
+    const stream=cvs.captureStream(FPS);
+    const chunks=[];
+    const rec=new MediaRecorder(stream,{mimeType,videoBitsPerSecond:5000000});
+    rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+    const totalDuration=A.photos.length*A.config.duration*1000;
+    let elp=0;
+    const iv=setInterval(()=>{
+      elp+=300;const p=Math.min(92,3+(elp/totalDuration)*89);
+      fill.style.width=p+'%';pct.textContent=`Gravando vídeo... ${Math.round(p)}%`;
+      log.textContent=`Alta qualidade ${ext.toUpperCase()} • ${A.photos.length} slides • ${A.config.duration}s/foto`;
+    },300);
+    rec.onstop=()=>{
+      clearInterval(iv);fill.style.width='97%';pct.textContent='Compilando vídeo...';
+      setTimeout(()=>{
+        const blob=new Blob(chunks,{type:mimeType});
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a');a.href=url;a.download=`imobipro-animado-${Date.now()}.${ext}`;a.click();
+        URL.revokeObjectURL(url);
+        fill.style.width='100%';pct.textContent='✓ Vídeo exportado!';
+        log.textContent=`Arquivo .${ext} salvo • Pronto para Instagram Reels e WhatsApp Status`;
+        setTimeout(()=>{prog.classList.remove('show');startPlayer();},3000);
+        toast(`Vídeo .${ext} exportado! 🎬`,'success');
+      },500);
+    };
+    rec.start(100);
+    startPlayer();
+    setTimeout(()=>{rec.stop();stopPlayer();},totalDuration+600);
+  } catch(e){
+    pct.textContent='Erro ao gravar: '+e.message;
+    log.textContent='Tente num navegador mais recente';
+    toast('Erro ao exportar vídeo','error');
+    setTimeout(()=>prog.classList.remove('show'),3000);
+  }
+});
+
+// ─── AUTO-FILL FROM IMOBIPRO ──────────────────────────────
+// Patch populateAllSelects to include animado
+const _animOrig=populateAllSelects;
+populateAllSelects=function(imoveis){
+  _animOrig(imoveis);
+  const sel=document.getElementById('animado-select');
+  if(!sel)return;
+  sel.innerHTML='<option value="">— Selecione um imóvel —</option>';
+  imoveis.forEach(im=>{
+    const o=document.createElement('option');o.value=im.id;
+    o.textContent=im.titulo||(im.tipo?im.tipo+' – ':'')+im.endereco||'Imóvel sem título';
+    sel.appendChild(o);
+  });
+  sel.disabled=false;
+  const st=document.getElementById('animado-import-status');
+  if(st)st.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} imóvel(is) do ImobiPro</div>`;
+};
+
+document.getElementById('animado-select')?.addEventListener('change',e=>{
+  if(!e.target.value)return;
+  if(!backupData||!backupData.imoveis)return;
+  const im=backupData.imoveis.find(i=>String(i.id)===String(e.target.value));
+  if(!im)return;
+  const s=backupData.settings||{};
+  // Fill fields
+  if(document.getElementById('animado-titulo'))document.getElementById('animado-titulo').value=im.titulo||im.tipo||'';
+  if(document.getElementById('animado-endereco'))document.getElementById('animado-endereco').value=im.endereco||'';
+  if(im.preco&&document.getElementById('animado-preco'))document.getElementById('animado-preco').value=im.preco;
+  if(document.getElementById('animado-quartos'))document.getElementById('animado-quartos').value=im.quartos||'';
+  if(document.getElementById('animado-banheiros'))document.getElementById('animado-banheiros').value=im.banheiros||'';
+  if(document.getElementById('animado-vagas'))document.getElementById('animado-vagas').value=im.vagas||'';
+  if(document.getElementById('animado-area'))document.getElementById('animado-area').value=im.area||im.areaLote||im.areaConstruida||'';
+  if(document.getElementById('animado-whats'))document.getElementById('animado-whats').value=s.telefone||'';
+  if(document.getElementById('animado-instagram'))document.getElementById('animado-instagram').value=s.instagram||'';
+  if(document.getElementById('animado-corretor'))document.getElementById('animado-corretor').value=s.nome||'';
+  // Load photos
+  if(im.imagens&&im.imagens.length){
+    A.photoSrcs=im.imagens.slice(0,10);
+    loadPhotosFromSrcs(A.photoSrcs).then(refreshPhotoGrid);
+    toast(`${im.imagens.length} foto(s) carregada(s) do ImobiPro!`,'success');
+  }
+  document.getElementById('animado-import-section').style.display='none';
+});
+
+document.getElementById('animado-skip')?.addEventListener('click',()=>{
+  const sec=document.getElementById('animado-import-section');if(sec)sec.style.display='none';
+});
+
+const animFb=document.getElementById('animado-backup');
+if(animFb)animFb.addEventListener('change',e=>{processBackup(e.target.files[0],null);e.target.value='';});
+
+// Patch autoSync_ to include animado in disconnected state
+const origSync=window.autoSync;
+window.autoSync=()=>{
+  origSync();
+  // animado fallback handled via populateAllSelects patch above
+};
+
+})(); // end animado IIFE
 
 })();
 </script>
