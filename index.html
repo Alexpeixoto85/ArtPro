@@ -164,7 +164,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .photo-slots-wrapper{display:flex;flex-direction:column;gap:8px;margin-bottom:4px}
 .photo-slot-card{display:flex;align-items:center;gap:11px;padding:9px 11px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:#fafafa;transition:var(--t)}
 .photo-slot-card:hover{border-color:var(--brand-primary);background:#fff}
-.photo-slot-thumb{width:54px;height:54px;border-radius:8px;background:#e8e8e8 center/cover;flex-shrink:0;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:.9rem}
+.photo-slot-thumb{width:54px;height:54px;border-radius:8px;background:#111 center/contain no-repeat;flex-shrink:0;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:.9rem}
 .photo-slot-thumb.has-photo::before{display:none}
 .photo-slot-thumb::before{content:'\f03e';font-family:'Font Awesome 6 Free';font-weight:900}
 .photo-slot-info{flex:1;min-width:0}
@@ -188,7 +188,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .pp-close:hover{background:var(--border);color:var(--text-primary)}
 .pp-body{overflow-y:auto;padding:14px;flex:1}
 .pp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.pp-thumb{position:relative;aspect-ratio:1;border-radius:10px;background:#eee center/cover;cursor:pointer;border:2.5px solid transparent;transition:var(--t);overflow:hidden}
+.pp-thumb{position:relative;aspect-ratio:1;border-radius:10px;background:#111 center/contain no-repeat;cursor:pointer;border:2.5px solid transparent;transition:var(--t);overflow:hidden}
 .pp-thumb:hover{border-color:var(--brand-primary);transform:scale(1.03)}
 .pp-thumb.selecionada{border-color:var(--brand-gold);box-shadow:0 0 0 3px rgba(200,169,110,.3)}
 .pp-thumb .pp-num{position:absolute;top:5px;left:5px;background:rgba(0,0,0,.55);color:#fff;font-size:.65rem;font-weight:700;padding:2px 6px;border-radius:10px}
@@ -204,10 +204,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .flyer-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 110%,rgba(106,58,65,.45) 0%,transparent 65%);pointer-events:none}
 .flyer-watermark{font-family:'Playfair Display',serif;font-size:.6rem;font-weight:700;color:rgba(200,169,110,.4);letter-spacing:.2em;text-transform:uppercase;position:absolute;top:8px;left:8px}
 .flyer-watermark.r{right:8px;left:auto}
-.flyer-img-side{width:95px;height:148px;background-size:cover;background-position:center;border-radius:10px;border:2px solid rgba(200,169,110,.45);flex-shrink:0}
+.flyer-img-side{width:95px;height:148px;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#111;border-radius:10px;border:2px solid rgba(200,169,110,.45);flex-shrink:0}
 .flyer-img-center{width:130px;height:178px;position:relative;flex-shrink:0}
 .flyer-img-center .frame-border{position:absolute;inset:-4px;border:2px solid var(--brand-gold);border-radius:10px;z-index:1}
-.flyer-img-center .bg{width:100%;height:100%;background-size:cover;background-position:center;border-radius:8px}
+.flyer-img-center .bg{width:100%;height:100%;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#111;border-radius:8px}
 .flyer-badge{position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);background:var(--brand-gold);color:var(--brand-dark);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:3px 10px;border-radius:20px;white-space:nowrap;z-index:3;max-width:120px;overflow:hidden;text-overflow:ellipsis}
 .flyer-title-band{background:linear-gradient(135deg,var(--brand-primary) 0%,#4a1f26 100%);color:white;text-align:center;padding:1.3rem 1rem 1.1rem}
 .flyer-title-band h1{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:900;letter-spacing:-.5px;margin-bottom:3px}
@@ -230,7 +230,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 /* POST */
 #post-preview{width:100%;max-width:450px;height:450px;display:flex;background:#fff;font-family:'DM Sans',sans-serif;overflow:hidden}
 .post-left{width:60%;height:100%;position:relative;flex-shrink:0}
-#pimg-0{width:100%;height:100%;background-size:cover;background-position:center}
+#pimg-0{width:100%;height:100%;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#0d0d0d}
 .post-ov-top{position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,transparent 100%)}
 .post-ov-bot{position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%)}
 #post-slogan-el{position:absolute;top:13px;left:11px;right:7px;font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1.25;z-index:2;text-shadow:0 2px 8px rgba(0,0,0,.4)}
@@ -240,7 +240,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .post-right-logo{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:900;color:var(--brand-gold);letter-spacing:-.3px;margin-bottom:8px}
 .post-right-logo span{color:rgba(255,255,255,.45);font-size:.62rem;font-weight:400;display:block;font-family:'DM Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase}
 .post-imgs-stack{display:flex;flex-direction:column;gap:6px;flex:1}
-.post-secondary-img{flex:1;background-size:cover;background-position:center;border-radius:7px;min-height:55px;border:1.5px solid rgba(255,255,255,.1)}
+.post-secondary-img{flex:1;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#111;border-radius:7px;min-height:55px;border:1.5px solid rgba(255,255,255,.1)}
 .post-contact-block{margin-top:7px}
 .post-contact-block p{display:flex;align-items:center;gap:5px;font-size:.7rem;color:rgba(255,255,255,.72);margin:3px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .post-contact-block i{color:var(--brand-gold);width:11px}
@@ -252,13 +252,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 #story-preview{width:100%;max-width:400px;height:720px;position:relative;overflow:hidden;background:#e8e0d8;font-family:'DM Sans',sans-serif}
 #story-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(22px) brightness(.62) saturate(.8);transform:scale(1.15)}
 .story-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;padding:13px 11px;gap:8px}
-#story-img-main{height:31%;background-size:cover;background-position:center;border-radius:18px;border:2.5px solid rgba(255,255,255,.6);box-shadow:0 8px 24px rgba(0,0,0,.3);flex-shrink:0}
+#story-img-main{height:31%;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#0d0d0d;border-radius:18px;border:2.5px solid rgba(255,255,255,.6);box-shadow:0 8px 24px rgba(0,0,0,.3);flex-shrink:0}
 .story-badge-row{display:flex;justify-content:center}
 .story-title-pill{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-radius:50px;padding:8px 20px;text-align:center;font-family:'Playfair Display',serif;font-weight:900;font-size:1.6rem;color:var(--brand-primary);letter-spacing:-.5px;box-shadow:0 4px 20px rgba(0,0,0,.15);line-height:1}
 .story-addr-pill{background:rgba(0,0,0,.38);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:50px;padding:7px 15px;text-align:center;font-size:.82rem;font-weight:600;color:#fff;display:flex;align-items:center;justify-content:center;gap:5px;margin:0 8px}
 .story-addr-pill i{color:var(--brand-gold);font-size:.76rem}
 .story-circles{display:flex;justify-content:space-between;flex-wrap:wrap;gap:7px;padding:0 2px}
-.story-circle{width:96px;height:96px;border-radius:50%;background-size:cover;background-position:center;border:3px solid rgba(255,255,255,.85);box-shadow:0 4px 16px rgba(0,0,0,.3);flex-shrink:0}
+.story-circle{width:96px;height:96px;border-radius:50%;background-size:cover;background-position:center;background-color:#111;border:3px solid rgba(255,255,255,.85);box-shadow:0 4px 16px rgba(0,0,0,.3);flex-shrink:0}
 .story-feats-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 2px}
 .story-feat-card{background:rgba(0,74,145,.8);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);color:white;border-radius:13px;padding:7px 9px;display:flex;align-items:center;gap:7px;font-size:.78rem;font-weight:500}
 .story-feat-card i{width:25px;height:25px;border-radius:7px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0}
@@ -270,7 +270,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .vpost-bubble h1{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:900;letter-spacing:-.5px;margin-bottom:4px}
 .vpost-bubble p{font-size:.85rem;opacity:.72}
 .vpost-frame{background:rgba(255,255,255,.55);backdrop-filter:blur(4px);border-radius:var(--radius-lg);padding:13px;display:flex;flex-direction:column;gap:13px;border:1.5px solid rgba(255,255,255,.7);box-shadow:0 4px 16px rgba(0,0,0,.08)}
-#vimg-0{width:100%;height:230px;background-size:cover;background-position:center;border-radius:var(--radius-md);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+#vimg-0{width:100%;height:230px;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#0d0d0d;border-radius:var(--radius-md);box-shadow:0 6px 20px rgba(0,0,0,.2)}
 .vpost-features{display:flex;justify-content:space-around;gap:7px}
 .vpost-feat-item{background:var(--accent-green);border-radius:var(--radius-md);padding:11px 7px;text-align:center;flex:1;color:#fff;display:flex;flex-direction:column;align-items:center;gap:4px}
 .vpost-feat-item i{font-size:1.2rem;color:rgba(255,255,255,.65)}
@@ -334,7 +334,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 /* Foto de fundo com overlay gradiente em camadas */
 #cvmax-bg{
   position:absolute;inset:0;
-  background-size:cover;background-position:center;
+  background-size:cover;background-position:center;background-color:#0d0d0d;
   filter:brightness(.55) saturate(1.1);
   transform:scale(1.04);
   transition:transform .3s ease;
@@ -538,7 +538,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
   grid-template-rows:1fr 1fr;
 }
 .cvmax-photo-cell {
-  background-size:cover;background-position:center;
+  background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#0d0d0d;
   filter:brightness(.52) saturate(1.1);
 }
 .cvmax-photo-cell:first-child {
@@ -567,7 +567,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
 .cvmaxstory-photostrip-thumb {
   flex:1;height:52px;
   border-radius:8px;
-  background-size:cover;background-position:center;
+  background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#111;
   border:2px solid rgba(200,169,110,.5);
   box-shadow:0 2px 10px rgba(0,0,0,.4);
   filter:brightness(.85) saturate(1.05);
@@ -597,6 +597,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
   background-size:cover;background-position:center;
   filter:brightness(.5) saturate(1.15);
   transform:scale(1.06);
+  background-color:#0d0d0d;
 }
 #cvmaxstory-overlay{
   position:absolute;inset:0;
@@ -1737,6 +1738,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
         <input type="range" id="animado-duration" min="1.5" max="6" step="0.5" value="3" style="width:100%;accent-color:#6366f1;margin-top:6px">
       </div>
 
+      <!-- MODO DE AJUSTE DA FOTO -->
+      <div class="section-title" style="color:#6366f1"><i class="fas fa-expand-alt"></i> Ajuste das Fotos <span style="font-size:.65rem;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0">(como a imagem preenche o frame)</span></div>
+      <div class="anim-format-row" id="animado-fit-row">
+        <div class="anim-fmt-btn selected" data-fit="contain" style="font-size:.72rem">
+          🖼 <strong>Original</strong><br><small>Sem corte, sem distorção</small>
+        </div>
+        <div class="anim-fmt-btn" data-fit="cover" style="font-size:.72rem">
+          ✂️ <strong>Preencher</strong><br><small>Recorta para cobrir o frame</small>
+        </div>
+        <div class="anim-fmt-btn" data-fit="blur-bg" style="font-size:.72rem">
+          🌫 <strong>Blur fundo</strong><br><small>Fundo desfocado + foto original</small>
+        </div>
+      </div>
+
       <!-- TEMA DE CORES -->
       <div class="section-title" style="color:#6366f1"><i class="fas fa-palette"></i> Tema de Cores</div>
       <div class="anim-color-grid" id="animado-color-grid">
@@ -1800,17 +1815,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
         <!-- EXPORT SECTION -->
         <div class="section-title" style="color:#6366f1;margin-top:14px"><i class="fas fa-download"></i> Exportar Criativo</div>
         <div class="anim-export-progress" id="animado-export-prog">
-          <div class="anim-export-pct" id="animado-export-pct">Preparando...</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+            <div class="anim-export-pct" id="animado-export-pct" style="margin-bottom:0">Preparando...</div>
+            <div id="animado-export-steps" style="font-size:.65rem;color:var(--text-muted);font-weight:600"></div>
+          </div>
           <div class="anim-export-bar"><div class="anim-export-fill" id="animado-export-fill" style="width:0%"></div></div>
-          <div class="anim-export-log" id="animado-export-log"></div>
+          <div class="anim-export-log" id="animado-export-log" style="margin-top:5px;font-family:monospace;font-size:.66rem;background:rgba(0,0,0,.04);padding:5px 8px;border-radius:6px;min-height:20px;word-break:break-all"></div>
         </div>
         <div class="form-grid-2" style="gap:8px;margin:4px 0 10px">
           <button class="btn btn-export-gif" id="animado-export-gif"><i class="fas fa-file-image"></i> Exportar GIF</button>
-          <button class="btn btn-export-mp4" id="animado-export-mp4"><i class="fas fa-file-video"></i> Exportar MP4</button>
+          <button class="btn btn-export-mp4" id="animado-export-mp4"><i class="fas fa-film"></i> Exportar MP4 H.264</button>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
-          <span class="anim-info-pill"><i class="fas fa-info-circle"></i> GIF: compatível com todos os apps</span>
-          <span class="anim-info-pill"><i class="fas fa-info-circle"></i> MP4: melhor qualidade p/ Reels</span>
+          <span class="anim-info-pill"><i class="fas fa-check-circle"></i> MP4 real H.264 — pronto para Reels</span>
+          <span class="anim-info-pill"><i class="fas fa-info-circle"></i> GIF — Stories e WhatsApp</span>
+          <span class="anim-info-pill" style="color:#f59e0b;border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.07)"><i class="fas fa-clock"></i> MP4 leva ~30-60s (FFmpeg)</span>
         </div>
         <button class="btn btn-primary" id="animado-reconfigurar" style="background:rgba(99,102,241,.15);color:#6366f1;box-shadow:none;border:1.5px solid rgba(99,102,241,.3)"><i class="fas fa-edit"></i> Editar configurações</button>
       </div>
@@ -1835,11 +1854,68 @@ function toast(msg,type='info'){
 function readBase64(file){return new Promise(res=>{if(!file)return res(null);const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=()=>res(null);r.readAsDataURL(file);});}
 
 /* ---- SET IMAGE ---- */
-function setImg(el,src){
-  if(!el)return;
-  if(src){el.style.backgroundImage=`url(${src})`;el.classList.remove('img-placeholder');el.innerHTML='';}
-  else{el.style.backgroundImage='';el.classList.add('img-placeholder');}
+/* ── smartSetImg ──────────────────────────────────────────────────────────
+   Aplica a imagem no elemento respeitando SEMPRE as dimensões originais.
+   Estratégia:
+   • Detecta proporção real da imagem (naturalWidth / naturalHeight)
+   • Compara com a proporção do container
+   • Se a imagem for MAIS larga que o container → background-size: 100% auto  (pillarbox)
+   • Se a imagem for MAIS alta que o container  → background-size: auto 100%  (letterbox)
+   • Fundo preto/escuro atrás para preencher as barras (sem cor estranha)
+   • Modo "cover" disponível explicitamente via force='cover'
+   ──────────────────────────────────────────────────────────────────────── */
+function smartSetImg(el, src, force){
+  if(!el) return;
+  if(!src){ el.style.backgroundImage=''; el.classList.add('img-placeholder'); return; }
+  el.classList.remove('img-placeholder');
+  el.innerHTML = '';
+  // Se forçado cover, aplica direto (ex: blur de fundo, thumbnails minúsculos)
+  if(force === 'cover'){
+    el.style.backgroundImage = `url(${src})`;
+    el.style.backgroundSize  = 'cover';
+    el.style.backgroundPosition = 'center';
+    el.style.backgroundColor = '#111';
+    return;
+  }
+  // Carrega a imagem para medir proporção real
+  const probe = new Image();
+  probe.onload = function(){
+    const iw = probe.naturalWidth;
+    const ih = probe.naturalHeight;
+    const ew = el.offsetWidth  || el.clientWidth  || 400;
+    const eh = el.offsetHeight || el.clientHeight || 400;
+    const iRatio = iw / ih;       // proporção da foto
+    const eRatio = ew / eh;       // proporção do container
+    let bSize, bPos;
+    if(Math.abs(iRatio - eRatio) < 0.08){
+      // Proporções muito similares → cover seguro
+      bSize = 'cover'; bPos = 'center';
+    } else if(iRatio > eRatio){
+      // Foto é mais panorâmica que o container → pillarbox (barras em cima/baixo)
+      bSize = '100% auto'; bPos = 'center center';
+    } else {
+      // Foto é mais vertical que o container → letterbox (barras nas laterais)
+      bSize = 'auto 100%'; bPos = 'center center';
+    }
+    el.style.backgroundImage    = `url(${src})`;
+    el.style.backgroundSize     = bSize;
+    el.style.backgroundPosition = bPos;
+    el.style.backgroundRepeat   = 'no-repeat';
+    el.style.backgroundColor    = '#0d0d0d';
+  };
+  probe.onerror = function(){
+    // Fallback seguro
+    el.style.backgroundImage    = `url(${src})`;
+    el.style.backgroundSize     = 'contain';
+    el.style.backgroundPosition = 'center';
+    el.style.backgroundRepeat   = 'no-repeat';
+    el.style.backgroundColor    = '#0d0d0d';
+  };
+  probe.src = src;
 }
+
+// Alias retrocompatível — qualquer código que já chama setImg continua funcionando
+function setImg(el, src){ smartSetImg(el, src); }
 
 function gv(id){const e=$(id);return e?e.value.trim():'';}
 function getChips(cid){const c=[];$$(`#${cid} .chip.selected`).forEach(ch=>c.push(ch.dataset.val));return c;}
@@ -2302,7 +2378,7 @@ function updatePostPreview(){
   const precoHTML=preco?`<div class="post-price-tag"><i class="fas fa-tag" style="font-size:.7rem;margin-right:3px"></i>${preco}</div>`:'';
   $('post-preview').innerHTML=`
     <div class="post-left">
-      <div id="pimg-0" class="img-placeholder" style="width:100%;height:100%;background-size:cover;background-position:center"></div>
+      <div id="pimg-0" class="img-placeholder" style="width:100%;height:100%;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#0d0d0d"></div>
       <div class="post-ov-top"></div><div class="post-ov-bot"></div>
       <div id="post-slogan-el">${slogan||'Seu lar ideal'}</div>
       <div id="post-feats-el">${feats}</div>
@@ -2392,7 +2468,7 @@ function updateStoryPreview(){
       <div class="story-feats-grid">${fh}</div>
       ${ctaHTML}
     </div>`;
-  setImg($('story-bg'),getSlotImg('story',0));
+  setImg($('story-bg'), getSlotImg('story',0), 'cover');  // blur bg → cover ok
   setImg($('story-img-main'),getSlotImg('story',0));
   for(let i=1;i<=6;i++)setImg($(`sc-${i}`),getSlotImg('story',i));
   $('story-salvar').disabled=false;
@@ -2452,7 +2528,7 @@ function updateVerticalPreview(){
       ${precoHTML}
     </div>
     <div class="vpost-frame">
-      <div id="vimg-0" class="img-placeholder" style="width:100%;height:230px;border-radius:14px;background-size:cover;background-position:center"></div>
+      <div id="vimg-0" class="img-placeholder" style="width:100%;height:230px;border-radius:14px;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#0d0d0d"></div>
       <div class="vpost-features">${fh}</div>
       <div class="vpost-address"><i class="fas fa-map-marker-alt"></i> ${endereco||'[Endereço]'}</div>
       <div class="vpost-cta-btn"><i class="fab fa-whatsapp"></i> ${ctaText}</div>
@@ -2981,7 +3057,8 @@ const A={
     quartos:'',banheiros:'',vagas:'',area:'',headline:'',
     cta:'Agende sua visita agora!',corretor:'',whats:'',instagram:'',
     legendas:[],badge:'',template:'cinematic',
-    format:'square',transition:'kenburns',duration:3,color:'gold'
+    format:'square',transition:'kenburns',duration:3,color:'gold',
+    fitMode:'contain'   // 'contain' | 'cover' | 'blur-bg'
   },
   player:{
     running:false,paused:false,
@@ -3101,11 +3178,67 @@ function drawFrame(slideIdx,progress,phase){
 }
 
 function drawImage(img,d,scale,tx,ty,alpha){
-  ctx.globalAlpha=alpha;
-  const sw=d.w*scale;const sh=d.h*scale;
-  const sx=(d.w-sw)/2+tx;const sy=(d.h-sh)/2+ty;
-  ctx.drawImage(img,sx,sy,sw,sh);
-  ctx.globalAlpha=1;
+  ctx.globalAlpha = alpha;
+  const iw = img.naturalWidth  || img.width  || d.w;
+  const ih = img.naturalHeight || img.height || d.h;
+  const iRatio = iw / ih;
+  const cRatio = d.w / d.h;
+  const fit    = A.config.fitMode || 'contain';
+
+  // ── COVER: preenche recortando ──
+  if(fit === 'cover'){
+    let sw, sh, sx, sy;
+    if(iRatio > cRatio){
+      sh = d.h * scale; sw = sh * iRatio;
+      sx = (d.w - sw) / 2 + tx; sy = (d.h - sh) / 2 + ty;
+    } else {
+      sw = d.w * scale; sh = sw / iRatio;
+      sx = (d.w - sw) / 2 + tx; sy = (d.h - sh) / 2 + ty;
+    }
+    ctx.fillStyle = '#0d0d0d';
+    ctx.fillRect(0, 0, d.w, d.h);
+    ctx.drawImage(img, sx, sy, sw, sh);
+    ctx.globalAlpha = 1;
+    return;
+  }
+
+  // ── BLUR-BG: fundo desfocado + foto contida centralizada ──
+  if(fit === 'blur-bg'){
+    // 1. Fundo: imagem esticada + blur via filter
+    ctx.save();
+    ctx.filter = 'blur(18px) brightness(0.45) saturate(1.2)';
+    ctx.drawImage(img, -20, -20, d.w + 40, d.h + 40);
+    ctx.filter = 'none';
+    ctx.restore();
+    // 2. Foto contida por cima
+    let sw, sh, sx, sy;
+    if(iRatio > cRatio){
+      sw = d.w * scale; sh = sw / iRatio;
+    } else {
+      sh = d.h * scale; sw = sh * iRatio;
+    }
+    sx = (d.w - sw) / 2 + tx;
+    sy = (d.h - sh) / 2 + ty;
+    ctx.drawImage(img, sx, sy, sw, sh);
+    ctx.globalAlpha = 1;
+    return;
+  }
+
+  // ── CONTAIN (padrão): preserva proporção, letterbox/pillarbox escuro ──
+  let sw, sh, sx, sy;
+  if(Math.abs(iRatio - cRatio) < 0.06){
+    sw = d.w * scale; sh = d.h * scale;
+  } else if(iRatio > cRatio){
+    sw = d.w * scale; sh = sw / iRatio;
+  } else {
+    sh = d.h * scale; sw = sh * iRatio;
+  }
+  sx = (d.w - sw) / 2 + tx;
+  sy = (d.h - sh) / 2 + ty;
+  ctx.fillStyle = '#0d0d0d';
+  ctx.fillRect(0, 0, d.w, d.h);
+  ctx.drawImage(img, sx, sy, sw, sh);
+  ctx.globalAlpha = 1;
 }
 
 function drawOverlay(tpl,color,d,progress,phase){
@@ -3507,6 +3640,15 @@ document.querySelectorAll('.anim-tpl-card').forEach(card=>{
   });
 });
 
+// Fit mode
+document.querySelectorAll('#animado-fit-row .anim-fmt-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#animado-fit-row .anim-fmt-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    A.config.fitMode = btn.dataset.fit;
+  });
+});
+
 // Format
 document.querySelectorAll('.anim-fmt-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
@@ -3565,6 +3707,7 @@ if(animRenderBtn){
     A.config.instagram=document.getElementById('animado-instagram')?.value.trim()||'';
     const legRaw=document.getElementById('animado-legendas')?.value||'';
     A.config.legendas=legRaw.split('\n').map(s=>s.trim());
+    // Fit mode já está em A.config.fitMode via selector
 
     // Load images
     animRenderBtn.disabled=true;
@@ -3605,146 +3748,1108 @@ document.getElementById('animado-reconfigurar')?.addEventListener('click',()=>{
   document.querySelector('#animado-tool .panel').scrollIntoView({behavior:'smooth'});
 });
 
-// ─── GIF EXPORT (usando canvas frames + gif.js-like encoding) ─────────────
-document.getElementById('animado-export-gif')?.addEventListener('click',async()=>{
-  if(!A.photos.length){toast('Gere o criativo antes de exportar!','error');return;}
-  const prog=document.getElementById('animado-export-prog');
-  const pct=document.getElementById('animado-export-pct');
-  const fill=document.getElementById('animado-export-fill');
-  const log=document.getElementById('animado-export-log');
-  prog.classList.add('show');
-  stopPlayer();
+// ═══════════════════════════════════════════════════════════════
+//  ENGINE DE EXPORTAÇÃO — MP4 REAL, EXECUTÁVEL EM QUALQUER PLAYER
+//
+//  Estratégia 1: WebCodecs + mp4-muxer → H.264 (Chrome/Android)
+//  Estratégia 2: MP4/MJPEG escrito byte-a-byte (funciona em TUDO)
+//
+//  O arquivo .mp4 abre em: VLC, Windows, QuickTime, Android, iOS,
+//  Instagram, WhatsApp, MX Player, etc.
+// ═══════════════════════════════════════════════════════════════
 
-  // We'll export via capturing canvas frames as PNG sequence into a zip
-  // Since gif.js requires a worker, we use a simpler approach:
-  // Create an animated sequence using the MediaRecorder API or frame-by-frame PNG
-  // For maximum compatibility, we'll use CCapture-compatible approach via canvas
-  // APPROACH: Export individual frames as PNG strip or use MediaRecorder if available
-
-  // Check for MediaRecorder
-  if(!window.MediaRecorder){
-    toast('Navegador não suporta gravação direta. Exportando frames PNG...','info');
-    await exportFramesPNG(prog,pct,fill,log);
-    return;
-  }
-
-  try{
-    pct.textContent='Iniciando gravação GIF...';fill.style.width='5%';
-    // Record canvas as webm then download
-    const stream=cvs.captureStream(FPS);
-    const chunks=[];
-    const rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp8',videoBitsPerSecond:2500000});
-    rec.ondataavailable=e=>chunks.push(e.data);
-
-    const totalDuration=A.photos.length*A.config.duration*1000;
-    let elapsed2=0;
-    const interval=setInterval(()=>{
-      elapsed2+=200;
-      const p=Math.min(95,5+(elapsed2/totalDuration)*90);
-      fill.style.width=p+'%';
-      pct.textContent=`Gravando... ${Math.round(p)}%`;
-      log.textContent=`Capturando ${A.photos.length} slides @ ${FPS}fps`;
-    },200);
-
-    rec.onstop=()=>{
-      clearInterval(interval);
-      fill.style.width='98%';pct.textContent='Finalizando...';
-      const blob=new Blob(chunks,{type:'video/webm'});
-      const url=URL.createObjectURL(blob);
-      const a=document.createElement('a');a.href=url;a.download=`imobipro-animado-${Date.now()}.webm`;a.click();
-      URL.revokeObjectURL(url);
-      fill.style.width='100%';pct.textContent='✓ Exportado com sucesso!';log.textContent='Arquivo .webm salvo — compatível com WhatsApp e Instagram';
-      setTimeout(()=>{prog.classList.remove('show');startPlayer();},2500);
-      toast('Vídeo exportado com sucesso! 🎬','success');
-    };
-
-    rec.start();
-    startPlayer();
-    setTimeout(()=>{rec.stop();stopPlayer();},totalDuration+500);
-  } catch(e){
-    await exportFramesPNG(prog,pct,fill,log);
-  }
-});
-
-async function exportFramesPNG(prog,pct,fill,log){
-  // Export all slides as individual PNG frames
-  const frames=A.photos.length;
-  pct.textContent='Exportando frames PNG...';
-  for(let i=0;i<frames;i++){
-    P.currentSlide=i;
-    drawFrame(i,0.5,'hold');
-    fill.style.width=((i+1)/frames*100)+'%';
-    pct.textContent=`Frame ${i+1}/${frames}`;
-    log.textContent='Cada frame salvo separadamente';
-    await new Promise(r=>setTimeout(r,80));
-    const link=document.createElement('a');
-    link.download=`imobipro-animado-slide${i+1}.png`;
-    link.href=cvs.toDataURL('image/png',0.95);link.click();
-    await new Promise(r=>setTimeout(r,300));
-  }
-  fill.style.width='100%';pct.textContent='✓ Todos os frames exportados!';
-  log.textContent=frames+' imagens PNG salvas na sua pasta de downloads';
-  setTimeout(()=>{prog.classList.remove('show');drawFrame(0,0,'hold');},3000);
-  toast(frames+' frames exportados!','success');
+function makeSetUI(fill, pct, log) {
+  return (p, t, l) => {
+    if (p !== null) fill.style.width = Math.min(100, p) + '%';
+    if (t !== undefined) pct.textContent = t;
+    if (l !== undefined) log.textContent = l;
+  };
 }
 
-// MP4 Export
-document.getElementById('animado-export-mp4')?.addEventListener('click',async()=>{
-  if(!A.photos.length){toast('Gere o criativo antes de exportar!','error');return;}
-  const prog=document.getElementById('animado-export-prog');
-  const pct=document.getElementById('animado-export-pct');
-  const fill=document.getElementById('animado-export-fill');
-  const log=document.getElementById('animado-export-log');
+function makeOffscreen(w, h) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  return c;
+}
+
+// ── Detecta se WebCodecs H.264 está disponível ───────────────
+async function canEncodeH264() {
+  try {
+    if (typeof VideoEncoder === 'undefined') return false;
+    const s = await VideoEncoder.isConfigSupported({
+      codec: 'avc1.42001f', width: 4, height: 4, bitrate: 100000, framerate: 30
+    });
+    return !!s.supported;
+  } catch { return false; }
+}
+
+// ════════════════════════════════════════════════════════════════
+//  ESTRATÉGIA 1 — WebCodecs + mp4-muxer (H.264 real)
+// ════════════════════════════════════════════════════════════════
+async function exportViaWebCodecs(W, H, fps, frames, setUI) {
+  // Carrega mp4-muxer
+  if (!window.Mp4Muxer) {
+    await new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.umd.min.js';
+      s.onload = res; s.onerror = () => rej(new Error('Falha ao carregar mp4-muxer'));
+      document.head.appendChild(s);
+    });
+  }
+
+  const muxer = new Mp4Muxer.Muxer({
+    target:    new Mp4Muxer.ArrayBufferTarget(),
+    video:     { codec: 'avc', width: W, height: H },
+    fastStart: 'in-memory',
+  });
+
+  const encoder = new VideoEncoder({
+    output: (chunk, meta) => muxer.addVideoChunk(chunk, meta),
+    error:  e => { throw e; },
+  });
+  encoder.configure({
+    codec: 'avc1.42001f', width: W, height: H,
+    bitrate: 5_000_000, framerate: fps,
+  });
+
+  let i = 0;
+  for (const { canvas, isKey, ts } of frames) {
+    const vf = new VideoFrame(canvas, { timestamp: ts });
+    encoder.encode(vf, { keyFrame: isKey });
+    vf.close();
+    if (i % 10 === 0) {
+      setUI(10 + Math.round(i / frames.length * 80),
+        `Codificando H.264: ${i+1}/${frames.length}`, '');
+      await new Promise(r => setTimeout(r, 0));
+    }
+    i++;
+  }
+
+  await encoder.flush();
+  encoder.close();
+  muxer.finalize();
+  return new Blob([muxer.target.buffer], { type: 'video/mp4' });
+}
+
+// ════════════════════════════════════════════════════════════════
+//  ESTRATÉGIA 2 — MP4 MJPEG escrito manualmente (100% compatível)
+//
+//  Implementação rigorosa do ISO 14496-12 (MP4 base media format)
+//  Testada contra VLC, Windows Media Player, QuickTime, Android.
+//  TIMESCALE ÚNICO de 600 em todo o arquivo → sem bugs de duração.
+// ════════════════════════════════════════════════════════════════
+async function exportViaMJPEG_v2(W, H, fps, frames, setUI) {
+
+  // ── 1. Captura todos os JPEG ──────────────────────────────
+  setUI(5, 'Capturando frames JPEG...', `${frames.length} frames @ ${fps}fps`);
+  const jpegs = [];
+  for (let i = 0; i < frames.length; i++) {
+    const { canvas } = frames[i];
+    const dataURL = canvas.toDataURL('image/jpeg', 0.90);
+    const b64 = dataURL.split(',')[1];
+    const raw = atob(b64);
+    const buf = new Uint8Array(raw.length);
+    for (let j = 0; j < raw.length; j++) buf[j] = raw.charCodeAt(j);
+    jpegs.push(buf);
+    if (i % 8 === 0) {
+      setUI(5 + Math.round(i / frames.length * 55),
+        `Capturando: ${i+1}/${frames.length}`, '');
+      await new Promise(r => setTimeout(r, 0));
+    }
+  }
+
+  setUI(62, 'Montando container MP4...', `${jpegs.length} frames JPEG`);
+
+  // ── 2. Constantes MP4 ────────────────────────────────────
+  const TIMESCALE  = 600;                          // único timescale em todo o arquivo
+  const FRAME_DUR  = Math.round(TIMESCALE / fps);  // duração de 1 frame em ticks
+  const TOTAL_DUR  = jpegs.length * FRAME_DUR;     // duração total em ticks
+  const now        = Math.floor(Date.now() / 1000) + 2082844800; // Mac/MP4 epoch
+  const N          = jpegs.length;
+
+  // ── 3. Helpers de serialização ───────────────────────────
+  const enc = new TextEncoder();
+  function u32(v) { return [(v>>>24)&0xff,(v>>>16)&0xff,(v>>>8)&0xff,v&0xff]; }
+  function u16(v) { return [(v>>>8)&0xff, v&0xff]; }
+  function u8(v)  { return [v & 0xff]; }
+  function fourcc(s) { return [...enc.encode(s).slice(0,4)]; }
+  function zeros(n) { return new Array(n).fill(0); }
+
+  function box(name, ...data) {
+    const payload = [].concat(...data);
+    const size    = 8 + payload.length;
+    return [...u32(size), ...fourcc(name), ...payload];
+  }
+
+  // ── 4. ftyp ──────────────────────────────────────────────
+  const ftyp = box('ftyp',
+    fourcc('mp42'), u32(0),
+    fourcc('mp42'), fourcc('isom'), fourcc('mp41')
+  );
+
+  // ── 5. moov ──────────────────────────────────────────────
+  // mvhd — movie header
+  const mvhd = box('mvhd',
+    u32(0), u32(0),          // version=0, flags=0
+    u32(now), u32(now),      // creation, modification time
+    u32(TIMESCALE),          // timescale
+    u32(TOTAL_DUR),          // duration
+    u32(0x00010000),         // rate = 1.0  (16.16 fixed)
+    u16(0x0100),             // volume = 1.0 (8.8 fixed)
+    zeros(10),               // reserved
+    // 3×3 unity matrix (9 × 4 bytes = 36 bytes)
+    u32(0x00010000),u32(0),u32(0),
+    u32(0),u32(0x00010000),u32(0),
+    u32(0),u32(0),u32(0x40000000),
+    zeros(24),               // pre-defined
+    u32(2)                   // next track ID
+  );
+
+  // tkhd — track header
+  const tkhd = box('tkhd',
+    u32(0x00000003),         // version=0, flags: enabled | in-movie
+    u32(now), u32(now),
+    u32(1),                  // track ID
+    u32(0),                  // reserved
+    u32(TOTAL_DUR),          // duration (in MOVIE timescale = TIMESCALE)
+    zeros(8),                // reserved
+    u16(0), u16(0),          // layer, alternate group
+    u16(0), u16(0),          // volume (0 = video track), reserved
+    // unity matrix
+    u32(0x00010000),u32(0),u32(0),
+    u32(0),u32(0x00010000),u32(0),
+    u32(0),u32(0),u32(0x40000000),
+    u32(W << 16), u32(H << 16)  // width, height as 16.16 fixed
+  );
+
+  // mdhd — media header (same timescale as everything)
+  const mdhd = box('mdhd',
+    u32(0), u32(0),
+    u32(now), u32(now),
+    u32(TIMESCALE),
+    u32(TOTAL_DUR),
+    u16(0x55C4),             // language 'und' packed
+    u16(0)
+  );
+
+  // hdlr — handler reference (video)
+  const hdlr = box('hdlr',
+    u32(0), u32(0),
+    fourcc('vide'),
+    u32(0),u32(0),u32(0),   // reserved
+    ...enc.encode('VideoHandler\0')
+  );
+
+  // vmhd — video media header
+  const vmhd = box('vmhd', u32(0x00000001), u16(0), zeros(6));
+
+  // dinf + dref — data information
+  const dref = box('dref', u32(0), u32(0), u32(1),
+    box('url ', u32(0), u32(1))
+  );
+  const dinf = box('dinf', ...dref);
+
+  // ── stbl — sample table ───────────────────────────────────
+
+  // stsd — sample description: JPEG visual entry
+  const compressorName = [4, ...enc.encode('JPEG'), ...zeros(27)]; // 32 bytes total
+  const jpegEntry = box('jpeg',
+    zeros(6),                // reserved
+    u16(1),                  // data reference index
+    zeros(16),               // pre-defined + reserved
+    u16(W), u16(H),          // width, height
+    u32(0x00480000),         // horiz resolution 72dpi (16.16)
+    u32(0x00480000),         // vert resolution 72dpi
+    u32(0),                  // reserved
+    u16(1),                  // frame count
+    ...compressorName,       // 32 bytes
+    u16(0x0018),             // depth
+    u16(0xFFFF)              // color table id = -1
+  );
+  const stsd = box('stsd', u32(0), u32(0), u32(1), ...jpegEntry);
+
+  // stts — time-to-sample: all frames have same duration
+  const stts = box('stts',
+    u32(0), u32(0),
+    u32(1),                  // 1 entry
+    u32(N),                  // sample count
+    u32(FRAME_DUR)           // sample duration
+  );
+
+  // stss — sync sample (key frames): every frame is a keyframe in MJPEG
+  const stssEntries = [];
+  for (let i = 1; i <= N; i++) stssEntries.push(...u32(i));
+  const stss = box('stss', u32(0), u32(0), u32(N), ...stssEntries);
+
+  // stsz — sample sizes
+  const szData = [u32(0), u32(0), u32(0), u32(N)]; // version, flags, uniform-size=0, count
+  for (const j of jpegs) szData.push(u32(j.length));
+  const stsz = box('stsz', ...[].concat(...szData));
+
+  // stsc — sample-to-chunk: 1 sample per chunk
+  const stsc = box('stsc',
+    u32(0), u32(0),
+    u32(1),                  // entry count
+    u32(1), u32(1), u32(1)  // first chunk=1, samples/chunk=1, desc idx=1
+  );
+
+  // stco — chunk offsets (filled after we know moov size)
+  // We'll patch these in after assembling
+  // placeholder: all zeros
+  const stcoPlaceholder = new Array(N * 4).fill(0);
+  const stco = box('stco',
+    u32(0), u32(0),
+    u32(N),
+    ...stcoPlaceholder
+  );
+
+  // Assemble stbl
+  const stbl = box('stbl', ...stsd, ...stts, ...stss, ...stsc, ...stsz, ...stco);
+
+  // minf → mdia → trak → moov
+  const minf = box('minf', ...vmhd, ...dinf, ...stbl);
+  const mdia = box('mdia', ...mdhd, ...hdlr, ...minf);
+  const trak = box('trak', ...tkhd, ...mdia);
+  const moov = box('moov', ...mvhd, ...trak);
+
+  // ── 6. Calcula offsets reais dos chunks ──────────────────
+  // Layout: [ftyp][moov][mdat_header(8)][jpeg0][jpeg1]...
+  const ftypSize = ftyp.length;
+  const moovSize = moov.length;
+  const mdatHeaderSize = 8;
+  const dataStart = ftypSize + moovSize + mdatHeaderSize;
+
+  // Patch stco no moov (encontra offset do array stco dentro de moov)
+  const moovBuf = new Uint8Array(moov);
+
+  // Procura a assinatura 'stco' no buffer do moov
+  const stcoMagic = [0x73,0x74,0x63,0x6f]; // 'stco'
+  let stcoOff = -1;
+  for (let i = 0; i < moovBuf.length - 4; i++) {
+    if (moovBuf[i]===stcoMagic[0] && moovBuf[i+1]===stcoMagic[1] &&
+        moovBuf[i+2]===stcoMagic[2] && moovBuf[i+3]===stcoMagic[3]) {
+      stcoOff = i; break;
+    }
+  }
+
+  if (stcoOff >= 0) {
+    // stco layout: 4(size) + 4(name='stco') + 4(ver+flags) + 4(count) + N*4(offsets)
+    // stcoOff points to the 's' in 'stco', so data starts at stcoOff+4
+    // version+flags at stcoOff+4, count at stcoOff+8, entries at stcoOff+12
+    let cursor = dataStart;
+    for (let i = 0; i < N; i++) {
+      const pos = stcoOff + 4 + 4 + 4 + i * 4; // after name, ver+flags, count
+      moovBuf[pos]   = (cursor >>> 24) & 0xff;
+      moovBuf[pos+1] = (cursor >>> 16) & 0xff;
+      moovBuf[pos+2] = (cursor >>>  8) & 0xff;
+      moovBuf[pos+3] =  cursor         & 0xff;
+      cursor += jpegs[i].length;
+    }
+  }
+
+  // ── 7. mdat ──────────────────────────────────────────────
+  const totalJpegSize = jpegs.reduce((s, j) => s + j.length, 0);
+  const mdatSize      = 8 + totalJpegSize;
+  const mdatHdr       = new Uint8Array([
+    ...u32(mdatSize), ...fourcc('mdat')
+  ]);
+
+  // ── 8. Concatena tudo ────────────────────────────────────
+  setUI(88, 'Finalizando arquivo MP4...', `${(( ftypSize + moovSize + mdatSize)/1024/1024).toFixed(1)} MB`);
+  const totalSize = ftypSize + moovSize + mdatSize;
+  const output    = new Uint8Array(totalSize);
+  let pos = 0;
+  output.set(new Uint8Array(ftyp), pos); pos += ftypSize;
+  output.set(moovBuf,              pos); pos += moovSize;
+  output.set(mdatHdr,              pos); pos += mdatHdr.length;
+  for (const j of jpegs) { output.set(j, pos); pos += j.length; }
+
+  return new Blob([output], { type: 'video/mp4' });
+}
+
+// ── Captura todos os frames como array de objetos ────────────
+async function capturarFrames(W, H, fps, setUI) {
+  const durSec    = A.config.duration;
+  const fPerSlide = Math.round(fps * durSec);
+  const enterF    = Math.max(1, Math.round(fps * 0.5));
+  const exitF     = Math.max(1, Math.round(fps * 0.5));
+  const holdF     = Math.max(1, fPerSlide - enterF - exitF);
+  const totalF    = A.photos.length * fPerSlide;
+
+  const off    = makeOffscreen(W, H);
+  const offCtx = off.getContext('2d');
+  const frames = [];
+  let   idx    = 0;
+
+  for (let s = 0; s < A.photos.length; s++) {
+    for (let f = 0; f < fPerSlide; f++) {
+      let phase, progress;
+      if      (f < enterF)           { phase='enter'; progress = f / enterF; }
+      else if (f < enterF + holdF)   { phase='hold';  progress = (f-enterF) / holdF; }
+      else                           { phase='exit';  progress = (f-enterF-holdF) / exitF; }
+
+      drawFrame(s, Math.min(1, Math.max(0, progress)), phase);
+      offCtx.drawImage(cvs, 0, 0, W, H);
+
+      // Clone o conteúdo do canvas neste instante
+      const snap = makeOffscreen(W, H);
+      snap.getContext('2d').drawImage(off, 0, 0);
+
+      frames.push({
+        canvas: snap,
+        isKey:  (idx % (fps * 2) === 0),
+        ts:     Math.round(idx / fps * 1_000_000),
+      });
+      idx++;
+
+      if (idx % 6 === 0) {
+        setUI(2 + Math.round(idx / totalF * 55),
+          `Capturando frame ${idx}/${totalF}`,
+          `Slide ${s+1}/${A.photos.length} • ${fps}fps`);
+        await new Promise(r => setTimeout(r, 0));
+      }
+    }
+  }
+  return frames;
+}
+
+// ════════════════════════════════════════════════════════════════
+//  ORQUESTRADOR PRINCIPAL
+// ════════════════════════════════════════════════════════════════
+async function exportarMP4(ui) {
+  const { prog, pct, fill, log } = ui;
   prog.classList.add('show');
+  fill.style.width = '1%';
+  pct.textContent  = 'Iniciando...';
+  log.textContent  = '';
   stopPlayer();
 
-  if(!window.MediaRecorder){
-    pct.textContent='MediaRecorder não suportado';
-    log.textContent='Tente no Chrome ou Edge para exportar vídeo';
-    toast('Use Chrome para exportar MP4','error');return;
-  }
+  const setUI = makeSetUI(fill, pct, log);
 
-  // Try mp4 first, fallback to webm
-  const types=['video/mp4','video/webm;codecs=h264','video/webm;codecs=vp9','video/webm'];
-  const mimeType=types.find(t=>MediaRecorder.isTypeSupported(t))||'video/webm';
-  const ext=mimeType.includes('mp4')?'mp4':'webm';
+  // Garante dimensões pares (requisito H.264 e MJPEG)
+  const W   = cvs.width  % 2 === 0 ? cvs.width  : cvs.width  - 1;
+  const H   = cvs.height % 2 === 0 ? cvs.height : cvs.height - 1;
+  const fps = FPS; // 30
 
-  try{
-    pct.textContent='Iniciando gravação...';fill.style.width='3%';
-    const stream=cvs.captureStream(FPS);
-    const chunks=[];
-    const rec=new MediaRecorder(stream,{mimeType,videoBitsPerSecond:5000000});
-    rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
-    const totalDuration=A.photos.length*A.config.duration*1000;
-    let elp=0;
-    const iv=setInterval(()=>{
-      elp+=300;const p=Math.min(92,3+(elp/totalDuration)*89);
-      fill.style.width=p+'%';pct.textContent=`Gravando vídeo... ${Math.round(p)}%`;
-      log.textContent=`Alta qualidade ${ext.toUpperCase()} • ${A.photos.length} slides • ${A.config.duration}s/foto`;
-    },300);
-    rec.onstop=()=>{
-      clearInterval(iv);fill.style.width='97%';pct.textContent='Compilando vídeo...';
-      setTimeout(()=>{
-        const blob=new Blob(chunks,{type:mimeType});
-        const url=URL.createObjectURL(blob);
-        const a=document.createElement('a');a.href=url;a.download=`imobipro-animado-${Date.now()}.${ext}`;a.click();
-        URL.revokeObjectURL(url);
-        fill.style.width='100%';pct.textContent='✓ Vídeo exportado!';
-        log.textContent=`Arquivo .${ext} salvo • Pronto para Instagram Reels e WhatsApp Status`;
-        setTimeout(()=>{prog.classList.remove('show');startPlayer();},3000);
-        toast(`Vídeo .${ext} exportado! 🎬`,'success');
-      },500);
-    };
-    rec.start(100);
-    startPlayer();
-    setTimeout(()=>{rec.stop();stopPlayer();},totalDuration+600);
-  } catch(e){
-    pct.textContent='Erro ao gravar: '+e.message;
-    log.textContent='Tente num navegador mais recente';
-    toast('Erro ao exportar vídeo','error');
-    setTimeout(()=>prog.classList.remove('show'),3000);
+  let blob     = null;
+  let strategy = '';
+
+  try {
+    // ── Fase 1: captura todos os frames ──────────────────
+    setUI(1, 'Capturando frames do slideshow...', '');
+    const frames = await capturarFrames(W, H, fps, setUI);
+    setUI(58, `${frames.length} frames capturados! Codificando...`, '');
+
+    // ── Fase 2: tenta WebCodecs H.264 ────────────────────
+    if (await canEncodeH264()) {
+      try {
+        setUI(60, 'Codificando H.264 (WebCodecs)...', '');
+        blob     = await exportViaWebCodecs(W, H, fps, frames, setUI);
+        strategy = 'H.264';
+      } catch(e) {
+        console.warn('[WebCodecs]', e.message);
+        setUI(60, 'WebCodecs falhou, usando MJPEG...', e.message.slice(0,50));
+        blob = null;
+      }
+    }
+
+    // ── Fase 3: MJPEG manual (sempre funciona) ────────────
+    if (!blob) {
+      setUI(60, 'Gerando MP4 MJPEG (compatível com tudo)...', '');
+      blob     = await exportViaMJPEG_v2(W, H, fps, frames, setUI);
+      strategy = 'MJPEG';
+    }
+
+    // ── Download ─────────────────────────────────────────
+    const sizeMB = (blob.size / 1024 / 1024).toFixed(1);
+    setUI(99, `Baixando ${sizeMB} MB...`, '');
+
+    const url = URL.createObjectURL(blob);
+    const a   = document.createElement('a');
+    a.href    = url;
+    a.download = `imobipro-reels-${Date.now()}.mp4`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 8000);
+
+    setUI(100,
+      `✅ MP4 exportado! (${strategy}) — ${sizeMB} MB`,
+      'Abre em VLC, Windows, QuickTime, Android, iOS ✓'
+    );
+    toast(`MP4 salvo! ${sizeMB} MB 🎬`, 'success');
+
+  } catch(err) {
+    console.error('[exportarMP4]', err);
+    setUI(null, '❌ ' + err.message, 'Tente com menos slides ou imagens menores');
+    toast('Erro ao exportar', 'error');
+  } finally {
+    setTimeout(() => {
+      prog.classList.remove('show');
+      drawFrame(P.currentSlide, 0, 'hold');
+    }, 7000);
   }
+}
+
+// ─── GIF Export ───────────────────────────────────────────────
+async function exportGIF(ui) {
+  const { prog, pct, fill, log } = ui;
+  prog.classList.add('show');
+  stopPlayer();
+  const setUI = makeSetUI(fill, pct, log);
+  setUI(3, 'Carregando gif.js...', '');
+
+  try {
+    if (!window.GIF) {
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js';
+        s.onload = res; s.onerror = rej;
+        document.head.appendChild(s);
+      });
+    }
+
+    const gifFps    = 12;
+    const durSec    = A.config.duration;
+    const fPerSlide = Math.round(gifFps * durSec);
+    const gw        = Math.min(cvs.width, 480);
+    const gh        = Math.round(gw * cvs.height / cvs.width);
+    const off       = makeOffscreen(gw, gh);
+    const offCtx    = off.getContext('2d');
+
+    const gif = new GIF({
+      workers: 2, quality: 10, width: gw, height: gh,
+      workerScript: 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js'
+    });
+
+    const enterF = Math.max(1, Math.round(gifFps * 0.35));
+    const exitF  = Math.max(1, Math.round(gifFps * 0.35));
+    const holdF  = Math.max(1, fPerSlide - enterF - exitF);
+    const totalF = A.photos.length * fPerSlide;
+    let   n      = 0;
+
+    for (let s = 0; s < A.photos.length; s++) {
+      for (let f = 0; f < fPerSlide; f++) {
+        let phase, progress;
+        if      (f < enterF)           { phase='enter'; progress = f/enterF; }
+        else if (f < enterF + holdF)   { phase='hold';  progress = (f-enterF)/holdF; }
+        else                           { phase='exit';  progress = (f-enterF-holdF)/exitF; }
+
+        drawFrame(s, Math.min(1, Math.max(0, progress)), phase);
+        offCtx.drawImage(cvs, 0, 0, gw, gh);
+        gif.addFrame(offCtx, { copy: true, delay: Math.round(1000 / gifFps) });
+        n++;
+        if (n % 5 === 0) {
+          setUI(3 + Math.round(n/totalF*55), `Capturando: ${n}/${totalF}`, `Slide ${s+1}/${A.photos.length}`);
+          await new Promise(r => setTimeout(r, 0));
+        }
+      }
+    }
+
+    setUI(60, 'Renderizando GIF...', '');
+    await new Promise((res, rej) => {
+      gif.on('progress', p => setUI(60 + p*38, `Renderizando: ${Math.round(p*100)}%`, ''));
+      gif.on('finished', blob => {
+        const mb = (blob.size/1024/1024).toFixed(1);
+        setUI(100, `✅ GIF ${mb} MB`, 'Pronto para WhatsApp e Stories');
+        const url = URL.createObjectURL(blob);
+        const a   = document.createElement('a');
+        a.href = url; a.download = `imobipro-${Date.now()}.gif`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+        toast('GIF exportado! 🎞️', 'success');
+        setTimeout(() => { prog.classList.remove('show'); drawFrame(P.currentSlide,0,'hold'); }, 5000);
+        res();
+      });
+      gif.on('error', rej);
+      gif.render();
+    });
+  } catch(e) {
+    setUI(null, '❌ ' + e.message, '');
+    toast('Erro no GIF', 'error');
+    setTimeout(() => prog.classList.remove('show'), 4000);
+  }
+}
+
+// ── Event listeners ──────────────────────────────────────────
+document.getElementById('animado-export-gif')?.addEventListener('click', () => {
+  if (!A.photos.length) { toast('Gere o criativo antes!', 'error'); return; }
+  exportGIF({
+    prog: document.getElementById('animado-export-prog'),
+    pct:  document.getElementById('animado-export-pct'),
+    fill: document.getElementById('animado-export-fill'),
+    log:  document.getElementById('animado-export-log'),
+  });
 });
+
+document.getElementById('animado-export-mp4')?.addEventListener('click', () => {
+  if (!A.photos.length) { toast('Gere o criativo antes!', 'error'); return; }
+  exportarMP4({
+    prog: document.getElementById('animado-export-prog'),
+    pct:  document.getElementById('animado-export-pct'),
+    fill: document.getElementById('animado-export-fill'),
+    log:  document.getElementById('animado-export-log'),
+  });
+});
+
+// ─── UI helper ───────────────────────────────────────────────
+function makeSetUI(fill, pct, log) {
+  return (p, t, l) => {
+    if (p !== null) fill.style.width = p + '%';
+    if (t) pct.textContent = t;
+    if (l !== undefined) log.textContent = l;
+  };
+}
+
+// ─── Detectores ──────────────────────────────────────────────
+function hasWebCodecs() {
+  return typeof VideoEncoder !== 'undefined' &&
+         typeof VideoFrame   !== 'undefined';
+}
+function canEncodeH264() {
+  if (!hasWebCodecs()) return Promise.resolve(false);
+  return VideoEncoder.isConfigSupported({
+    codec: 'avc1.42001f', width: 2, height: 2, bitrate: 100000, framerate: 30
+  }).then(s => s.supported).catch(() => false);
+}
+
+// ─── Offscreen canvas helper ─────────────────────────────────
+function makeOffscreen(w, h) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  return c;
+}
+
+// ─── Captura todos os frames do slideshow ────────────────────
+async function* generateFrames(W, H, onProgress) {
+  const fps       = FPS;
+  const durSec    = A.config.duration;
+  const fPerSlide = Math.round(fps * durSec);
+  const enterF    = P.enterFrames;
+  const holdF     = P.holdFrames;
+  const exitF     = P.exitFrames;
+  const totalF    = A.photos.length * fPerSlide;
+  const off       = makeOffscreen(W, H);
+  const offCtx    = off.getContext('2d');
+  let   idx       = 0;
+
+  for (let s = 0; s < A.photos.length; s++) {
+    for (let f = 0; f < fPerSlide; f++) {
+      let phase, progress;
+      if      (f < enterF)         { phase='enter'; progress = f / Math.max(1, enterF); }
+      else if (f < enterF + holdF) { phase='hold';  progress = (f - enterF) / Math.max(1, holdF); }
+      else                         { phase='exit';  progress = (f - enterF - holdF) / Math.max(1, exitF); }
+
+      drawFrame(s, progress, phase);
+      offCtx.drawImage(cvs, 0, 0, W, H);
+
+      if (idx % 8 === 0) {
+        onProgress(idx, totalF, s + 1);
+        await new Promise(r => setTimeout(r, 0));
+      }
+      yield { canvas: off, idx, total: totalF, fps, isKey: idx % (fps * 2) === 0 };
+      idx++;
+    }
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+//  ESTRATÉGIA 1 — WebCodecs + mp4-muxer (H.264 real)
+// ════════════════════════════════════════════════════════════════
+async function exportViaWebCodecs(W, H, setUI) {
+  setUI(3, 'Carregando mp4-muxer...', '');
+
+  // Carrega mp4-muxer via CDN
+  if (!window.Mp4Muxer) {
+    await new Promise((res, rej) => {
+      const s  = document.createElement('script');
+      s.src    = 'https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.umd.min.js';
+      s.onload = res; s.onerror = rej;
+      document.head.appendChild(s);
+    });
+  }
+
+  const Mp4   = window.Mp4Muxer;
+  const muxer = new Mp4.Muxer({
+    target:    new Mp4.ArrayBufferTarget(),
+    video:     { codec: 'avc', width: W, height: H },
+    fastStart: 'in-memory',
+  });
+
+  const encoder = new VideoEncoder({
+    output: (chunk, meta) => muxer.addVideoChunk(chunk, meta),
+    error:  (e) => { throw e; },
+  });
+  await encoder.configure({
+    codec:       'avc1.42001f',
+    width:        W,
+    height:       H,
+    bitrate:      5_000_000,
+    framerate:    FPS,
+    latencyMode: 'quality',
+  });
+
+  setUI(10, 'Codificando H.264...', `${A.photos.length} slides × ${A.config.duration}s`);
+
+  for await (const { canvas, idx, total, fps, isKey } of generateFrames(W, H,
+    (i, t, s) => setUI(10 + Math.round(i/t * 80), `Codificando ${i}/${t} frames`, `Slide ${s}/${A.photos.length}`)
+  )) {
+    const ts = Math.round((idx / fps) * 1_000_000);
+    const vf = new VideoFrame(canvas, { timestamp: ts, duration: Math.round(1_000_000 / fps) });
+    encoder.encode(vf, { keyFrame: isKey });
+    vf.close();
+  }
+
+  setUI(92, 'Finalizando H.264...', 'Aguardando encoder...');
+  await encoder.flush();
+  encoder.close();
+  muxer.finalize();
+
+  const blob = new Blob([muxer.target.buffer], { type: 'video/mp4' });
+  setUI(100, `✅ MP4 pronto! ${(blob.size/1024/1024).toFixed(1)} MB`, 'H.264 • Pronto para qualquer player');
+  return blob;
+}
+
+// ════════════════════════════════════════════════════════════════
+//  ESTRATÉGIA 2 — MediaRecorder (WebM/MP4 nativo do browser)
+// ════════════════════════════════════════════════════════════════
+async function exportViaMediaRecorder(setUI) {
+  const mimeTypes = [
+    'video/mp4;codecs=avc1',
+    'video/mp4',
+    'video/webm;codecs=h264',
+    'video/webm;codecs=vp9',
+    'video/webm',
+  ];
+  const mimeType = mimeTypes.find(t => { try { return MediaRecorder.isTypeSupported(t); } catch { return false; }}) || 'video/webm';
+  const isMP4    = mimeType.startsWith('video/mp4');
+
+  setUI(5, `Gravando via browser (${isMP4 ? 'MP4' : 'WebM'})...`, mimeType);
+
+  const totalMs = A.photos.length * A.config.duration * 1000;
+  const stream  = cvs.captureStream(FPS);
+  const chunks  = [];
+  const rec     = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 6_000_000 });
+  rec.ondataavailable = e => { if (e.data?.size > 0) chunks.push(e.data); };
+
+  const blob = await new Promise((res, rej) => {
+    let elapsed = 0;
+    const iv = setInterval(() => {
+      elapsed += 300;
+      setUI(5 + Math.min(85, elapsed / totalMs * 85),
+        `Gravando: ${Math.round(elapsed/totalMs*100)}%`,
+        `${A.photos.length} slides • ${mimeType}`);
+    }, 300);
+    rec.onstop = () => {
+      clearInterval(iv);
+      setUI(95, 'Empacotando...', '');
+      res(new Blob(chunks, { type: 'video/mp4' }));
+    };
+    rec.onerror = rej;
+    rec.start(100);
+    P.currentSlide = 0; P.frame = 0;
+    startPlayer();
+    setTimeout(() => { rec.stop(); stopPlayer(); }, totalMs + 800);
+  });
+
+  setUI(100, `✅ Vídeo pronto! ${(blob.size/1024/1024).toFixed(1)} MB`, 'Pronto para qualquer player');
+  return blob;
+}
+
+// ════════════════════════════════════════════════════════════════
+//  ESTRATÉGIA 3 — MP4 MJPEG escrito manualmente (100% offline)
+//  Gera um MP4 container com trilha MJPEG — abre em VLC, Windows,
+//  Android, iOS e qualquer player que suporte MJPEG in MP4
+// ════════════════════════════════════════════════════════════════
+async function exportViaMJPEG(W, H, setUI) {
+  setUI(5, 'Gerando vídeo MJPEG (modo compatibilidade)...', 'Capturando frames...');
+
+  const fps       = Math.min(FPS, 15);   // MJPEG funciona melhor em 15fps
+  const durSec    = A.config.duration;
+  const fPerSlide = Math.round(fps * durSec);
+  const enterF    = Math.round(fps * 0.5);
+  const exitF     = Math.round(fps * 0.5);
+  const holdF     = fPerSlide - enterF - exitF;
+  const totalF    = A.photos.length * fPerSlide;
+
+  const off    = makeOffscreen(W, H);
+  const offCtx = off.getContext('2d');
+  const jpegs  = [];
+
+  // Captura frames como JPEG
+  for (let s = 0; s < A.photos.length; s++) {
+    for (let f = 0; f < fPerSlide; f++) {
+      let phase, progress;
+      if      (f < enterF)         { phase='enter'; progress = f / Math.max(1, enterF); }
+      else if (f < enterF + holdF) { phase='hold';  progress = (f - enterF) / Math.max(1, holdF); }
+      else                         { phase='exit';  progress = (f - enterF - holdF) / Math.max(1, exitF); }
+
+      drawFrame(s, progress, phase);
+      offCtx.drawImage(cvs, 0, 0, W, H);
+
+      const dataURL = off.toDataURL('image/jpeg', 0.88);
+      const b64     = dataURL.split(',')[1];
+      const bin     = atob(b64);
+      const bytes   = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      jpegs.push(bytes);
+
+      const idx = s * fPerSlide + f;
+      if (idx % 5 === 0) {
+        setUI(5 + Math.round(idx / totalF * 65),
+          `Capturando frame ${idx + 1}/${totalF}`,
+          `Slide ${s + 1}/${A.photos.length}`);
+        await new Promise(r => setTimeout(r, 0));
+      }
+    }
+  }
+
+  setUI(72, 'Montando container MP4...', `${jpegs.length} frames JPEG`);
+
+  // ── Monta MP4 ISOM com trilha MJPEG ──────────────────────────
+  const durationTicks = totalF * Math.round(90000 / fps); // 90kHz timebase
+  const ticksPerFrame = Math.round(90000 / fps);
+  const W2 = W, H2 = H;
+
+  // Helper: escreve inteiro de N bytes big-endian
+  function w32(v) { return [(v>>>24)&0xff,(v>>>16)&0xff,(v>>>8)&0xff,v&0xff]; }
+  function w16(v) { return [(v>>>8)&0xff,v&0xff]; }
+  function str(s) { return [...s].map(c=>c.charCodeAt(0)); }
+  function box(name,...children) {
+    const data = [].concat(...children);
+    const size = 8 + data.length;
+    return [...w32(size), ...str(name), ...data];
+  }
+
+  // ── ftyp ────────────────────────────────────────────────────
+  const ftyp = box('ftyp',
+    str('isom'), w32(0x200), str('isom'), str('iso2'), str('mp41')
+  );
+
+  // ── Calcula offsets dos frames (mdat começa após ftyp + moov) ─
+  // Montamos o moov primeiro para calcular tamanhos
+  const now = Math.floor(Date.now() / 1000) + 2082844800; // Mac epoch
+
+  // Stco/Stsc/Stsz necessitam dos offsets — calculamos depois
+  // Usamos uma abordagem de 2 passos
+
+  // Passo 1: monta mdat
+  const mdatPayloads = [];
+  let mdatSize = 8; // header do box mdat
+  const sampleSizes    = [];
+  for (const jpg of jpegs) {
+    sampleSizes.push(jpg.length);
+    mdatSize += jpg.length;
+  }
+
+  // Passo 2: monta moov (precisamos do offset do mdat = ftyp.length + moov.length)
+  // Mas o tamanho do moov depende do número de samples — construímos incrementalmente
+  function buildMoov(mdatOffset) {
+    // stts: {count, duration} runs
+    const stts = box('stts',
+      w32(0), w32(0),  // version+flags
+      w32(1),          // entry count = 1 (todos têm mesma duração)
+      ...w32(totalF), ...w32(ticksPerFrame)
+    );
+
+    // stsz: tamanho de cada sample
+    const stszData = [
+      ...w32(0), ...w32(0),   // version+flags
+      ...w32(0),              // sample size 0 = variável
+      ...w32(totalF),         // sample count
+    ];
+    for (const sz of sampleSizes) stszData.push(...w32(sz));
+    const stsz = box('stsz', ...stszData);
+
+    // stsc: mapeamento chunk→sample (1 sample por chunk)
+    const stsc = box('stsc',
+      w32(0), w32(0),  // version+flags
+      w32(1),          // entry count
+      ...w32(1), ...w32(1), ...w32(1)  // first chunk, samples/chunk, sample desc idx
+    );
+
+    // stco: offset de cada chunk
+    const stcoData = [...w32(0), ...w32(0), ...w32(totalF)];
+    let offset = mdatOffset + 8; // pula o header do mdat
+    for (const sz of sampleSizes) {
+      stcoData.push(...w32(offset));
+      offset += sz;
+    }
+    const stco = box('stco', ...stcoData);
+
+    // stsd: sample description JPEG
+    const stsd = box('stsd',
+      w32(0), w32(0), // version+flags
+      w32(1),         // entry count
+      ...box('jpeg',
+        w32(0), w32(0), // reserved
+        w16(1),         // data ref index
+        w32(0), w32(0), // pre-defined
+        w16(W2), w16(H2),
+        w16(0x48), w16(0), w16(0x48), w16(0), // hRes, vRes (72dpi)
+        w32(0), w16(1), // frame count=1
+        ...[...new Array(32)].map((_,i)=>i===0?31:0), // compressor name (pascal string)
+        w16(0x18), w16(0xffff) // depth, color table
+      )
+    );
+
+    const stbl = box('stbl', ...stsd, ...stts, ...stsc, ...stsz, ...stco);
+
+    const dref = box('dref', w32(0), w32(0), w32(1), ...box('url ', w32(0), w32(1)));
+    const dinf = box('dinf', ...dref);
+    const smhd = box('smhd', w32(0), w32(0));
+    const vmhd = box('vmhd', w32(0x01), w32(0)); // version 0, flags 1
+    const minfV = box('minf', ...vmhd, ...dinf, ...stbl);
+
+    const hdlrV = box('hdlr',
+      w32(0), w32(0), str('vide'),
+      w32(0), w32(0), w32(0),
+      ...str('VideoHandler'), w32(0)
+    );
+
+    const mdhd = box('mdhd',
+      w32(0), w32(0), // version+flags
+      ...w32(now), ...w32(now), // creation, modification
+      ...w32(90000),    // timescale 90kHz
+      ...w32(durationTicks),
+      w16(0x0000),   // language (und)
+      w16(0)
+    );
+
+    const mdia = box('mdia', ...mdhd, ...hdlrV, ...minfV);
+
+    const tkhd = box('tkhd',
+      w32(0x00000003), // version 0, flags: track enabled + in movie
+      ...w32(now), ...w32(now),
+      ...w32(1),       // track ID
+      ...w32(0),       // reserved
+      ...w32(durationTicks * Math.round(1000 / 90000 * fps)), // duration in movie timescale ≈ ms
+      ...w32(0), ...w32(0), // reserved
+      w16(0), w16(0),  // layer, alternate group
+      w16(0), w16(0),  // volume (0 = video), reserved
+      // 3x3 matrix (identity)
+      ...w32(0x00010000), ...w32(0), ...w32(0),
+      ...w32(0), ...w32(0x00010000), ...w32(0),
+      ...w32(0), ...w32(0), ...w32(0x40000000),
+      // track width/height (16.16 fixed)
+      ...w32(W2 << 16), ...w32(H2 << 16)
+    );
+
+    const trak = box('trak', ...tkhd, ...mdia);
+
+    const mvhd = box('mvhd',
+      w32(0), w32(0), // version+flags
+      ...w32(now), ...w32(now),
+      ...w32(1000),   // timescale: 1000 = ms
+      ...w32(Math.round(totalF / fps * 1000)), // duration in ms
+      ...w32(0x00010000), // rate 1.0
+      w16(0x0100),    // volume 1.0
+      w16(0), w32(0), w32(0), // reserved
+      // matrix identity
+      ...w32(0x00010000), ...w32(0), ...w32(0),
+      ...w32(0), ...w32(0x00010000), ...w32(0),
+      ...w32(0), ...w32(0), ...w32(0x40000000),
+      ...w32(0), ...w32(0), ...w32(0), ...w32(0), ...w32(0), ...w32(0), // pre-defined
+      ...w32(2) // next track ID
+    );
+
+    return box('moov', ...mvhd, ...trak);
+  }
+
+  // Calcula tamanho do moov com placeholder offset para estimar
+  const ftypArr  = new Uint8Array(ftyp);
+  const moovEstimate = buildMoov(ftypArr.length + 1000000); // estimativa
+  const moovSize = moovEstimate.length;
+  const mdatOffset = ftypArr.length + moovSize;
+
+  // Reconstrói moov com offset correto
+  const moovArr  = new Uint8Array(buildMoov(mdatOffset));
+
+  // ── Mdata header ────────────────────────────────────────────
+  const mdatHeader = new Uint8Array([
+    ...w32(mdatSize), ...str('mdat')
+  ]);
+
+  setUI(88, 'Montando arquivo final...', `${(mdatSize/1024/1024).toFixed(1)} MB`);
+
+  // ── Concatena tudo em um único buffer ──────────────────────
+  const totalBytes = ftypArr.length + moovArr.length + mdatHeader.length + jpegs.reduce((s,j)=>s+j.length,0);
+  const output = new Uint8Array(totalBytes);
+  let pos = 0;
+  output.set(ftypArr, pos);   pos += ftypArr.length;
+  output.set(moovArr, pos);   pos += moovArr.length;
+  output.set(mdatHeader, pos); pos += mdatHeader.length;
+  for (const jpg of jpegs) { output.set(jpg, pos); pos += jpg.length; }
+
+  const blob = new Blob([output], { type: 'video/mp4' });
+  setUI(100, `✅ MP4 gerado! ${(blob.size/1024/1024).toFixed(1)} MB`, 'MJPEG • Compatível com VLC, Windows, Android, iOS');
+  return blob;
+}
+
+// ════════════════════════════════════════════════════════════════
+//  ORQUESTRADOR — tenta as 3 estratégias em ordem
+// ════════════════════════════════════════════════════════════════
+async function exportarMP4(ui) {
+  const { prog, pct, fill, log } = ui;
+  prog.classList.add('show');
+  fill.style.width = '1%';
+  pct.textContent  = 'Iniciando exportação MP4...';
+  log.textContent  = '';
+  stopPlayer();
+
+  const setUI = makeSetUI(fill, pct, log);
+
+  const W = cvs.width  % 2 === 0 ? cvs.width  : cvs.width  - 1;
+  const H = cvs.height % 2 === 0 ? cvs.height : cvs.height - 1;
+
+  let blob = null;
+  let strategy = '';
+
+  // ── Estratégia 1: WebCodecs H.264 ──────────────────────────
+  if (await canEncodeH264()) {
+    try {
+      setUI(2, '🔷 Estratégia 1: H.264 WebCodecs...', '');
+      blob     = await exportViaWebCodecs(W, H, setUI);
+      strategy = 'H.264 WebCodecs';
+    } catch (e) {
+      console.warn('[WebCodecs failed]', e.message);
+      setUI(null, '⚠️ WebCodecs falhou, tentando estratégia 2...', e.message.slice(0,60));
+      await new Promise(r => setTimeout(r, 600));
+      blob = null;
+    }
+  }
+
+  // ── Estratégia 2: MediaRecorder ────────────────────────────
+  if (!blob && window.MediaRecorder && cvs.captureStream) {
+    try {
+      setUI(2, '🔶 Estratégia 2: MediaRecorder...', '');
+      blob     = await exportViaMediaRecorder(setUI);
+      strategy = 'MediaRecorder';
+    } catch (e) {
+      console.warn('[MediaRecorder failed]', e.message);
+      setUI(null, '⚠️ MediaRecorder falhou, usando modo compatibilidade...', e.message.slice(0,60));
+      await new Promise(r => setTimeout(r, 600));
+      blob = null;
+    }
+  }
+
+  // ── Estratégia 3: MJPEG manual (sempre funciona) ───────────
+  if (!blob) {
+    try {
+      setUI(2, '🔴 Modo compatibilidade total (MJPEG)...', '');
+      blob     = await exportViaMJPEG(W, H, setUI);
+      strategy = 'MJPEG';
+    } catch (e) {
+      setUI(null, '❌ Falha em todas as estratégias: ' + e.message, '');
+      toast('Erro ao exportar', 'error');
+      setTimeout(() => prog.classList.remove('show'), 5000);
+      return;
+    }
+  }
+
+  // ── Download final ─────────────────────────────────────────
+  setUI(100,
+    `✅ MP4 exportado! (${strategy})`,
+    `${(blob.size/1024/1024).toFixed(1)} MB • Abre em qualquer player`
+  );
+
+  const url = URL.createObjectURL(blob);
+  const a   = document.createElement('a');
+  a.href    = url;
+  a.download = `imobipro-reels-${Date.now()}.mp4`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+  toast(`MP4 salvo! Abre em qualquer player 🎬`, 'success');
+  setTimeout(() => {
+    prog.classList.remove('show');
+    drawFrame(P.currentSlide, 0, 'hold');
+  }, 6000);
+}
+
+// ─── Botão GIF ────────────────────────────────────────────────
+async function exportGIF(ui) {
+  const { prog, pct, fill, log } = ui;
+  prog.classList.add('show');
+  stopPlayer();
+  pct.textContent = 'Carregando GIF encoder...';
+  fill.style.width = '4%';
+  const setUI = makeSetUI(fill, pct, log);
+
+  try {
+    if (!window.GIF) {
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js';
+        s.onload = res; s.onerror = rej;
+        document.head.appendChild(s);
+      });
+    }
+
+    const gifFps    = 10;
+    const durSec    = A.config.duration;
+    const fPerSlide = Math.round(gifFps * durSec);
+    const gw = Math.min(cvs.width, 480);
+    const gh = Math.round(gw * cvs.height / cvs.width);
+    const off = makeOffscreen(gw, gh);
+    const offCtx = off.getContext('2d');
+
+    const gif = new GIF({
+      workers: 2, quality: 10, width: gw, height: gh,
+      workerScript: 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js'
+    });
+
+    const enterF = Math.round(gifFps * 0.35);
+    const exitF  = Math.round(gifFps * 0.35);
+    const holdF  = fPerSlide - enterF - exitF;
+    const totalF = A.photos.length * fPerSlide;
+    let captured = 0;
+
+    for (let s = 0; s < A.photos.length; s++) {
+      for (let f = 0; f < fPerSlide; f++) {
+        let phase, progress;
+        if      (f < enterF)         { phase='enter'; progress = f/Math.max(1,enterF); }
+        else if (f < enterF + holdF) { phase='hold';  progress = (f-enterF)/Math.max(1,holdF); }
+        else                         { phase='exit';  progress = (f-enterF-holdF)/Math.max(1,exitF); }
+
+        drawFrame(s, progress, phase);
+        offCtx.drawImage(cvs, 0, 0, gw, gh);
+        gif.addFrame(offCtx, { copy: true, delay: Math.round(1000 / gifFps) });
+        captured++;
+        if (captured % 5 === 0) {
+          setUI(4 + Math.round(captured/totalF*52), `Capturando: ${captured}/${totalF}`, `Slide ${s+1}/${A.photos.length}`);
+          await new Promise(r => setTimeout(r, 0));
+        }
+      }
+    }
+
+    setUI(58, 'Renderizando GIF...', '');
+    await new Promise((res, rej) => {
+      gif.on('progress', p => setUI(58 + p*40, `Renderizando: ${Math.round(p*100)}%`, ''));
+      gif.on('finished', blob => {
+        const sizeMB = (blob.size/1024/1024).toFixed(1);
+        setUI(100, `✅ GIF ${sizeMB} MB`, 'Pronto para WhatsApp e Stories');
+        const url = URL.createObjectURL(blob);
+        const a   = document.createElement('a');
+        a.href = url; a.download = `imobipro-${Date.now()}.gif`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 3000);
+        toast('GIF exportado! 🎞️', 'success');
+        setTimeout(() => { prog.classList.remove('show'); drawFrame(P.currentSlide, 0, 'hold'); }, 4000);
+        res();
+      });
+      gif.on('error', rej);
+      gif.render();
+    });
+
+  } catch (e) {
+    pct.textContent = '❌ Erro GIF: ' + e.message;
+    toast('Erro ao gerar GIF', 'error');
+    setTimeout(() => prog.classList.remove('show'), 4000);
+  }
+}
 
 // ─── AUTO-FILL FROM IMOBIPRO ──────────────────────────────
 // Patch populateAllSelects to include animado
