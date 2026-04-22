@@ -2154,53 +2154,65 @@ function getSlotImg(toolId,slotIdx){
    INTEGRAÇÃO IMOBIPRO — IndexedDB
    ====================================================== */
 
-// Retorna true para imóveis que devem aparecer nas artes
-// Exclui apenas vendido e alugado — reservado, lançamento, pré-lançamento etc. devem aparecer
+// Filtra imóveis que não devem aparecer em artes (vendido e alugado são ocultados)
 function _imoveisParaArte(lista){
   if(!Array.isArray(lista))return[];
   return lista.filter(function(im){
-    var s=(im.status||'disponivel').toLowerCase();
+    var s=(im.status||'').toLowerCase();
     return s!=='vendido'&&s!=='alugado';
   });
 }
 
 async function loadFromImobiProDB(){
-  return new Promise((resolve,reject)=>{
+  return new Promise(function(resolve,reject){
     if(!window.indexedDB)return reject(new Error('IndexedDB não suportado'));
 
-    // Passo 1: detecta versão atual sem disparar upgrade
-    var probe=indexedDB.open('ImobiProDB');
-    probe.onerror=function(){reject(new Error('Sem acesso ao ImobiProDB'));};
-    probe.onupgradeneeded=function(e){
-      // Banco não existe — aborta sem criar
-      e.target.transaction.abort();
-      reject(new Error('ImobiPro não instalado'));
-    };
-    probe.onsuccess=function(e){
-      var detectedVersion=e.target.result.version;
-      e.target.result.close();
+    // Abre SEM versão para não competir com o ImobiPro que já mantém conexão aberta
+    var req=indexedDB.open('ImobiProDB');
 
-      // Passo 2: reabre com versão correta para evitar onupgradeneeded acidental
-      var req=indexedDB.open('ImobiProDB',detectedVersion);
-      req.onerror=function(){reject(new Error('Sem acesso ao ImobiProDB'));};
-      req.onupgradeneeded=function(){reject(new Error('Versão do banco inesperada'));};
-      req.onsuccess=function(ev){
-        var db=ev.target.result;
-        var stores=Array.from(db.objectStoreNames);
-        if(!stores.includes('imoveis')){db.close();return reject(new Error('Store "imoveis" inexistente'));}
-        var txStores=['imoveis'];
-        if(stores.includes('settings'))txStores.push('settings');
-        var tx=db.transaction(txStores,'readonly');
-        var result={imoveis:[],settings:null};
-        tx.objectStore('imoveis').getAll().onsuccess=function(r){
-          var todos=r.target.result||[];
-          result.imoveis=_imoveisParaArte(todos);
-        };
-        if(stores.includes('settings'))
-          tx.objectStore('settings').get('main').onsuccess=function(r){result.settings=r.target.result||null;};
-        tx.oncomplete=function(){db.close();resolve(result);};
-        tx.onerror=function(){db.close();reject(new Error('Erro ao ler dados'));};
+    req.onerror=function(e){
+      reject(new Error('Sem acesso ao ImobiProDB'));
+    };
+
+    req.onblocked=function(){
+      reject(new Error('Banco bloqueado — feche outras abas do ImobiPro e tente novamente'));
+    };
+
+    // onupgradeneeded só dispara se o banco não existe (versão 0)
+    req.onupgradeneeded=function(e){
+      // Banco vazio — não faz nada, onsuccess cuidará da detecção
+    };
+
+    req.onsuccess=function(e){
+      var db=e.target.result;
+      // Libera a conexão se o ImobiPro solicitar upgrade futuro
+      db.onversionchange=function(){ db.close(); };
+
+      var stores=Array.from(db.objectStoreNames);
+      if(!stores.includes('imoveis')){
+        db.close();
+        return reject(new Error('ImobiPro não encontrado ou sem imóveis cadastrados'));
+      }
+
+      var txStores=['imoveis'];
+      if(stores.includes('settings'))txStores.push('settings');
+
+      var tx=db.transaction(txStores,'readonly');
+      var result={imoveis:[],settings:null};
+
+      tx.objectStore('imoveis').getAll().onsuccess=function(ev){
+        var todos=ev.target.result||[];
+        result.imoveis=_imoveisParaArte(todos);
       };
+
+      if(stores.includes('settings')){
+        tx.objectStore('settings').get('main').onsuccess=function(ev){
+          result.settings=ev.target.result||null;
+        };
+      }
+
+      tx.oncomplete=function(){db.close();resolve(result);};
+      tx.onerror=function(ev){db.close();reject(new Error('Erro ao ler dados'));};
     };
   });
 }
