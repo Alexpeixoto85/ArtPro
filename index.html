@@ -915,6 +915,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg-app);color:var(--text-
   <button class="sync-btn refresh" id="sync-refresh-btn" onclick="autoSync()" title="Recarregar"><i class="fas fa-sync-alt"></i></button>
 </div>
 
+<!-- IMPORTAÇÃO GLOBAL DE BACKUP -->
+<div style="margin-bottom:10px;padding:11px 14px;background:#f0f4ff;border:1.5px solid #c7d2fe;border-radius:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+  <div style="flex:1;min-width:0;">
+    <div style="font-size:.78rem;font-weight:700;color:#3730a3;display:flex;align-items:center;gap:6px;"><i class="fas fa-file-import"></i> Importar Backup do ImobiPro</div>
+    <div style="font-size:.7rem;color:#6b7280;margin-top:2px;">Selecione o arquivo <strong>imobipro_backup_*.json</strong> exportado pelo ImobiPro</div>
+  </div>
+  <label id="global-backup-label" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;border-radius:50px;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 3px 10px rgba(79,70,229,.3);">
+    <i class="fas fa-upload"></i> Escolher arquivo
+    <input type="file" id="global-backup-input" accept=".json" style="display:none;">
+  </label>
+  <div id="global-backup-status" style="font-size:.75rem;font-weight:600;color:#16a34a;display:none;align-items:center;gap:5px;"><i class="fas fa-check-circle"></i> <span id="global-backup-msg"></span></div>
+</div>
+
 <!-- ======= FLYER ======= -->
 <div id="flyer-tool" class="tool-wrapper">
   <div class="panel">
@@ -2278,19 +2291,32 @@ function processBackup(file,cb){
     try{
       const p=JSON.parse(e.target.result);
       let todosImoveis=[];
+      let settingsData=null;
       if(p.imoveis&&Array.isArray(p.imoveis)){
         todosImoveis=p.imoveis;
-        backupData=Object.assign({},p,{imoveis:_imoveisParaArte(todosImoveis)});
-        window._backupDataRef=backupData;
+        settingsData=p.settings||null;
       }else if(Array.isArray(p)){
         todosImoveis=p;
-        backupData={imoveis:_imoveisParaArte(todosImoveis),settings:null};
-        window._backupDataRef=backupData;
-      }else throw new Error('Formato inválido. Use o backup completo ou o backup de imóveis do ImobiPro.');
-      const imoveis=backupData.imoveis;
+      }else{
+        throw new Error('Formato invalido. Use o arquivo imobipro_backup_*.json exportado pelo ImobiPro.');
+      }
+      const imoveis=_imoveisParaArte(todosImoveis);
+      backupData=Object.assign({},p,{imoveis:imoveis,settings:settingsData});
+      window._backupDataRef=backupData;
       populateAllSelects(imoveis);
-      setSyncState('manual',`Backup carregado — ${imoveis.length} imóvel(is)`,'Dados importados manualmente');
-      toast(`${imoveis.length} imóvel(is) carregado(s)!`,'success');
+      ['flyer','post','story','vertical','cvmax','cvmaxstory'].forEach(t=>{
+        const fb=$(t+'-fallback');if(fb)fb.style.display='none';
+      });
+      const ocultos=todosImoveis.length-imoveis.length;
+      const sub=ocultos>0?`${ocultos} vendido(s)/alugado(s) nao exibido(s)`:'Todos os imoveis carregados';
+      setSyncState('manual',`Backup carregado - ${imoveis.length} imovel(is)`,sub);
+      toast('Importados: '+imoveis.length+' imovel(is)','success');
+      const gStatus=document.getElementById('global-backup-status');
+      const gMsg=document.getElementById('global-backup-msg');
+      const gLabel=document.getElementById('global-backup-label');
+      if(gMsg)gMsg.textContent=imoveis.length+' imovel(is) carregado(s)';
+      if(gStatus)gStatus.style.display='flex';
+      if(gLabel)gLabel.style.background='linear-gradient(135deg,#16a34a,#22c55e)';
       if(cb)cb();
     }catch(err){toast('Erro: '+err.message,'error');}
   };
@@ -2677,6 +2703,17 @@ $$('.nav-btn').forEach(btn=>{
 
 /* INIT */
 autoSync_();
+// Listener botao global de backup
+(function(){
+  var inp=document.getElementById('global-backup-input');
+  if(!inp)return;
+  inp.addEventListener('change',function(e){
+    var file=e.target.files[0];
+    if(!file)return;
+    processBackup(file,null);
+    e.target.value='';
+  });
+})();
 
 /* ======================================================
    CONVERSÃO MAX — JS
