@@ -2156,21 +2156,46 @@ function getSlotImg(toolId,slotIdx){
 async function loadFromImobiProDB(){
   return new Promise((resolve,reject)=>{
     if(!window.indexedDB)return reject(new Error('IndexedDB não suportado'));
-    const req=indexedDB.open('ImobiProDB');
-    req.onerror=()=>reject(new Error('Sem acesso ao ImobiProDB'));
-    req.onupgradeneeded=e=>{e.target.result.close();reject(new Error('ImobiPro não instalado'));};
-    req.onsuccess=function(e){
-      const db=e.target.result;
-      const stores=Array.from(db.objectStoreNames);
-      if(!stores.includes('imoveis')){db.close();return reject(new Error('Store "imoveis" inexistente'));}
-      const txStores=stores.includes('settings')?['imoveis','settings']:['imoveis'];
-      const tx=db.transaction(txStores,'readonly');
-      const result={imoveis:[],settings:null};
-      tx.objectStore('imoveis').getAll().onsuccess=ev=>{result.imoveis=ev.target.result||[];};
-      if(stores.includes('settings'))
-        tx.objectStore('settings').get('main').onsuccess=ev=>{result.settings=ev.target.result||null;};
-      tx.oncomplete=()=>{db.close();resolve(result);};
-      tx.onerror=()=>{db.close();reject(new Error('Erro ao ler dados'));};
+
+    // Passo 1: detecta a versão atual do banco sem forçar upgrade
+    const probe=indexedDB.open('ImobiProDB');
+    probe.onerror=()=>reject(new Error('Sem acesso ao ImobiProDB'));
+    probe.onupgradeneeded=function(e){
+      // Banco não existe ainda — fecha sem criar
+      e.target.transaction.abort();
+      reject(new Error('ImobiPro não instalado'));
+    };
+    probe.onsuccess=function(e){
+      const detectedVersion=e.target.result.version;
+      e.target.result.close();
+
+      // Passo 2: reabre com a versão detectada para evitar onupgradeneeded
+      const req=indexedDB.open('ImobiProDB',detectedVersion);
+      req.onerror=()=>reject(new Error('Sem acesso ao ImobiProDB'));
+      req.onupgradeneeded=()=>reject(new Error('Versão do banco inesperada'));
+      req.onsuccess=function(ev){
+        const db=ev.target.result;
+        const stores=Array.from(db.objectStoreNames);
+        if(!stores.includes('imoveis')){db.close();return reject(new Error('Store "imoveis" inexistente'));}
+        const txStores=['imoveis'];
+        if(stores.includes('settings'))txStores.push('settings');
+        const tx=db.transaction(txStores,'readonly');
+        const result={imoveis:[],settings:null};
+        tx.objectStore('imoveis').getAll().onsuccess=function(r){
+          // Filtra apenas imóveis disponíveis/ativos (exclui vendidos, alugados, excluídos)
+          const todos=r.target.result||[];
+          result.imoveis=todos.filter(function(im){
+            const s=(im.status||'disponivel').toLowerCase();
+            return s!=='vendido'&&s!=='alugado'&&s!=='excluido'&&s!=='inativo';
+          });
+          // Mantém referência completa para uso interno
+          result.imoveisAll=todos;
+        };
+        if(stores.includes('settings'))
+          tx.objectStore('settings').get('main').onsuccess=function(r){result.settings=r.target.result||null;};
+        tx.oncomplete=()=>{db.close();resolve(result);};
+        tx.onerror=()=>{db.close();reject(new Error('Erro ao ler dados'));};
+      };
     };
   });
 }
@@ -2189,13 +2214,15 @@ function populateAllSelects(imoveis){
     imoveis.forEach(im=>{
       const o=document.createElement('option');
       o.value=im.id;
-      const label=im.titulo||(im.tipo?im.tipo+' – ':'')+im.endereco||'Imóvel sem título';
+      // Corrigido: parênteses para garantir precedência correta
+      const tipoEnd=(im.tipo?im.tipo+' \u2013 ':'')+im.endereco;
+      const label=im.titulo||tipoEnd||'Im\u00f3vel sem t\u00edtulo';
       o.textContent=label;
       sel.appendChild(o);
     });
     sel.disabled=false;
     const st=$(toolId+'-import-status');
-    if(st)st.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} imóvel(is) do ImobiPro</div>`;
+    if(st)st.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} im\u00f3vel(is) do ImobiPro</div>`;
   });
 }
 
@@ -2207,12 +2234,15 @@ async function autoSync_(){
     const data=await loadFromImobiProDB();
     backupData=data;
     window._backupDataRef=data;
-    if(!data.imoveis.length){
-      setSyncState('manual','ImobiPro conectado — nenhum imóvel','Cadastre imóveis no ImobiPro e clique em atualizar');
+    const total=(data.imoveisAll||data.imoveis).length;
+    const ativos=data.imoveis.length;
+    if(!ativos){
+      setSyncState('manual','ImobiPro conectado — nenhum imóvel disponível','Cadastre imóveis no ImobiPro e clique em atualizar');
     }else{
-      setSyncState('connected',`✓ Sincronizado com ImobiPro — ${data.imoveis.length} imóvel(is)`,'Dados carregados automaticamente');
+      const extra=total>ativos?` (${total-ativos} vendido/alugado oculto)`:'';
+      setSyncState('connected',`\u2713 Sincronizado com ImobiPro \u2014 ${ativos} im\u00f3vel(is)`,`Dados carregados automaticamente${extra}`);
       populateAllSelects(data.imoveis);
-      toast(`${data.imoveis.length} imóvel(is) carregado(s) do ImobiPro!`,'success');
+      toast(`${ativos} im\u00f3vel(is) carregado(s) do ImobiPro!`,'success');
     }
     ['flyer','post','story','vertical','cvmax','cvmaxstory'].forEach(t=>{const fb=$(t+'-fallback');if(fb)fb.style.display='none';});
   }catch(err){
@@ -2229,19 +2259,34 @@ async function autoSync_(){
 }
 window.autoSync=()=>autoSync_();
 
+function _filtrarImoveisAtivos(lista){
+  if(!Array.isArray(lista))return[];
+  return lista.filter(function(im){
+    var s=(im.status||'disponivel').toLowerCase();
+    return s!=='vendido'&&s!=='alugado'&&s!=='excluido'&&s!=='inativo';
+  });
+}
+
 function processBackup(file,cb){
   if(!file)return;
-  const reader=new FileReader();
-  reader.onload=e=>{
+  var reader=new FileReader();
+  reader.onload=function(e){
     try{
-      const p=JSON.parse(e.target.result);
-      let imoveis=[];
-      if(p.imoveis&&Array.isArray(p.imoveis)){backupData=p;window._backupDataRef=p;imoveis=p.imoveis;}
-      else if(Array.isArray(p)){backupData={imoveis:p,settings:null};imoveis=p;}
-      else throw new Error('Formato inválido. Use o backup completo ou o backup de imóveis do ImobiPro.');
+      var p=JSON.parse(e.target.result);
+      var imoveisAll=[];
+      if(p.imoveis&&Array.isArray(p.imoveis)){
+        imoveisAll=p.imoveis;
+        backupData=Object.assign({},p,{imoveisAll:imoveisAll,imoveis:_filtrarImoveisAtivos(imoveisAll)});
+        window._backupDataRef=backupData;
+      }else if(Array.isArray(p)){
+        imoveisAll=p;
+        backupData={imoveis:_filtrarImoveisAtivos(imoveisAll),imoveisAll:imoveisAll,settings:null};
+        window._backupDataRef=backupData;
+      }else throw new Error('Formato inválido. Use o backup completo ou o backup de imóveis do ImobiPro.');
+      var imoveis=backupData.imoveis;
       populateAllSelects(imoveis);
-      setSyncState('manual',`Backup carregado — ${imoveis.length} imóvel(is)`,'Dados importados manualmente');
-      toast(`${imoveis.length} imóvel(is) carregado(s)!`,'success');
+      setSyncState('manual','Backup carregado \u2014 '+imoveis.length+' im\u00f3vel(is)','Dados importados manualmente');
+      toast(imoveis.length+' im\u00f3vel(is) carregado(s)!','success');
       if(cb)cb();
     }catch(err){toast('Erro: '+err.message,'error');}
   };
@@ -2866,12 +2911,13 @@ populateAllSelects = function(imoveis){
     imoveis.forEach(im=>{
       const o=document.createElement('option');
       o.value=im.id;
-      o.textContent=im.titulo||(im.tipo?im.tipo+' – ':'')+im.endereco||'Imóvel sem título';
+      const te=(im.tipo?im.tipo+' \u2013 ':'')+im.endereco;
+      o.textContent=im.titulo||te||'Im\u00f3vel sem t\u00edtulo';
       sel.appendChild(o);
     });
     sel.disabled=false;
     const st=$('cvmax-import-status');
-    if(st)st.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} imóvel(is) do ImobiPro</div>`;
+    if(st)st.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} im\u00f3vel(is) do ImobiPro</div>`;
   }
   // cvmaxstory
   const ssel=$('cvmaxstory-select');if(ssel){
@@ -2879,12 +2925,13 @@ populateAllSelects = function(imoveis){
     imoveis.forEach(im=>{
       const o=document.createElement('option');
       o.value=im.id;
-      o.textContent=im.titulo||(im.tipo?im.tipo+' – ':'')+im.endereco||'Imóvel sem título';
+      const te=(im.tipo?im.tipo+' \u2013 ':'')+im.endereco;
+      o.textContent=im.titulo||te||'Im\u00f3vel sem t\u00edtulo';
       ssel.appendChild(o);
     });
     ssel.disabled=false;
     const sst=$('cvmaxstory-import-status');
-    if(sst)sst.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} imóvel(is) do ImobiPro</div>`;
+    if(sst)sst.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} im\u00f3vel(is) do ImobiPro</div>`;
   }
   // Dispara evento para outros scripts
   document.dispatchEvent(new CustomEvent('imobipro:synced',{detail:imoveis}));
@@ -4219,12 +4266,13 @@ populateAllSelects=function(imoveis){
   sel.innerHTML='<option value="">— Selecione um imóvel —</option>';
   imoveis.forEach(im=>{
     const o=document.createElement('option');o.value=im.id;
-    o.textContent=im.titulo||(im.tipo?im.tipo+' – ':'')+im.endereco||'Imóvel sem título';
+    const te=(im.tipo?im.tipo+' \u2013 ':'')+im.endereco;
+    o.textContent=im.titulo||te||'Im\u00f3vel sem t\u00edtulo';
     sel.appendChild(o);
   });
   sel.disabled=false;
   const st=document.getElementById('animado-import-status');
-  if(st)st.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} imóvel(is) do ImobiPro</div>`;
+  if(st)st.innerHTML=`<div class="import-status ok"><i class="fas fa-check-circle"></i> ${imoveis.length} im\u00f3vel(is) do ImobiPro</div>`;
 };
 
 document.getElementById('animado-select')?.addEventListener('change',e=>{
